@@ -5,6 +5,7 @@ import NavBar from './components/NavBar'
 import AdminPage from './components/AdminPage';
 import AppointmentPage from './components/AppointmentPage';
 
+//Checking to see if I set up my branch correctly
 function App() {
   return (
     <div >
