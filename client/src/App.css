@@ -1,0 +1,30 @@
+body{
+  margin:0;
+ 
+}
+
+#schedule-form{
+  display: flex;
+  flex-direction: column;
+  margin-left: 5vw;
+ 
+}
+
+#app-header{
+  text-align: center;
+}
+
+#NavBar-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100vw;
+}
+#NavBar-container a{
+  text-decoration: none;
+  color: black;
+}
+
+#schedule-header{
+  margin-left: 3vw;
+}
