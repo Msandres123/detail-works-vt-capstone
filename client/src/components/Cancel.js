@@ -16,16 +16,16 @@ export default function Cancel(props) {
         zIndex: 500,
       }}
     > <h5>Are you sure you want to delete this appointment?</h5>
-        <div>
+        <div id="cancel-button-container">
              <form action={`/delete/${props.appointmentMade._id}`} Method="POST">
              <input  type="submit" value="Yes" />
+             </form>
              <button
           id="delete-modal-button-style"
-          onClick={props.deleteClickHandler}
+          onClick={props.cancelClickHandler}
         >
           No
         </button>
-        </form>
         </div> 
         </div>
     )

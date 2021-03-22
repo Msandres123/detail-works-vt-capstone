@@ -40,7 +40,7 @@ export default function AppointmentPage(props) {
             <button onClick={updateAppointmentHandler}>Update Appointment</button>
             {updateClick && <UpdateAppointment appointmentMade={appointmentMade} />}
             <button onClick={cancelClickHandler}>Cancel Appointment</button>
-            {cancelClick && <Cancel appointmentMade={appointmentMade} onClick={cancelClickHandler} />} 
+            {cancelClick && <Cancel appointmentMade={appointmentMade} cancelClickHandler={cancelClickHandler} />} 
         </div>
     )
 }
