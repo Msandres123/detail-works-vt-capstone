@@ -19,9 +19,14 @@ export default function Home() {
     if (mm < 10) {
       mm = '0' + mm
     }
-    
+
     today = yyyy + '-' + mm + '-' + dd;
 
+    if (today.dd===0 || today.dd===6) {
+        return false;
+      }
+     
+   
     return (
         
 
@@ -41,7 +46,7 @@ export default function Home() {
                 </select>
                 </label>
                 <label>Additional Notes or Request: <input type="text" name="additionalNotes"/></label>
-                <label>Select a Day: <input type="date" name="dateOfApp" min={today} /></label>
+                <label>Select a Day: <input id="calender" type="date" name="dateOfApp" min={today} /></label>
                 <label>Select a Time: 
                     <select name="timeOfApp">
                         <option value="8:00am">8:00am</option>
