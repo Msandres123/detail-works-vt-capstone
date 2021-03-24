@@ -47,11 +47,31 @@ app.post("/api", (req, res) => {
         if (err) throw err;
       });
       res.redirect("/");
-      alert.message("Your Appointment has been made")
+})
+
+
+
+app.post("/adminapi", (req, res) => {
+  const newAppointment =  new ScheduleModel({
+      customerName: req.body.customerName,
+      phoneNumber: req.body.phoneNumber,
+      email: req.body.email, 
+      vehicleMake: req.body.vehicleMake,
+      vehicleType: req.body.vehicleType,
+      additionalNotes: req.body.additionalNotes,
+      dateOfApp: req.body.dateOfApp, 
+      timeOfApp: req.body.timeOfApp,
+      dateAppMade: new Date(),
+  });
+  newAppointment.save(function (err) {
+      if (err) throw err;
+    });
+    res.redirect("/admin");
+   
 })
 
 app.get("/api", async (req, res) => {
-    const cursor = await ScheduleModel.find({});
+    const cursor = await ScheduleModel.find({}).sort({dateOfApp: 1});
     let results = [];
     await cursor.forEach((entry) => {
       results.push(entry);

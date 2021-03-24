@@ -1,10 +1,13 @@
 import React from 'react'
+import DateTimePicker from 'react-datetime-picker'
 import { useState } from 'react'
 
 export default function Home() {
     const [hatchCrossOver, setHatchCrossOver] = useState(false)
     const [coupeSedan, setCoupeSedan] = useState(false)
     const [suvTruckVan, setSuvTruckVan] = useState(false)
+
+   
     
     //prevents user from scheduling appointment for a date in the past
     var today = new Date();
@@ -21,11 +24,7 @@ export default function Home() {
     }
 
     today = yyyy + '-' + mm + '-' + dd;
-
-    if (today.dd===0 || today.dd===6) {
-        return false;
-      }
-     
+   
    
     return (
         
@@ -46,7 +45,7 @@ export default function Home() {
                 </select>
                 </label>
                 <label>Additional Notes or Request: <input type="text" name="additionalNotes"/></label>
-                <label>Select a Day: <input id="calender" type="date" name="dateOfApp" min={today} /></label>
+                <label>Select a Day: <input id="calender" type="date" name="dateOfApp" min={today}  /></label>
                 <label>Select a Time: 
                     <select name="timeOfApp">
                         <option value="8:00am">8:00am</option>

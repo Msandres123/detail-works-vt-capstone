@@ -1,6 +1,6 @@
 import "./App.css";
 import React from "react";
-import { useState} from "react";
+import { useState, useEffect } from "react";
 import { Switch, Route, useHistory } from "react-router-dom";
 import Home from "./components/Home";
 import NavBar from "./components/NavBar";
@@ -10,6 +10,7 @@ import AdminSignIn from "./components/AdminSignIn";
 import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/database";
+
 
 if (firebase.apps.length === 0) {
   firebase.initializeApp({
@@ -23,8 +24,10 @@ if (firebase.apps.length === 0) {
   });
 }
 
+const auth = firebase.auth()
+
 function App(props) {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(firebase.auth().currentUser);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   let history = useHistory();
@@ -37,19 +40,32 @@ function App(props) {
     setPassword(evt.target.value);
   }
 
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged((userObj) => {
+      if (userObj) {
+        setUser(userObj)
+      } 
+    })
+    })
+
   async function login(evt) {
     evt.preventDefault();
-  
-     const userObj=await firebase
-      .auth()
+
+    const userObj = await auth
       .signInWithEmailAndPassword(email, password)
       .catch((err) => {
         console.log(err.message);
       });
-
+      // firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
+      // .then(() => {
+      //   return firebase.auth().signInWithEmailAndPassword(email, password)
+      // })
+     
     setUser(userObj);
 
     history.push("/admin");
+
+
   }
   console.log("user is", user);
 
@@ -59,14 +75,27 @@ function App(props) {
       <NavBar />
       <Switch>
         <Route exact path={"/"} component={Home} />
-        <Route exact path={"/admin"} render={(props) => { return <AdminPage user={user} />  }} /> 
-        <Route path={"/admin/:id"} render={(props) => { return < AppointmentPage user={user} /> }} />
+        <Route
+          exact
+          path={"/admin"}
+          render={(props) => {
+            return <AdminPage user={user} setUser={setUser}/>;
+          }}
+        />
+        <Route
+          path={"/admin/:id"}
+          render={(props) => {
+            return <AppointmentPage user={user}  match={props.match}/>;
+          }}
+        />  
+        {/* <Route path={"/admin/:id"} component={AppointmentPage} />  */}
         <Route
           path={"/signin"}
           render={(props) => {
             return (
               <AdminSignIn
                 user={user}
+                setUser={setUser}
                 password={password}
                 email={email}
                 emailChangeHandler={emailChangeHandler}
