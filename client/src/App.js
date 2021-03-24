@@ -39,8 +39,8 @@ function App(props) {
 
   async function login(evt) {
     evt.preventDefault();
-    let userObj=await firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
-     userObj=await firebase
+  
+     const userObj=await firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
       .catch((err) => {
