@@ -39,8 +39,8 @@ function App(props) {
 
   async function login(evt) {
     evt.preventDefault();
-
-    const userObj = await firebase
+    let userObj=await firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
+     userObj=await firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
       .catch((err) => {
@@ -82,3 +82,5 @@ function App(props) {
 }
 
 export default App;
+
+
