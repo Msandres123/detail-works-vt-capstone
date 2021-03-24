@@ -24,13 +24,7 @@ export default function Home() {
     }
 
     today = yyyy + '-' + mm + '-' + dd;
-
-    // const isWeekday = date => {
-    //     const day = getDay(date);
-    //     return day !== 0 && day !== 6;
-    //   }
-
-     
+   
    
     return (
         
