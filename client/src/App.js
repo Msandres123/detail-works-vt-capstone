@@ -60,7 +60,8 @@ function App(props) {
       <Switch>
         <Route exact path={"/"} component={Home} />
         <Route exact path={"/admin"} render={(props) => { return <AdminPage user={user} />  }} /> 
-        <Route path={"/admin/:id"} render={(props) => { return < AppointmentPage user={user} /> }} />
+        {/* <Route path={"/admin/:id"} render={(props) => { return < AppointmentPage user={user} /> }} /> */}
+        <Route path={"/admin/:id"} component={AppointmentPage} />
         <Route
           path={"/signin"}
           render={(props) => {
