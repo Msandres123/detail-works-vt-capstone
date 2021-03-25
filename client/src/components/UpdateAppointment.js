@@ -6,7 +6,7 @@ export default function UpdateAppointment(props) {
 const [updatePhoneNumber, setUpdatePhoneNumber] = useState(props.appointmentMade.phoneNumber)
 const [updateEmail, setUpdateEmail] = useState(props.appointmentMade.email)
 const [updateVehicleMake, setUpdateVehicleMake] = useState(props.appointmentMade.vehicleMake)
-const [updateVehicleType, setUpdateVehcileType] = useState(props.appointmentMade.vheicleType)
+const [updateVehicleType, setUpdateVehicleType] = useState(props.appointmentMade.vehicleType)
 const [updateDateOfApp, setUpdateDateOfApp] = useState(props.appointmentMade.dateOfApp)
 const [updateTimeOfApp, setUpdateTimeOfApp] = useState(props.appointmentMade.timeOfApp)
 const [updateAdditionalNotes, setUpdateAdditionalNotes] = useState(props.appointmentMade.additionalNotes)
@@ -21,7 +21,7 @@ const [updateAdditionalNotes, setUpdateAdditionalNotes] = useState(props.appoint
                 <label>Email: <input type="text" name="email" value={updateEmail} onChange={(evt) => setUpdateEmail(evt.target.value)}/></label>
                 <label>Make, Year, and Model of your vehicle: <input type="text" name='vehicleMake' value={updateVehicleMake} onChange={(evt) => setUpdateVehicleMake(evt.target.value)}/>
                 </label>
-                <label>Vehicle Type: <select name='vehicleType' value={updateVehicleType} onChange={(evt) => setUpdateVehcileType(evt.target.value)}>
+                <label>Vehicle Type: <select name='vehicleType' value={updateVehicleType} onChange={(evt) => setUpdateVehicleType(evt.target.value)}>
                 <option value="coupe/sedan">Coupe/Sedan</option>
                 <option value="hatchback/crossover">Hatchback/Crossover</option>
                 <option value="suv/truck/minivan">SUV/Truck/Minivan</option>

@@ -5,7 +5,7 @@ const app = express()
 const mongoose = require('mongoose')
 const port = process.env.PORT || 5000
 const { MongoClient, ObjectId, MongoError } = require('mongodb')
-
+const moment = require("moment");
 mongoose.connect("mongodb://localhost:27017/schedule", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -21,7 +21,7 @@ const scheduleSchema = new mongoose.Schema({
   vehicleMake: Array,
   vehicleType: String,
   additionalNotes: String,
-  dateOfApp: String,
+  dateOfApp: Date,
   timeOfApp: String,
   dateAppMade: String,
 });
@@ -31,7 +31,8 @@ const ScheduleModel = mongoose.model("appointments", scheduleSchema)
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("./client/public"));
 
-app.post("/api", (req, res) => {
+app.post("/api", async(req, res) => {
+  let entryTime = moment().format('l')
     const newAppointment =  new ScheduleModel({
         customerName: req.body.customerName,
         phoneNumber: req.body.phoneNumber,
@@ -41,9 +42,9 @@ app.post("/api", (req, res) => {
         additionalNotes: req.body.additionalNotes,
         dateOfApp: req.body.dateOfApp, 
         timeOfApp: req.body.timeOfApp,
-        dateAppMade: new Date(),
+        dateAppMade: entryTime,
     });
-    newAppointment.save(function (err) {
+   await newAppointment.save(function (err) {
         if (err) throw err;
       });
       res.redirect("/");
@@ -51,7 +52,8 @@ app.post("/api", (req, res) => {
 
 
 
-app.post("/adminapi", (req, res) => {
+app.post("/adminapi", async(req, res) => {
+  let entryTime = moment().format('l')
   const newAppointment =  new ScheduleModel({
       customerName: req.body.customerName,
       phoneNumber: req.body.phoneNumber,
@@ -61,9 +63,9 @@ app.post("/adminapi", (req, res) => {
       additionalNotes: req.body.additionalNotes,
       dateOfApp: req.body.dateOfApp, 
       timeOfApp: req.body.timeOfApp,
-      dateAppMade: new Date(),
+      dateAppMade: entryTime,
   });
-  newAppointment.save(function (err) {
+  await newAppointment.save(function (err) {
       if (err) throw err;
     });
     res.redirect("/admin");
@@ -71,13 +73,33 @@ app.post("/adminapi", (req, res) => {
 })
 
 app.get("/api", async (req, res) => {
-    const cursor = await ScheduleModel.find({}).sort({dateOfApp: 1});
+    const cursor = await ScheduleModel.find({}).sort({date: -1});
     let results = [];
     await cursor.forEach((entry) => {
       results.push(entry);
     });
     res.json(results);
   });
+
+  //Search according to the tags request
+app.get("/search", async (req, res) => {
+  let search = req.query
+  console.log(search)
+  let key = Object.keys(search)[0].toLowerCase()
+  console.log(key)
+  let temp =search[key]
+  console.log(temp)
+  const cursor = await ScheduleModel.find({ [key]: `${temp}` }).sort({date: -1})
+  let results = [];
+
+  // iterate over out cursor object to push each document into our array
+  await cursor.forEach((entry) => {
+    results.push(entry);
+  })
+  console.log(results)
+  res.json(results);
+
+});
 
   app.get(`/api/:id`, async (req, res) => {
     let result = await ScheduleModel.findOne({ _id: ObjectId(req.params.id) });

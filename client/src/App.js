@@ -2,11 +2,14 @@ import "./App.css";
 import React from "react";
 import { useState, useEffect } from "react";
 import { Switch, Route, useHistory } from "react-router-dom";
+
 import Home from "./components/Home";
 import NavBar from "./components/NavBar";
 import AdminPage from "./components/AdminPage";
 import AppointmentPage from "./components/AppointmentPage";
 import AdminSignIn from "./components/AdminSignIn";
+//import AutoEmail from "./components/AutoEmail";
+
 import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/database";
@@ -73,6 +76,7 @@ function App(props) {
     <div>
       <h1 id="app-header">Detail Works VT</h1>
       <NavBar />
+      
       <Switch>
         <Route exact path={"/"} component={Home} />
         <Route

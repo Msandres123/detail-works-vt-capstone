@@ -2,6 +2,7 @@ import {useEffect, useState} from 'react'
 import React from 'react'
 import UpdateAppointment from './UpdateAppointment'
 import Cancel from './Cancel'
+import moment from 'moment'
 
 export default function AppointmentPage(props) {
     const [appointmentMade, setAppointmentMade] = useState({});
@@ -36,7 +37,7 @@ export default function AppointmentPage(props) {
             <p>Email: {appointmentMade.email}</p>
             <p>Vehicle Make, Year, Model: {appointmentMade.vehicleMake}</p>
             <p>Vehicle Type: {appointmentMade.vehicleType}</p>
-            <p>Appointment Made On: {appointmentMade.dateAppMade}</p>
+            <p>Appointment Made On:{moment(appointmentMade.dateAppMade).format('l')}</p>
             <button onClick={updateAppointmentHandler}>Update Appointment</button>
             {updateClick && <UpdateAppointment appointmentMade={appointmentMade} />}
             <button onClick={cancelClickHandler}>Cancel Appointment</button>

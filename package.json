@@ -6,6 +6,7 @@
     "firebase": "^8.3.1",
     "firebase-admin": "^9.5.0",
     "init": "^0.1.2",
+    "moment": "^2.29.1",
     "mongodb": "^3.6.5",
     "mongoose": "^5.12.1"
   },
