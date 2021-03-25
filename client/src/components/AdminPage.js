@@ -46,7 +46,7 @@ export default function AdminPage(props) {
         });
     }
   });
-
+ 
   
 
   let appointmentArr = [];
@@ -59,6 +59,7 @@ export default function AdminPage(props) {
   return props.user ? (
     <div>
       <button onClick={newAppointmentClickHandler}>Create New Appointment</button>
+      <button onClick={props.logOut}>Sign Out</button>
       { newAppointment && <form method="POST" action="/adminapi" id="schedule-form">
                 <label>Name: <input type="text" name="customerName" /></label>
           

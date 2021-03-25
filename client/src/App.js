@@ -67,6 +67,14 @@ function App(props) {
 
 
   }
+
+  function logOut() {
+    firebase.auth().signOut().then(() => {
+    }).catch((error) => {
+    });
+    setUser(null)
+  }
+
   console.log("user is", user);
 
   return (
@@ -79,7 +87,7 @@ function App(props) {
           exact
           path={"/admin"}
           render={(props) => {
-            return <AdminPage user={user} setUser={setUser}/>;
+            return <AdminPage user={user} setUser={setUser} logOut={logOut} />;
           }}
         />
         <Route
