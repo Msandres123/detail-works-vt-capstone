@@ -11,6 +11,7 @@ export default function AdminPage(props) {
   const [appointmentsMade, setAppointmentsMade] = useState([]);
   const [newAppointment, setNewAppointment] = useState(false)
   const [selected, setSelected] = useState("")
+  let appointmentArr = [];
   
   var today = new Date();
   var dd = today.getDate();
@@ -51,9 +52,9 @@ export default function AdminPage(props) {
         //fetching by using the URL
         fetch(url)
             .then((res) => res.json())
-            .then((entryData) => {
+            .then((appointmentList) => {
                 
-                setAppointmentsMade(entryData);
+                setAppointmentsMade(appointmentList);
             });
     }
 
@@ -68,14 +69,36 @@ export default function AdminPage(props) {
     }
   });
 
-  
+  return(
+    <div>
+  <h2>Appointment details</h2>
+         
+    <div>Search by:{selected}</div>
+        {/* to filter the entries according to their values */}
+        <select name='selection' value={selected} onChange={handleChange}>
+            <option value=''>Categories</option>
+            <option value='Service Name'>Service Name</option>
+            <option value='Customer Name'>Customer Name</option>
+            <option value ='date'>Date</option>
+        </select>
 
-  let appointmentArr = [];
+        
+  <div className ='search'>
+            {selected && (
+        <form id='searchContainer'   onSubmit={search}>
+            <label>
+                <input type='text' name='search' placeholder="Search:" />
+            </label>
+            <input type='submit' value='Search' />
+        </form>
+            )}
+            </div>
 
+ 
   appointmentsMade &&
     appointmentsMade.forEach((appointment) => {
       appointmentArr.push(appointment);
-    });
+    })
   console.log("user at admin page is", props.user);
   return props.user ? (
     <div>
@@ -108,28 +131,7 @@ export default function AdminPage(props) {
       {appointmentArr.map((appointment, index) => {
         return (
 <div>
-<h2>Appointment details</h2>
-         
-            <div>Search by:{selected}</div>
-                {/* to filter the entries according to their values */}
-                <select name='selection' value={selected} onChange={handleChange}>
-                    <option value=''>Categories</option>
-                    <option value='Service Name'>Service Name</option>
-                    <option value='Customer Name'>Customer Name</option>
-                    <option value ='date'>Date</option>
-                </select>
 
-                
-          <div className ='search'>
-                    {selected && (
-                <form id='searchContainer'   onSubmit={search}>
-                    <label>
-                        <input type='text' name='search' placeholder="Search:" />
-                    </label>
-                    <input type='submit' value='Search' />
-                </form>
-                    )}
-                    </div>
           <div id="appointment-container" key={index}>
             <h4>Day: {appointment.dateOfApp}</h4>
             <p>Time: {appointment.timeOfApp}</p>
@@ -148,11 +150,20 @@ export default function AdminPage(props) {
        
       
       })}
+  
     </div>
+  
+     
  
-  ) : ( 
+  ) 
+}
+  ): ( 
    <Redirect to="/" />
  
 
+  
+
+  )
+  </div>
   )
 }
