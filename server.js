@@ -1,5 +1,7 @@
 require("dotenv").config();
 const express = require("express")
+const request = require('request')
+const bodyParser = require('body-parser')
 const path = require('path')
 const app = express()
 const mongoose = require('mongoose')
@@ -47,6 +49,40 @@ app.post("/api", (req, res) => {
         if (err) throw err;
       });
       res.redirect("/");
+
+      const email = req.body.email
+      console.log(email)
+
+      const mcData = {
+        members : [
+          {
+            email_address: email,
+            status: 'pending'
+          }
+        ]
+      }
+
+      const mcDataPost = JSON.stringify(mcData)
+
+      const options = {
+        url: '',
+        method: 'POST',
+        headers: {
+          Authorization: 'auth ..'
+        },
+        body: mcDataPost
+      } 
+
+      if(email) {
+        request(options, (err, response, body) => {
+          if(err) {
+            res.json({error: err})
+          } 
+        })
+      } else {
+        res.status(404).send({message: 'Failed'})
+      }
+
 })
 
 
@@ -66,7 +102,10 @@ app.post("/adminapi", (req, res) => {
   newAppointment.save(function (err) {
       if (err) throw err;
     });
+
     res.redirect("/admin");
+
+    
    
 })
 

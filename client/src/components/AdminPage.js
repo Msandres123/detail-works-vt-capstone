@@ -25,6 +25,7 @@ export default function AdminPage(props) {
 
   today = yyyy + '-' + mm + '-' + dd;
 
+  
   useEffect(() => {
     firebase.auth().onAuthStateChanged((userObj) => {
       if (userObj) {
@@ -47,7 +48,6 @@ export default function AdminPage(props) {
     }
   });
  
-  
 
   let appointmentArr = [];
 
@@ -56,8 +56,10 @@ export default function AdminPage(props) {
       appointmentArr.push(appointment);
     });
   console.log("user at admin page is", props.user);
+  console.log("current user is", firebase.auth().currentUser)
   return props.user ? (
     <div>
+     
       <button onClick={newAppointmentClickHandler}>Create New Appointment</button>
       <button onClick={props.logOut}>Sign Out</button>
       { newAppointment && <form method="POST" action="/adminapi" id="schedule-form">

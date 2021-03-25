@@ -76,6 +76,7 @@ function App(props) {
   }
 
   console.log("user is", user);
+  console.log("current user is", firebase.auth().currentUser)
 
   return (
     <div>
