@@ -7,7 +7,10 @@
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.8.3",
+<<<<<<< HEAD
+=======
     "dotenv": "^8.2.0",
+>>>>>>> 7d5e9ed208c9ddb70328fe7836361efec06ec60d
     "express": "^4.17.1",
     "react": "^17.0.1",
     "react-datepicker": "^3.6.0",

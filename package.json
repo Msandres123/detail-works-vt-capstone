@@ -19,5 +19,13 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Msandres123/detail-works-vt-capstone.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Msandres123/detail-works-vt-capstone/issues"
+  },
+  "homepage": "https://github.com/Msandres123/detail-works-vt-capstone#readme"
 }
