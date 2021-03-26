@@ -28,6 +28,7 @@ export default function AdminPage(props) {
 
   today = yyyy + '-' + mm + '-' + dd;
 
+  
   useEffect(() => {
     firebase.auth().onAuthStateChanged((userObj) => {
       if (userObj) {
@@ -69,7 +70,6 @@ export default function AdminPage(props) {
     }
   });
 
-
   let appointmentArr = [];
 
   appointmentsMade &&
@@ -103,6 +103,7 @@ export default function AdminPage(props) {
       </div>
       <Link to={"/admin"}><button onClick ="window.location.reload()"  id="remove-all-filters">Remove All Filters</button></Link>
       <button onClick={newAppointmentClickHandler}>Create New Appointment</button>
+      <button onClick={props.logOut}>Sign Out</button>
       { newAppointment && <form method="POST" action="/adminapi" id="schedule-form">
         <label>Name: <input type="text" name="customerName" /></label>
 
