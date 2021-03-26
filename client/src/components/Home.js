@@ -45,7 +45,7 @@ export default function Home() {
                 </select>
                 </label>
                 <label>Additional Notes or Request: <input type="text" name="additionalNotes"/></label>
-                <label>Select a Day: <input id="calender" type="date" name="dateOfApp" min={today}  /></label>
+                <label>Select a Day: <input id="calender" type="date" name="date" min={today}  /></label>
                 <label>Select a Time: 
                     <select name="timeOfApp">
                         <option value="8:00am">8:00am</option>

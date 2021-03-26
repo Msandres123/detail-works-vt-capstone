@@ -7,7 +7,7 @@ const [updatePhoneNumber, setUpdatePhoneNumber] = useState(props.appointmentMade
 const [updateEmail, setUpdateEmail] = useState(props.appointmentMade.email)
 const [updateVehicleMake, setUpdateVehicleMake] = useState(props.appointmentMade.vehicleMake)
 const [updateVehicleType, setUpdateVehicleType] = useState(props.appointmentMade.vehicleType)
-const [updateDateOfApp, setUpdateDateOfApp] = useState(props.appointmentMade.dateOfApp)
+const [updateDateOfApp, setUpdateDateOfApp] = useState(props.appointmentMade.date)
 const [updateTimeOfApp, setUpdateTimeOfApp] = useState(props.appointmentMade.timeOfApp)
 const [updateAdditionalNotes, setUpdateAdditionalNotes] = useState(props.appointmentMade.additionalNotes)
 
@@ -28,7 +28,7 @@ const [updateAdditionalNotes, setUpdateAdditionalNotes] = useState(props.appoint
                 </select>
                 </label>
                 <label>Additional Notes or Request: <input type="text" name="additionalNotes" value={updateAdditionalNotes} onChange={(evt) => setUpdateAdditionalNotes(evt.target.value)}/></label>
-                <label>Select a Day: <input type="date" name="dateOfApp" value={updateDateOfApp} onChange={(evt) => setUpdateDateOfApp(evt.target.value)}/></label>
+                <label>Select a Day: <input type="date" name="date" value={updateDateOfApp} onChange={(evt) => setUpdateDateOfApp(evt.target.value)}/></label>
                 <label>Select a Time: 
                     <select name="timeOfApp" value={updateTimeOfApp} onChange={(evt) => setUpdateTimeOfApp(evt.target.value)}>
                         <option value="8:00am">8:00am</option>
