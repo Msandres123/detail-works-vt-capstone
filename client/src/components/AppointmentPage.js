@@ -30,7 +30,7 @@ export default function AppointmentPage(props) {
     return (
         <div>
             <h2>Update or Cancel This Appointment</h2>
-            <h4>Day: {moment(appointmentMade.date).format('ll')}</h4>
+            <h4>Day: {appointmentMade.date}</h4>
             <p>Time: {appointmentMade.timeOfApp}</p>
             <p>Customer: {appointmentMade.customerName}</p>
             <p>Phone Number: {appointmentMade.phoneNumber}</p>

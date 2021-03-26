@@ -18,7 +18,7 @@ const scheduleSchema = new mongoose.Schema({
   customerName: String,
   phoneNumber: String,
   email: String,
-  vehicleMake:[{type:String}],
+  vehicleMake:Array,
   vehicleType: String,
   additionalNotes: String,
   date:String,
@@ -61,7 +61,7 @@ app.post("/adminapi", async (req, res) => {
     vehicleMake: req.body.vehicleMake,
     vehicleType: req.body.vehicleType,
     additionalNotes: req.body.additionalNotes,
-    date: Date.now(),
+    date:req.body.date, 
     timeOfApp: req.body.timeOfApp,
     dateAppMade: req.body.dateAppMade
   });

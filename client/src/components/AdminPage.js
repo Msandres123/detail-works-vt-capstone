@@ -132,7 +132,7 @@ export default function AdminPage(props) {
           <div>
 
             <div id="appointment-container" key={index}>
-              <h4>Day: {moment(appointment.date).format('ll')}</h4>
+              <h4>Day: {appointment.date}</h4>
               <p>Time: {appointment.timeOfApp}</p>
               <p>Customer: {appointment.customerName}</p>
               <p>Phone Number: {appointment.phoneNumber}</p>
