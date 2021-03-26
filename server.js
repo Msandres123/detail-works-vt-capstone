@@ -41,7 +41,7 @@ app.post("/api", (req, res) => {
         vehicleMake: req.body.vehicleMake,
         vehicleType: req.body.vehicleType,
         additionalNotes: req.body.additionalNotes,
-        dateOfApp: req.body.dateOfApp, 
+        dateOfApp: req.body.dateOfApp.toLocaleString(), 
         timeOfApp: req.body.timeOfApp,
         dateAppMade: new Date(),
     });
@@ -57,7 +57,7 @@ app.post("/api", (req, res) => {
         members : [
           {
             email_address: email,
-            status: 'pending'
+            status: 'subscribed'
           }
         ]
       }
@@ -65,10 +65,10 @@ app.post("/api", (req, res) => {
       const mcDataPost = JSON.stringify(mcData)
 
       const options = {
-        url: '',
+        url: 'https://us1.api.mailchimp.com/3.0/lists/2bd6e716c3',
         method: 'POST',
         headers: {
-          Authorization: 'auth ..'
+          Authorization: 'auth cb8a9a1c0e0d8786f3bafec46fbb3b65-us1'
         },
         body: mcDataPost
       } 
