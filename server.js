@@ -1,5 +1,7 @@
 require("dotenv").config();
 const express = require("express")
+const nodemailer = require('nodemailer')
+const cron = require('node-cron')
 const request = require('request')
 const bodyParser = require('body-parser')
 const path = require('path')
@@ -12,6 +14,11 @@ mongoose.connect("mongodb://localhost:27017/schedule", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
+
+
+const dateYear = new Date().getFullYear();
+const dateMonth = new Date().getMonth();
+const dateDay = new Date().getDate();
 
 const tilDB = mongoose.connection;
 tilDB.on("error", console.error.bind(console, "connection error:"));
@@ -50,6 +57,85 @@ app.post("/api", async (req, res) => {
     if (err) throw err;
   });
   res.redirect("/");
+
+
+let transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.EMAIL,
+    pass: process.env.PASSWORD
+  }
+})
+console.log(req.body.email)
+let mailOptions = {
+  from: 'DWVTtest@gmail.com',
+  to: req.body.email,
+  subject: "Your appointment has been made.",
+  text: `Hello ${req.body.customerName} \n
+  Your appointment on ${req.body.date} at ${req.body.timeOfApp} has been schedule with Detail Works VT. Thank You for your businnes and we look forward to seeing you. \n
+  Have a wonderful day \n
+  The Staff at Detail Works VT`
+}
+
+
+
+transporter.sendMail(mailOptions, function(err, data) {
+  if(err) {
+    console.log('Error Occurs');
+  } else {
+    console.log('Email Sent')
+  }
+})
+
+console.log(req.body.date)
+let dayOfApp = req.body.date.split('-')
+  let monthOf = +dayOfApp[1]
+  let dayBefore = +dayOfApp[2] - 1
+  let yearOf = +dayOfApp[0]
+  
+  console.log(dayOfApp, 'line 96')
+  console.log(dayBefore, "appointment")
+  console.log(monthOf, "appointment")
+  console.log(yearOf, "appointment")
+  console.log(dateDay, 'current')
+  console.log(dateMonth, 'current')
+  console.log(dateYear, 'current')
+//Should send automated reminder a day before appointment (not sure if it works)
+cron.schedule('* * 17 * * *', () => {
+  // let dayOfApp = req.body.date.split('-')
+  // let monthOf = +dayOfApp[1]
+  // let dayBefore = +dayOfApp[2] - 1
+  // let yearOf = +dayOfApp[0]
+  
+  // console.log(dayOfApp, 'line 98')
+  // console.log(dayBefore)
+  // console.log(monthOf)
+  // console.log(yearOf)
+
+
+  if(dateDay === dayBefore && dateMonth === monthOf && dateYear === yearOf) {
+    const mailReminder = {
+      from: 'DWVTtest@gmail.com', 
+      to: req.body.email, 
+      subject: "Appointment Reminder Detail Works VT",
+      text: `Hello ${req.body.customerName} \n
+      Just a friendly reminder that you have an appointment with Detail Works VT tommorow ${req.body.date} at ${req.body.timeOfApp}. \n
+      Have a wonderful day \n
+      The Staff at Detail Works VT`
+    } 
+    return transporter.sendMail(mailReminder, (err, data) => {
+      if (err) {
+        console.log(err)
+        return
+      } else {
+        console.log('success on reminder')
+      }
+    })
+  }
+
+
+})
+
 })
 
 
