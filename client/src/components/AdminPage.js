@@ -95,7 +95,7 @@ export default function AdminPage(props) {
     <div>
       <h2>Appointment details</h2>
 
-      <form value={search} onChange={handleChange} onSubmit={searchQuery}>
+      <form  onChange={handleChange} onSubmit={searchQuery}>
 
         <input type='text' name='search' placeholder="Search:" />
 
