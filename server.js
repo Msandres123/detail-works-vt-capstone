@@ -12,7 +12,8 @@ mongoose.connect("mongodb://localhost:27017/schedule", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
-
+//putting dates in an array keeps them together. From there you fill it with data
+//possible creation of a field with appointment times, array
 const tilDB = mongoose.connection;
 tilDB.on("error", console.error.bind(console, "connection error:"));
 //Journal schema for entries made through home page
@@ -32,6 +33,7 @@ const ScheduleModel = mongoose.model("appointments", scheduleSchema)
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("./client/public"));
+let allowedAppointments;
 
 app.post("/api", async (req, res) => {
   let entryTime = moment().format('l')
