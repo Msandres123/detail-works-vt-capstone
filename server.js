@@ -198,10 +198,11 @@ app.get("/search", async (req, res) => {
     var query = req.query
     let key = Object.keys(query)[0]
     console.log(query)
+    console.log(key)
     let temp = query[key]
     console.log(`search11`, query)
     console.log(`search`, temp)
-    scheduleSchema.index({ '$**': 'text' })
+    //scheduleSchema.index({ '$**': 'text' })
     const cursor = await ScheduleModel.findOne(temp)
 
 
