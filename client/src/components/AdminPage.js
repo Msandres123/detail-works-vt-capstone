@@ -5,12 +5,15 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/database";
 import moment from 'moment'
+import exportCSV from './ExportCSV'
+
 
 
 export default function AdminPage(props) {
   const [appointmentsMade, setAppointmentsMade] = useState([]);
   const [newAppointment, setNewAppointment] = useState(false)
   const [selected, setSelected] = useState("")
+  // const [export, setExport] = useState(false)
 
 
   var today = new Date();
@@ -105,21 +108,21 @@ export default function AdminPage(props) {
       <button onClick={newAppointmentClickHandler}>Create New Appointment</button>
       <button onClick={props.logOut}>Sign Out</button>
       { newAppointment && <form method="POST" action="/adminapi" id="schedule-form">
-        <label>Name: <input type="text" name="customerName" /></label>
+        <label>Name: <br/><input type="text" name="customerName" /></label>
 
-        <label>Phone Number: <input type="text" name="phoneNumber" /></label>
-        <label>Email: <input type="text" name="email" /></label>
-        <label>Make, Year, and Model of your vehicle: <input type="text" name='vehicleMake' />
+        <label>Phone Number: <br/><input type="text" name="phoneNumber" /></label>
+        <label>Email: <br/><input type="text" name="email" /></label>
+        <label>Make, Year, and Model of your vehicle: <br/><input type="text" name='vehicleMake' />
         </label>
-        <label>Vehicle Type: <select name='vehicleType'>
+        <label>Vehicle Type: <br/><select name='vehicleType'>
           <option value="coupe/sedan" >Coupe/Sedan</option>
           <option value="hatchback/crossover">Hatchback/Crossover</option>
           <option value="suv/truck/minivan">SUV/Truck/Minivan</option>
         </select>
         </label>
-        <label>Additional Notes or Request: <input type="text" name="additionalNotes" /></label>
-        <label>Select a Day: <input id="calender" type="date" value={appointmentsMade.date} name="date" min={today} /></label>
-        <label>Select a Time:
+        <label>Additional Notes or Request: <br/><input type="text" name="additionalNotes" /></label>
+        <label>Select a Day: <br/><input id="calender" type="date" value={appointmentsMade.date} name="date" min={today} /></label>
+        <label>Select a Time:<br/>
                     <select name="timeOfApp">
             <option value="8:00am">8:00am</option>
             <option value="12:00pm">12:00pm</option>
@@ -144,12 +147,15 @@ export default function AdminPage(props) {
               <Link to={`/admin/${appointment._id}`}>
                 <button>Update or Cancel Appointment</button>
               </Link>
+              
             </div>
           </div>
         );
 
 
       })}
+
+      <button>Download CSV</button>
 
 
 
