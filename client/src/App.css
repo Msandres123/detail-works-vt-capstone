@@ -34,3 +34,11 @@ body{
   flex-direction: row;
   justify-content: center;
 }
+
+#appointment-container {
+  /* box-shadow: 0 0 5px gray; */
+  border: 2px outset lightgray;
+  margin-bottom: 3%;
+  margin-left: 1%;
+  width: 30vw
+}
