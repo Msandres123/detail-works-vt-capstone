@@ -1,6 +1,6 @@
-const mongodb = require("mongodb").MongoClient;
-const fastcsv = require("fast-csv");
-const fs = require("fs");
+// const mongodb = require("mongodb").MongoClient;
+// const fastcsv = require("fast-csv");
+// const fs = require("fs");
 // const ws = fs.createWriteStream("appointments.csv");
 
 // let url = "mongodb://username:password@localhost:27017/";
