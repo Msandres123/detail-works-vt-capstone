@@ -17,7 +17,7 @@ import "firebase/database";
 
 if (firebase.apps.length === 0) {
   firebase.initializeApp({
-    apiKey: "AIzaSyB_vX34zXbhgaKu-cqCpYCnUPpFXYMsOsI",
+    apiKey: 'AIzaSyB_vX34zXbhgaKu-cqCpYCnUPpFXYMsOsI',
     authDomain: "detail-works-admin.firebaseapp.com",
     projectId: "detail-works-admin",
     storageBucket: "detail-works-admin.appspot.com",
