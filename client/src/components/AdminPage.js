@@ -11,7 +11,7 @@ export default function AdminPage(props) {
   const [appointmentsMade, setAppointmentsMade] = useState([]);
   const [newAppointment, setNewAppointment] = useState(false)
   const [selected, setSelected] = useState("")
-
+  const [search, setSearch] = useState("")
 
   var today = new Date();
   var dd = today.getDate();
@@ -28,7 +28,7 @@ export default function AdminPage(props) {
 
   today = yyyy + '-' + mm + '-' + dd;
 
-  
+
   useEffect(() => {
     firebase.auth().onAuthStateChanged((userObj) => {
       if (userObj) {
@@ -44,11 +44,11 @@ export default function AdminPage(props) {
     let target = evt.target;
     setSelected(target.value);
   }
-  function search(evt) {
+  function filter(evt) {
 
     evt.preventDefault();
     // url is made to fetch with the query params
-    let url = `/search?${selected}=${evt.target[0].value}`
+    let url = `/filter?${selected}=${evt.target[0].value}`
     console.log(url)
     //fetching by using the URL
     fetch(url)
@@ -57,6 +57,19 @@ export default function AdminPage(props) {
 
         setAppointmentsMade(appointmentList);
       });
+  }
+
+  function searchQuery(evt) {
+    evt.preventDefault()
+    
+    let query = `/search?${search}=${evt.target[0].value}`
+    console.log(`query`, query)
+    fetch(query)
+      .then((res) => res.json())
+      .then((json) => {
+        setSearch(json);
+      });
+    console.log(search)
   }
 
 
@@ -71,40 +84,46 @@ export default function AdminPage(props) {
   });
 
   let appointmentArr = [];
-
   appointmentsMade &&
     appointmentsMade.forEach((appointment) => {
       appointmentArr.push(appointment);
     });
   console.log("user at admin page is", props.user);
 
-  
+
   return props.user ? (
     <div>
       <h2>Appointment details</h2>
-      
+
+      <form value={search} onChange={handleChange} onSubmit={searchQuery}>
+
+        <input type='text' name='search' placeholder="Search:" />
+
+        <button type='submit' value='Search'>Search</button>
+      </form>
+
       {/* to filter the entries according to their values */}
       <select name='selection' value={selected} onChange={handleChange}>
-       
-      <option value=''>Search By</option>
+
+        <option value=''>Filter By</option>
         <option value='serviceName'>Service Name</option>
         <option value='customerName'>Customer Name</option>
         <option value='date'>Date of Appointment</option>
       </select>
-      <div className='search'>
+      <div className='Filter'>
         {selected && (
-          <form id='searchContainer' onSubmit={search}>
+          <form id='FilterContainer' onSubmit={filter}>
             <label>
-              <input type='text' name='search' placeholder="Search:" />
+              <input type='text' name='filter' placeholder="Filter:" />
             </label>
-            <input type='submit' value='Search' />
+            <input type='submit' value='Filter' />
           </form>
         )}
       </div>
-      <Link to={"/admin"}><button onClick ="window.location.reload()"  id="remove-all-filters">Remove All Filters</button></Link>
+      <Link to={"/admin"}><button onClick="window.location.reload()" id="remove-all-filters">Remove All Filters</button></Link>
       <button onClick={newAppointmentClickHandler}>Create New Appointment</button>
       <button onClick={props.logOut}>Sign Out</button>
-      { newAppointment && <form method="POST" action="/adminapi" id="schedule-form">
+      {newAppointment && <form method="POST" action="/adminapi" id="schedule-form">
         <label>Name: <input type="text" name="customerName" /></label>
 
         <label>Phone Number: <input type="text" name="phoneNumber" /></label>
