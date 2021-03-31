@@ -29,14 +29,14 @@ export default function Home() {
     return (
         
 
-        <div>
+        <div className="home-container">
             <h2 id="schedule-header">Schedule an Appointment</h2>
             <form method="POST" action="/api" id="schedule-form">
                 <label>Name: <br/><input type="text" name="customerName" /></label><br/>
           
                 <label>Phone Number: <br/> <input type="text" name="phoneNumber"/></label><br/>
                 <label>Email: <br/><input type="text" name="email" /></label><br/>
-                <label>Make, Year, and Model of your vehicle: <br/><input type="text" name='vehicleMake' />
+                <label>Year, Make and Model of your vehicle: <br/><input type="text" name='vehicleMake' />
                 </label><br/>
                 <label>Vehicle Type: <br/><select name='vehicleType'>
                 <option value="coupe/sedan" onClick={(evt) => setCoupeSedan(!coupeSedan)}>Coupe/Sedan</option>
@@ -52,7 +52,7 @@ export default function Home() {
                         <option value="12:00pm">12:00pm</option>
                     </select>
                 </label><br/>
-                <input type="submit" value="Schedule Appointment" style={{ width: "15vw" }}/>
+                <input type="submit" value="Schedule Appointment" style={{ width: "200px", }}/>
             </form>
         </div>
     )
