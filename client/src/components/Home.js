@@ -13,11 +13,14 @@ export default function Home() {
   const [unavailableEight, setUnavailableEight] = useState(false);
   const [unavailableNoon, setUnavailableNoon] = useState(false);
   const [appointmentsMade, setAppointmentsMade] = useState([]);
+  const [scheduledNoon, setscheduledNoon] = useState(0);
+  const [scheduledEight, setScheduledEight] = useState(0);
   //prevents user from scheduling appointment for a date in the past
   var today = new Date();
   var dd = today.getDate();
   var mm = today.getMonth() + 1;
   var yyyy = today.getFullYear();
+
 
   if (dd < 10) {
     dd = "0" + dd;
@@ -63,13 +66,18 @@ export default function Home() {
 
   function blackOut() {
     let scheduleArrEight = [];
-    let scheduleArrNoon = [];
+    let scheduleArrNoon = [];  
+    setScheduledEight(0)
+    setscheduledNoon(0)
     appointmentArr.forEach((appointment) => {
       if (
         appointment.date === dateOfApp &&
         appointment.timeOfApp === "8:00am"
       ) {
         scheduleArrEight.push(appointment);
+        console.log("eight", scheduleArrEight)
+       
+          setScheduledEight(scheduleArrEight.length);
         if (scheduleArrEight.length > 3) {
           setUnavailableEight(true);
         }
@@ -79,6 +87,10 @@ export default function Home() {
         appointment.timeOfApp === "12:00pm"
       ) {
         scheduleArrNoon.push(appointment);
+        console.log("noon arr", scheduleArrNoon)
+        setscheduledNoon(scheduleArrNoon.length);
+        
+
         if (scheduleArrNoon.length > 3) {
           setUnavailableNoon(true);
         }
@@ -155,6 +167,12 @@ export default function Home() {
             </option>
           </select>
         </label>
+        {dateOfApp && (
+          <h6>There are {4 - scheduledEight} appointments remaing at 8:00am</h6>
+        )}
+        {dateOfApp && (
+          <h6>There are {4 - scheduledNoon} appointments remaing at 12:00pm</h6>
+        )}
         <br />
         <input
           type="submit"
