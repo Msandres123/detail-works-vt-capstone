@@ -85,7 +85,6 @@ function App(props) {
       <div className="container">
         <NavBar />
         <div className="content">
-          <h1 id="app-header">Detail Works VT</h1>
 
           <Switch>
             <Route exact path={"/"} component={Home} />

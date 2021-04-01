@@ -30,6 +30,7 @@ export default function Home() {
         
 
         <div className="home-container">
+            <h1 id="app-header">Detail Works VT</h1>
             <h2 id="schedule-header">Schedule an Appointment</h2>
             <form method="POST" action="/api" id="schedule-form">
                 <label>Name: <br/><input type="text" name="customerName" /></label><br/>
