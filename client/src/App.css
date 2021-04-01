@@ -2,7 +2,7 @@ body{
   margin:0;
  
 }
-
+/* Container for the whole page */
 .container{
   position:relative;
   height:100vh;
@@ -16,33 +16,35 @@ body{
 }
 /* .content{
 } */
-
+/* Navbar Home */
 .container h8{
   font-size:1.8rem;
   margin-left:.4rem;
   color:white;
   margin-top: 3vh;
 }
+/* Navbar Admin */
 .container h9{
   font-size:1.8rem;
   margin-left:.4rem;
   color:white;
   margin-top: 3vh;
 }
+/* Navbar Navbar Sign in. Any more tabs would be created in NavBar.js as h11, h12, etc. */
 .container h10{
   font-size:1.8rem;
   margin-left:.4rem;
   color:white;
   margin-top: 3vh;
 }
-
+/* Home.js schedule block formation */
 #schedule-form{
   display: flex;
   flex-direction: column;
   margin-left: 5vw;
  
 }
-
+/* App.js headspace for Detail Works VT. Might be better to move this to Home.js? */
 #app-header{
   font-size: 4rem;
   display:flex;
@@ -51,7 +53,7 @@ body{
 margin-left: 4vw;
   
 }
-
+/* Home.js. Container for the home page */
 .home-container{
   position:relative;
   display: flex;
@@ -59,7 +61,7 @@ margin-left: 4vw;
   align-items: center;
   justify-content:center ;
 }
-
+/* NavBar.js container for the h8 and higher that ideally persists on all pages */
 #NavBar-container{
   position:relative;
   font-size:1.2rem;
@@ -70,21 +72,22 @@ margin-left: 4vw;
   width: 12vw;
   background-color: gray;
 }
+/* This "a" appears to have a direct effect. Not fixing what isn't broke. */
 #NavBar-container a{
   text-decoration: none;
   color: black;
 }
-
+/* Standalone h2 header that exists entirely within home.js inside .home-container */
 #schedule-header{
   margin-left: 5vw;
 }
-
+/* Cancel.js standalone button, no container (yet) */
 #cancel-button-container{
   display: flex;
   flex-direction: row;
   justify-content: center;
 }
-
+/* AdminPage.js container for the box that appointments currently exist in */
 #appointment-container {
   /* box-shadow: 0 0 5px gray; */
   border: 2px outset lightgray;
@@ -92,7 +95,7 @@ margin-left: 4vw;
   margin-left: 1%;
   width: 30vw
 }
-
+/* AdminSignIn.js standalone containerless section  */
 .admin-signin{
   height:30vh;
   width:60vw;
@@ -101,4 +104,20 @@ margin-left: 4vw;
   align-items: center;
   justify-content:center;
 
+}
+/* AdminPage.js Admin container */
+.admin-container{
+  position:relative;
+  height:100vh;
+  width:100vw;
+  background-color: darkgray;
+}
+/* Admin page container */
+.admin-header{
+  height:7vh;
+  width:100vw;
+  display:flex;
+  flex-direction: row;
+  justify-content: center;
+  
 }

@@ -115,7 +115,9 @@ export default function AdminPage(props) {
   console.log("user at admin page is", props.user);
   /*------------------------------------------------------------------------------------*/
   return props.user ? (
-    <div>
+    <div>    
+      <div className="admin-container">
+     <div className="admin-header">
       <form method="GET" action="/csv" onSubmit={Download}>
       <label>
         <input type="date" name="startDate" placeholder="From:" />
@@ -125,6 +127,7 @@ export default function AdminPage(props) {
         </label>
         <button type="submit">Export as CSV</button>
       </form>
+      </div>
       {/*------------------------------------------------------------------------------------*/}
       <h2>Appointment details</h2>
 
@@ -236,9 +239,10 @@ export default function AdminPage(props) {
               </Link>
             </div>
           </div>
-        );
-      })}
-    </div>
+          );
+        })}
+      </div>
+      </div>
   ) : (
     <Redirect to="/" />
   );
