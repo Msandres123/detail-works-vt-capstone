@@ -89,10 +89,10 @@ export default function AdminPage(props) {
   function Download(evt) {
     //window.location='/'
     evt.preventDefault();
-    let startDate=evt.target.value
-    console.log(startDate)
-    let endDate=evt.target.value
-    console.log(endDate)
+    let startDate = evt.target.value;
+    console.log(startDate);
+    let endDate = evt.target.value;
+    console.log(endDate);
     let downloadCSV = `/csv`;
     fetch(downloadCSV)
       .then((res) => res.blob())
@@ -100,9 +100,9 @@ export default function AdminPage(props) {
         const url = window.URL.createObjectURL(blob);
         console.log("urltest", url);
         let a = document.createElement("a");
-        console.log(a)
+        console.log(a);
         a.href = url;
-        a.download ="Appointments.csv";
+        a.download = "Appointments.csv";
         a.click();
       });
   }
@@ -117,11 +117,11 @@ export default function AdminPage(props) {
   return props.user ? (
     <div>
       <form method="GET" action="/csv" onSubmit={Download}>
-      <label>
-        <input type="date" name="startDate" placeholder="From:" />
+        <label>
+          <input type="date" name="startDate" placeholder="From:" />
         </label>
         <label>
-        <input type="date" name="endDate"  placeholder="To:" />
+          <input type="date" name="endDate" placeholder="To:" />
         </label>
         <button type="submit">Export as CSV</button>
       </form>
@@ -129,8 +129,7 @@ export default function AdminPage(props) {
       <h2>Appointment details</h2>
 
       <form value={search} onChange={searchChange} onSubmit={searchQuery}>
-        
-        <input type="text" name="search" placeholder="Search:" />  
+        <input type="text" name="search" placeholder="Search:" />
         <button type="submit" value="Search">
           Search
         </button>
