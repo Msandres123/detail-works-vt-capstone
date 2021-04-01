@@ -2,7 +2,7 @@ require("dotenv").config();
 const express = require("express");
 //const request = require('request')
 
-// var cors = require("cors");
+//var cors = require("cors");
 // const request = require('request')
 const bodyParser = require("body-parser");
 const path = require("path");
@@ -18,7 +18,7 @@ const cron = require("node-cron");
 const request = require("request");
 const moment = require("moment");
 const fs = require("fs");
-const mdq = require("mongo-date-query");
+//const mdq = require("mongo-date-query");
 const json2csv = require("json2csv").parse;
 /*------------------------------------------------------------------------------------*/
 //middleware function
