@@ -40,8 +40,8 @@ export default function Home() {
   function dateChangeHandle(evt) {
     setDateOfApp(evt.target.value);
     setTime("");
-    setUnavailableEight(false)
-    setUnavailableNoon(false)
+    setUnavailableEight(false);
+    setUnavailableNoon(false);
   }
 
   useEffect(() => {
@@ -86,7 +86,7 @@ export default function Home() {
     });
   }
   return (
-    <div>
+    <div className="home-container">
       <h2 id="schedule-header">Schedule an Appointment</h2>
       <form method="POST" action="/api" id="schedule-form">
         <label>
@@ -146,9 +146,13 @@ export default function Home() {
             onChange={(evt) => setTime(evt.target.value)}
             value={time}
           >
-            <option value="">Select A Time</option>  
-            <option value="8:00am" disabled={unavailableEight}>8:00am</option>
-            <option value="12:00pm" disabled={unavailableNoon}>12:00pm</option>
+            <option value="">Select A Time</option>
+            <option value="8:00am" disabled={unavailableEight}>
+              8:00am
+            </option>
+            <option value="12:00pm" disabled={unavailableNoon}>
+              12:00pm
+            </option>
           </select>
         </label>
         <br />

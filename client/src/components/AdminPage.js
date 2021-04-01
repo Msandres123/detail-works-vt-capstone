@@ -5,13 +5,15 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/database";
 import moment from "moment";
-// import exportCSV from './ExportCSV'
+
+/*------------------------------------------------------------------------------------*/
 
 export default function AdminPage(props) {
   const [appointmentsMade, setAppointmentsMade] = useState([]);
   const [newAppointment, setNewAppointment] = useState(false);
   const [selected, setSelected] = useState("");
   const [search, setSearch] = useState("");
+  const [download, setDownload] = useState("");
 
   var today = new Date();
   var dd = today.getDate();
@@ -27,7 +29,7 @@ export default function AdminPage(props) {
   }
 
   today = yyyy + "-" + mm + "-" + dd;
-
+  /*------------------------------------------------------------------------------------*/
   useEffect(() => {
     firebase.auth().onAuthStateChanged((userObj) => {
       if (userObj) {
@@ -35,10 +37,11 @@ export default function AdminPage(props) {
       }
     });
   });
-
+  /*------------------------------------------------------------------------------------*/
   function newAppointmentClickHandler() {
     setNewAppointment(!newAppointment);
   }
+  /*------------------------------------------------------------------------------------*/
   function handleChange(evt) {
     let target = evt.target;
     setSelected(target.value);
@@ -55,20 +58,24 @@ export default function AdminPage(props) {
         setAppointmentsMade(appointmentList);
       });
   }
-
+  /*------------------------------------------------------------------------------------*/
+  function searchChange(evt) {
+    let target = evt.target;
+    setSearch(target.value);
+  }
   function searchQuery(evt) {
     evt.preventDefault();
-
     let query = `/search?${search}=${evt.target[0].value}`;
     console.log(`query`, query);
     fetch(query)
       .then((res) => res.json())
-      .then((json) => {
-        setSearch(json);
+      .then((appointmentList) => {
+        setAppointmentsMade(appointmentList);
       });
-    console.log(search);
-  }
 
+    //console.log(search);
+  }
+  /*------------------------------------------------------------------------------------*/
   useEffect(() => {
     if (appointmentsMade.length === 0) {
       fetch("/api")
@@ -78,26 +85,57 @@ export default function AdminPage(props) {
         });
     }
   });
-
+  /*------------------------------------------------------------------------------------*/
+  function Download(evt) {
+    //window.location='/'
+    evt.preventDefault();
+    let startDate=evt.target.value
+    console.log(startDate)
+    let endDate=evt.target.value
+    console.log(endDate)
+    let downloadCSV = `/csv`;
+    fetch(downloadCSV)
+      .then((res) => res.blob())
+      .then((blob) => {
+        const url = window.URL.createObjectURL(blob);
+        console.log("urltest", url);
+        let a = document.createElement("a");
+        console.log(a)
+        a.href = url;
+        a.download ="Appointments.csv";
+        a.click();
+      });
+  }
+  /*------------------------------------------------------------------------------------*/
   let appointmentArr = [];
   appointmentsMade &&
     appointmentsMade.forEach((appointment) => {
       appointmentArr.push(appointment);
     });
   console.log("user at admin page is", props.user);
-
+  /*------------------------------------------------------------------------------------*/
   return props.user ? (
     <div>
+      <form method="GET" action="/csv" onSubmit={Download}>
+      <label>
+        <input type="date" name="startDate" placeholder="From:" />
+        </label>
+        <label>
+        <input type="date" name="endDate"  placeholder="To:" />
+        </label>
+        <button type="submit">Export as CSV</button>
+      </form>
+      {/*------------------------------------------------------------------------------------*/}
       <h2>Appointment details</h2>
 
-      <form value={search} onChange={handleChange} onSubmit={searchQuery}>
-        <input type="text" name="search" placeholder="Search:" />
-
+      <form value={search} onChange={searchChange} onSubmit={searchQuery}>
+        
+        <input type="text" name="search" placeholder="Search:" />  
         <button type="submit" value="Search">
           Search
         </button>
       </form>
-
+      {/*------------------------------------------------------------------------------------*/}
       {/* to filter the entries according to their values */}
       <select name="selection" value={selected} onChange={handleChange}>
         <option value="">Filter By</option>
@@ -120,6 +158,7 @@ export default function AdminPage(props) {
           Remove All Filters
         </button>
       </Link>
+      {/*------------------------------------------------------------------------------------*/}
       <button onClick={newAppointmentClickHandler}>
         Create New Appointment
       </button>
