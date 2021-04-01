@@ -21,7 +21,6 @@ export default function Home() {
   var mm = today.getMonth() + 1;
   var yyyy = today.getFullYear();
 
-
   if (dd < 10) {
     dd = "0" + dd;
   }
@@ -66,18 +65,17 @@ export default function Home() {
 
   function blackOut() {
     let scheduleArrEight = [];
-    let scheduleArrNoon = [];  
-    setScheduledEight(0)
-    setscheduledNoon(0)
+    let scheduleArrNoon = [];
+    setScheduledEight(0);
+    setscheduledNoon(0);
     appointmentArr.forEach((appointment) => {
       if (
         appointment.date === dateOfApp &&
         appointment.timeOfApp === "8:00am"
       ) {
         scheduleArrEight.push(appointment);
-        console.log("eight", scheduleArrEight)
-       
-          setScheduledEight(scheduleArrEight.length);
+        console.log("eight", scheduleArrEight);
+        setScheduledEight(scheduleArrEight.length);
         if (scheduleArrEight.length > 3) {
           setUnavailableEight(true);
         }
@@ -87,9 +85,8 @@ export default function Home() {
         appointment.timeOfApp === "12:00pm"
       ) {
         scheduleArrNoon.push(appointment);
-        console.log("noon arr", scheduleArrNoon)
+        console.log("noon arr", scheduleArrNoon);
         setscheduledNoon(scheduleArrNoon.length);
-        
 
         if (scheduleArrNoon.length > 3) {
           setUnavailableNoon(true);
