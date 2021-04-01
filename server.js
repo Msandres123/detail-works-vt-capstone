@@ -1,28 +1,22 @@
 require("dotenv").config();
-const express = require("express")
+const express = require("express");
 //const request = require('request')
 
-var cors = require('cors')
+var cors = require("cors");
 // const request = require('request')
-const bodyParser = require('body-parser')
-const path = require('path')
-const app = express()
-const mongoose = require('mongoose')
-mongoose.set('useCreateIndex', true)
-const port = process.env.PORT || 5000
-const { MongoClient, ObjectId, MongoError } = require('mongodb')
-//const moment = require("moment");
-
-const express = require("express");
-const nodemailer = require("nodemailer");
-const cron = require("node-cron");
-const request = require("request");
 const bodyParser = require("body-parser");
 const path = require("path");
 const app = express();
 const mongoose = require("mongoose");
+mongoose.set("useCreateIndex", true);
 const port = process.env.PORT || 5000;
 const { MongoClient, ObjectId, MongoError } = require("mongodb");
+//const moment = require("moment");
+
+const nodemailer = require("nodemailer");
+const cron = require("node-cron");
+const request = require("request");
+
 const moment = require("moment");
 mongoose.connect("mongodb://localhost:27017/schedule", {
   useNewUrlParser: true,
@@ -48,9 +42,8 @@ const scheduleSchema = new mongoose.Schema({
   dateAppMade: Date,
 });
 
-
-const ScheduleModel = mongoose.model("appointments", scheduleSchema)
-ScheduleModel.createIndexes()
+const ScheduleModel = mongoose.model("appointments", scheduleSchema);
+ScheduleModel.createIndexes();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("./client/public"));
 
@@ -97,8 +90,6 @@ app.post("/api", async (req, res) => {
 
   console.log(req.body.email);
   console.log(req.body.date);
-
-  
 });
 //Sends automated email reminder a day before appointment
 async function queryDb() {
@@ -133,10 +124,10 @@ async function queryDb() {
         });
       }
     });
-  })
+  });
 }
 
-  queryDb()
+queryDb();
 
 app.post("/adminapi", async (req, res) => {
   const newAppointment = new ScheduleModel({
@@ -167,14 +158,16 @@ app.get("/api", async (req, res) => {
 
 //Filter according to the tags request
 app.get("/filter", async (req, res) => {
-  let filter = req.query
-  console.log(filter)
+  let filter = req.query;
+  console.log(filter);
 
-  let key = Object.keys(filter)[0]
-  console.log(key)
-  let temp = filter[key]
-  console.log(temp)
-  const cursor = await ScheduleModel.find({ [key]: `${temp}` }).sort({ date: -1 })
+  let key = Object.keys(filter)[0];
+  console.log(key);
+  let temp = filter[key];
+  console.log(temp);
+  const cursor = await ScheduleModel.find({ [key]: `${temp}` }).sort({
+    date: -1,
+  });
   let results = [];
 
   // iterate over out cursor object to push each document into our array
@@ -187,7 +180,7 @@ app.get("/filter", async (req, res) => {
 
 //Full text Search
 app.get("/search", async (req, res) => {
-  console.log("test search")
+  console.log("test search");
   //var regex = new RegExp(req.params.key,'i')
   //const cursor=ScheduleModel.users.find({customerName: new RegExp('^' +search + '$', 'i')}); //For exact search, case insensitive
   //await cursor .forEach((entry) =>{
@@ -197,39 +190,31 @@ app.get("/search", async (req, res) => {
   //});
 
   try {
-    var query = req.query
-    let key = Object.keys(query)[0]
-    console.log(query)
-    let temp = query[key]
-    console.log(`search11`, query)
-    console.log(`search`, temp)
-    scheduleSchema.index({ '$**': 'text' })
-    const cursor = await ScheduleModel.findOne(temp)
+    var query = req.query;
+    let key = Object.keys(query)[0];
+    console.log(query);
+    let temp = query[key];
+    console.log(`search11`, query);
+    console.log(`search`, temp);
+    scheduleSchema.index({ "$**": "text" });
+    const cursor = await ScheduleModel.findOne(temp);
 
-
-    console.log(`results`, cursor)
-    console.log('findme')
-
+    console.log(`results`, cursor);
+    console.log("findme");
 
     let results = [];
     await cursor.forEach((entry) => {
-      results.push(entry)
-    })
+      results.push(entry);
+    });
     res.send(results);
-
 
     //res.json({cursor:cursor})
   } catch (err) {
-    res.json({ message: err })
+    res.json({ message: err });
   }
 
-
-
   //res.redirect("/admin");
-
-})
-
-
+});
 
 app.get(`/api/:id`, async (req, res) => {
   let result = await ScheduleModel.findOne({ _id: ObjectId(req.params.id) });
