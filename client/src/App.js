@@ -14,10 +14,9 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/database";
 
-
 if (firebase.apps.length === 0) {
   firebase.initializeApp({
-    apiKey: 'AIzaSyB_vX34zXbhgaKu-cqCpYCnUPpFXYMsOsI',
+    apiKey: "AIzaSyB_vX34zXbhgaKu-cqCpYCnUPpFXYMsOsI",
     authDomain: "detail-works-admin.firebaseapp.com",
     projectId: "detail-works-admin",
     storageBucket: "detail-works-admin.appspot.com",
@@ -27,7 +26,7 @@ if (firebase.apps.length === 0) {
   });
 }
 
-const auth = firebase.auth()
+const auth = firebase.auth();
 
 function App(props) {
   const [user, setUser] = useState(firebase.auth().currentUser);
@@ -46,10 +45,10 @@ function App(props) {
   useEffect(() => {
     firebase.auth().onAuthStateChanged((userObj) => {
       if (userObj) {
-        setUser(userObj)
-      } 
-    })
-    })
+        setUser(userObj);
+      }
+    });
+  });
 
   async function login(evt) {
     evt.preventDefault();
@@ -59,70 +58,74 @@ function App(props) {
       .catch((err) => {
         console.log(err.message);
       });
-      // firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
-      // .then(() => {
-      //   return firebase.auth().signInWithEmailAndPassword(email, password)
-      // })
-     
+    // firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
+    // .then(() => {
+    //   return firebase.auth().signInWithEmailAndPassword(email, password)
+    // })
+
     setUser(userObj);
 
     history.push("/admin");
-
-
   }
 
   function logOut() {
-    firebase.auth().signOut().then(() => {
-    }).catch((error) => {
-    });
-    setUser(null)
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {})
+      .catch((error) => {});
+    setUser(null);
   }
 
   console.log("user is", user);
-  console.log("current user is", firebase.auth().currentUser)
+  console.log("current user is", firebase.auth().currentUser);
 
   return (
     <div>
-      <h1 id="app-header">Detail Works VT</h1>
-      <NavBar />
-      
-      <Switch>
-        <Route exact path={"/"} component={Home} />
-        <Route
-          exact
-          path={"/admin"}
-          render={(props) => {
-            return <AdminPage user={user} setUser={setUser} logOut={logOut} />;
-          }}
-        />
-        <Route
-          path={"/admin/:id"}
-          render={(props) => {
-            return <AppointmentPage user={user}  match={props.match}/>;
-          }}
-        />  
-        {/* <Route path={"/admin/:id"} component={AppointmentPage} />  */}
-        <Route
-          path={"/signin"}
-          render={(props) => {
-            return (
-              <AdminSignIn
-                user={user}
-                setUser={setUser}
-                password={password}
-                email={email}
-                emailChangeHandler={emailChangeHandler}
-                login={login}
-                passwordChange={passwordChange}
-              />
-            );
-          }}
-        />
-      </Switch>
+      <div className="container">
+        <NavBar />
+        <div className="content">
+          <h1 id="app-header">Detail Works VT</h1>
+
+          <Switch>
+            <Route exact path={"/"} component={Home} />
+            <Route
+              exact
+              path={"/admin"}
+              render={(props) => {
+                return (
+                  <AdminPage user={user} setUser={setUser} logOut={logOut} />
+                );
+              }}
+            />
+            <Route
+              path={"/admin/:id"}
+              render={(props) => {
+                return <AppointmentPage user={user} match={props.match} />;
+              }}
+            />
+            {/* <Route path={"/admin/:id"} component={AppointmentPage} />  */}
+            <Route
+              path={"/signin"}
+              render={(props) => {
+                return (
+                  <AdminSignIn
+                    user={user}
+                    setUser={setUser}
+                    password={password}
+                    email={email}
+                    emailChangeHandler={emailChangeHandler}
+                    login={login}
+                    passwordChange={passwordChange}
+                  />
+                );
+              }}
+            />
+          </Switch>
+        </div>
+      </div>
     </div>
   );
 }
 
 export default App;
-
-
