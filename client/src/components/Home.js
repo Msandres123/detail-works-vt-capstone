@@ -46,7 +46,6 @@ export default function Home() {
 
   useEffect(() => {
     if (dateOfApp !== previousDate) {
-      //   console.log("it works!!!!")
       fetch(`/api/`)
         .then((res) => res.json())
         .then((appointmentList) => {
@@ -66,8 +65,6 @@ export default function Home() {
     let scheduleArrEight = [];
     let scheduleArrNoon = [];
     appointmentArr.forEach((appointment) => {
-      // console.log(appointment.date)
-      // console.log(appointment.timeOfApp)
       if (
         appointment.date === dateOfApp &&
         appointment.timeOfApp === "8:00am"
@@ -88,12 +85,6 @@ export default function Home() {
       }
     });
   }
-
-  //   console.log(appointmentArr);
-  //   console.log("date of app", dateOfApp);
-  //   console.log("time of app", time);
-  //   console.log("previous time", previousTime)
-  //   console.log("previous date", previousDate)
   return (
     <div>
       <h2 id="schedule-header">Schedule an Appointment</h2>
@@ -150,25 +141,7 @@ export default function Home() {
         <br />
         <label>
           Select a Time: <br />
-          <label>
-            8:00am
-            <input
-              type="radio"
-              name="timeOfApp"
-              value="8:00am"
-              disabled={unavailableEight}
-            />
-          </label>
-          <label>
-            12:00pm
-            <input
-              type="radio"
-              name="timeOfApp"
-              value="12:00pm"
-              disabled={unavailableNoon}
-            />
-          </label>
-          {/* <select
+          <select
             name="timeOfApp"
             onChange={(evt) => setTime(evt.target.value)}
             value={time}
@@ -176,7 +149,7 @@ export default function Home() {
             <option value="">Select A Time</option>  
             <option value="8:00am" disabled={unavailableEight}>8:00am</option>
             <option value="12:00pm" disabled={unavailableNoon}>12:00pm</option>
-          </select> */}
+          </select>
         </label>
         <br />
         <input
