@@ -93,7 +93,7 @@ async function queryDb() {
     results.push(entry);
   });
   results.forEach((appointment) => {
-    cron.schedule("00 29 14 * * *", () => {
+    cron.schedule("00 00 07 * * *", () => {
       let dayOfApp = appointment.date.split("-");
       let monthOf = +dayOfApp[1];
       let dayBefore = +dayOfApp[2] - 1;
