@@ -29,30 +29,30 @@ export default function Home() {
     return (
         
 
-        <div>
+        <div className="home-container">
             <h2 id="schedule-header">Schedule an Appointment</h2>
             <form method="POST" action="/api" id="schedule-form">
-                <label>Name: <input type="text" name="customerName" /></label>
+                <label>Name: <br/><input type="text" name="customerName" /></label><br/>
           
-                <label>Phone Number: <input type="text" name="phoneNumber"/></label>
-                <label>Email: <input type="text" name="email" /></label>
-                <label>Make, Year, and Model of your vehicle: <input type="text" name='vehicleMake' />
-                </label>
-                <label>Vehicle Type: <select name='vehicleType'>
+                <label>Phone Number: <br/> <input type="text" name="phoneNumber"/></label><br/>
+                <label>Email: <br/><input type="text" name="email" /></label><br/>
+                <label>Year, Make and Model of your vehicle: <br/><input type="text" name='vehicleMake' />
+                </label><br/>
+                <label>Vehicle Type: <br/><select name='vehicleType'>
                 <option value="coupe/sedan" onClick={(evt) => setCoupeSedan(!coupeSedan)}>Coupe/Sedan</option>
                 <option value="hatchback/crossover">Hatchback/Crossover</option>
                 <option value="suv/truck/minivan">SUV/Truck/Minivan</option>
                 </select>
-                </label>
-                <label>Additional Notes or Request: <input type="text" name="additionalNotes"/></label>
-                <label>Select a Day: <input id="calender" type="date" name="date" min={today}  /></label>
-                <label>Select a Time: 
+                </label><br/>
+                <label>Additional Notes or Request: <br/><input type="text" name="additionalNotes"/></label><br/>
+                <label>Select a Day: <br/><input id="calender" type="date" name="date" min={today}  /></label><br/>
+                <label>Select a Time: <br/>
                     <select name="timeOfApp">
                         <option value="8:00am">8:00am</option>
                         <option value="12:00pm">12:00pm</option>
                     </select>
-                </label>
-                <input type="submit" value="Schedule Appointment" style={{ width: "15vw" }}/>
+                </label><br/>
+                <input type="submit" value="Schedule Appointment" style={{ width: "200px", }}/>
             </form>
         </div>
     )

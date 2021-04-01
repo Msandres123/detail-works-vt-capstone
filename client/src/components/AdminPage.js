@@ -215,7 +215,6 @@ export default function AdminPage(props) {
           />
         </form>
       )}
-      {/*------------------------------------------------------------------------------------*/}
       <h1>Up-Coming Appointments</h1>
       {appointmentArr.map((appointment, index) => {
         return (

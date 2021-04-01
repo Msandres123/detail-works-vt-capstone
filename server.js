@@ -1,9 +1,9 @@
 require("dotenv").config();
 const express = require("express");
 //const request = require('request')
-const nodemailer = require("nodemailer");
-const cron = require("node-cron");
-const request = require("request");
+
+var cors = require("cors");
+// const request = require('request')
 const bodyParser = require("body-parser");
 const path = require("path");
 const app = express();
@@ -11,7 +11,11 @@ const mongoose = require("mongoose");
 mongoose.set("useCreateIndex", true);
 const port = process.env.PORT || 5000;
 const { MongoClient, ObjectId, MongoError } = require("mongodb");
-/*------------------------------------------------------------------------------------*/
+//const moment = require("moment");
+
+const nodemailer = require("nodemailer");
+const cron = require("node-cron");
+const request = require("request");
 const moment = require("moment");
 const fs = require("fs");
 const mdq = require("mongo-date-query");

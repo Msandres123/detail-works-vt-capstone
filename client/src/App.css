@@ -3,6 +3,39 @@ body{
  
 }
 
+.container{
+  position:relative;
+  height:100vh;
+  width:100vw;
+  background-color: darkgray;
+  display:flex;
+  justify-content:flex;
+  align-items:center;
+  text-align: center;
+
+}
+/* .content{
+} */
+
+.container h8{
+  font-size:1.8rem;
+  margin-left:.4rem;
+  color:white;
+  margin-top: 3vh;
+}
+.container h9{
+  font-size:1.8rem;
+  margin-left:.4rem;
+  color:white;
+  margin-top: 3vh;
+}
+.container h10{
+  font-size:1.8rem;
+  margin-left:.4rem;
+  color:white;
+  margin-top: 3vh;
+}
+
 #schedule-form{
   display: flex;
   flex-direction: column;
@@ -11,14 +44,31 @@ body{
 }
 
 #app-header{
-  text-align: center;
+  font-size: 4rem;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+margin-left: 4vw;
+  
+}
+
+.home-container{
+  position:relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content:center ;
 }
 
 #NavBar-container{
+  position:relative;
+  font-size:1.2rem;
   display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  width: 100vw;
+  flex-direction:column;
+  justify-content:flex-start;
+  height: 100vh;
+  width: 12vw;
+  background-color: gray;
 }
 #NavBar-container a{
   text-decoration: none;
@@ -26,11 +76,29 @@ body{
 }
 
 #schedule-header{
-  margin-left: 3vw;
+  margin-left: 5vw;
 }
 
 #cancel-button-container{
   display: flex;
   flex-direction: row;
   justify-content: center;
+}
+
+#appointment-container {
+  /* box-shadow: 0 0 5px gray; */
+  border: 2px outset lightgray;
+  margin-bottom: 3%;
+  margin-left: 1%;
+  width: 30vw
+}
+
+.admin-signin{
+  height:30vh;
+  width:60vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content:center;
+
 }
