@@ -15,7 +15,7 @@ export default function Home() {
   const [scheduledNoon, setscheduledNoon] = useState(0);
   const [scheduledEight, setScheduledEight] = useState(0);
   const [blackedOut, setBlackedOut] = useState(false);
-  const [value, onChange] = useState(new Date());
+
 
   //   const isWeekday = date => {
   //     const day = getDay(date);

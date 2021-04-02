@@ -39,6 +39,7 @@ export default function AppointmentPage(props) {
             <p>Email: {appointmentMade.email}</p>
             <p>Vehicle Make, Year, Model: {appointmentMade.vehicleMake}</p>
             <p>Vehicle Type: {appointmentMade.vehicleType}</p>
+            <p>Services: {appointmentMade.service}</p>
             <p>Appointment Made On:{moment(appointmentMade.dateAppMade).format('l')}</p>
             <button onClick={updateAppointmentHandler}>Update Appointment</button>
             {updateClick && <UpdateAppointment appointmentMade={appointmentMade} />}

@@ -182,6 +182,7 @@ export default function AdminPage(props) {
                 <p>Vehicle Make, Year, Model: {appointment.vehicleMake}</p>
                 <p>Vehicle Type: {appointment.vehicleType}</p>
                 <p>
+                <p>Services: {appointment.service}</p>
                   Appointment Made On:{" "}
                   {moment(appointment.dateAppMade).format("l")}
                 </p>
