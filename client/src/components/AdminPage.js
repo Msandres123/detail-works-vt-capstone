@@ -168,9 +168,11 @@ export default function AdminPage(props) {
         {newAppointment && (
           <form method="POST" action="/adminapi" id="schedule-form">
             <label>
-              Name: <input type="text" name="customerName" />
+              First Name: <input type="text" name="firstName" />
             </label>
-
+            <label>
+              Last Name: <input type="text" name="lastName" />
+            </label>
             <label>
               Phone Number: <input type="text" name="phoneNumber" />
             </label>
@@ -224,7 +226,9 @@ export default function AdminPage(props) {
               <div id="appointment-container" key={index}>
                 <h4>Day: {appointment.date}</h4>
                 <p>Time: {appointment.timeOfApp}</p>
-                <p>Customer: {appointment.customerName}</p>
+                {/* <p>Customer: {appointment.customerName}</p> */}
+                <p>First Name: {appointment.firstName}</p>
+                <p>Last Name: {appointment.lastName}</p>
                 <p>Phone Number: {appointment.phoneNumber}</p>
                 <p>Email: {appointment.email}</p>
                 <p>Vehicle Make, Year, Model: {appointment.vehicleMake}</p>

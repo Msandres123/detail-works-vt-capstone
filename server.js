@@ -37,7 +37,8 @@ const tilDB = mongoose.connection;
 tilDB.on("error", console.error.bind(console, "connection error:"));
 //Journal schema for entries made through home page
 const scheduleSchema = new mongoose.Schema({
-  customerName: String,
+  firstName: String,
+  lastName: String,
   phoneNumber: String,
   email: String,
   vehicleMake: Array,
@@ -63,7 +64,9 @@ let transporter = nodemailer.createTransport({
 
 app.post("/api", async (req, res) => {
   const newAppointment = new ScheduleModel({
-    customerName: req.body.customerName,
+    // customerName: req.body.customerName,
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
     phoneNumber: req.body.phoneNumber,
     email: req.body.email,
     vehicleMake: req.body.vehicleMake,
@@ -137,7 +140,9 @@ queryDb();
 /*------------------------------------------------------------------------------------*/
 app.post("/adminapi", async (req, res) => {
   const newAppointment = new ScheduleModel({
-    customerName: req.body.customerName,
+    // customerName: req.body.customerName,
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
     phoneNumber: req.body.phoneNumber,
     email: req.body.email,
     vehicleMake: req.body.vehicleMake,
@@ -243,7 +248,7 @@ app.use("/static", express.static(path.join(__dirname, "public")));
 
 
 app.get("/csv", async (req, res) => {
-  const fields = ["customerName", "email", "date"];
+  const fields = ["firstName", "lastName", "email", "date"];
   let { startDate, endDate } = req.body;
   console.log({ startDate, endDate });
   const test = await ScheduleModel.find({

@@ -90,23 +90,32 @@ export default function Home() {
       <h2 id="schedule-header">Schedule an Appointment</h2>
       <form method="POST" action="/api" id="schedule-form">
         <label>
-          Name: <br />
-          <input type="text" name="customerName" />
+          First Name: <br />
+          <input type="text" name="firstName" required />
         </label>
         <br />
-
         <label>
-          Phone Number: <br /> <input type="text" name="phoneNumber" />
+          Last Name: <br />
+          <input type="text" name="lastName" required />
+        </label>
+        <br />
+        <label>
+          Phone Number: <br /> <input type="text" name="phoneNumber" required />
         </label>
         <br />
         <label>
           Email: <br />
-          <input type="text" name="email" />
+          <input type="email" name="email" required />
+        </label>
+        <br />
+        <label>
+          Confirm Email: <br />
+          <input type="email" name="confirmEmail" required />
         </label>
         <br />
         <label>
           Make, Year, and Model of your vehicle: <br />
-          <input type="text" name="vehicleMake" />
+          <input type="text" name="vehicleMake" required />
         </label>
         <br />
         <label>
@@ -136,6 +145,7 @@ export default function Home() {
             name="date"
             min={today}
             onChange={(evt) => dateChangeHandle(evt)}
+            required
           />
         </label>
         <br />
@@ -145,6 +155,7 @@ export default function Home() {
             name="timeOfApp"
             onChange={(evt) => setTime(evt.target.value)}
             value={time}
+            required
           >
             <option value="">Select A Time</option>
             <option value="8:00am" disabled={unavailableEight}>
