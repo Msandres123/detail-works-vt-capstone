@@ -5,6 +5,7 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/database";
 import moment from "moment";
+import Home from "./Home"
 
 /*------------------------------------------------------------------------------------*/
 
@@ -176,58 +177,7 @@ export default function AdminPage(props) {
           Create New Appointment
         </button>
         <button onClick={props.logOut}>Sign Out</button>
-        {newAppointment && (
-          <form method="POST" action="/adminapi" id="schedule-form">
-            <label>
-              Name: <input type="text" name="customerName" />
-            </label>
-
-            <label>
-              Phone Number: <input type="text" name="phoneNumber" />
-            </label>
-            <label>
-              Email: <input type="text" name="email" />
-            </label>
-            <label>
-              Make, Year, and Model of your vehicle:{" "}
-              <input type="text" name="vehicleMake" />
-            </label>
-            <label>
-              Vehicle Type:{" "}
-              <select name="vehicleType">
-                <option value="coupe/sedan">Coupe/Sedan</option>
-                <option value="hatchback/crossover">Hatchback/Crossover</option>
-                <option value="suv/truck/minivan">SUV/Truck/Minivan</option>
-              </select>
-            </label>
-            <label>
-              Additional Notes or Request:{" "}
-              <input type="text" name="additionalNotes" />
-            </label>
-            <label>
-              Select a Day:{" "}
-              <input
-                id="calender"
-                type="date"
-                value={appointmentsMade.date}
-                name="date"
-                min={today}
-              />
-            </label>
-            <label>
-              Select a Time:
-              <select name="timeOfApp">
-                <option value="8:00am">8:00am</option>
-                <option value="12:00pm">12:00pm</option>
-              </select>
-            </label>
-            <input
-              type="submit"
-              value="Schedule Appointment"
-              style={{ width: "15vw" }}
-            />
-          </form>
-        )}
+        {newAppointment && <Home /> }
         <h1>Up-Coming Appointments</h1>
         {appointmentArr.map((appointment, index) => {
           return (
@@ -235,12 +185,15 @@ export default function AdminPage(props) {
               <div id="appointment-container" key={index}>
                 <h4>Day: {appointment.date}</h4>
                 <p>Time: {appointment.timeOfApp}</p>
-                <p>Customer: {appointment.customerName}</p>
+                {/* <p>Customer: {appointment.customerName}</p> */}
+                <p>First Name: {appointment.firstName}</p>
+                <p>Last Name: {appointment.lastName}</p>
                 <p>Phone Number: {appointment.phoneNumber}</p>
                 <p>Email: {appointment.email}</p>
                 <p>Vehicle Make, Year, Model: {appointment.vehicleMake}</p>
                 <p>Vehicle Type: {appointment.vehicleType}</p>
                 <p>
+                <p>Services: {appointment.service}</p>
                   Appointment Made On:{" "}
                   {moment(appointment.dateAppMade).format("l")}
                 </p>

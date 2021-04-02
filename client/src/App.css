@@ -1,6 +1,6 @@
 body{
   margin:0;
- 
+  
 }
 /* Container for the whole page */
 .container{
@@ -42,7 +42,12 @@ body{
   display: flex;
   flex-direction: column;
   margin-left: 5vw;
+  text-align: left;
  
+}
+#schedule-form h5{
+  margin:7px;
+
 }
 /* App.js headspace for Detail Works VT. Might be better to move this to Home.js? */
 #app-header{
