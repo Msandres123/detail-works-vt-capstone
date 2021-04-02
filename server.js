@@ -244,12 +244,20 @@ app.use("/static", express.static(path.join(__dirname, "public")));
 
 app.get("/csv", async (req, res) => {
   const fields = ["customerName", "email", "date"];
-  let { startDate, endDate } = req.body;
-  console.log({ startDate, endDate });
+ 
+  let dates=[]
+  dates=req.query
+  console.log( 'query',req.query)
+  console.log( 'datearray',dates)
+  let startDt=dates['startDate']
+  let endDt=dates['endDate']
+  console.log( 'startdt',startDt )
+
+console.log('enddt',endDt)
   const test = await ScheduleModel.find({
     date: {
-      $gte: new Date(new Date(startDate)),
-      $lt: new Date(new Date(endDate)),
+      $gte: startDt,
+      $lt: endDt,
     },
   });
 
@@ -257,7 +265,8 @@ app.get("/csv", async (req, res) => {
 
   await ScheduleModel.find(
     {
-      date: { $gte: "2021-04-01", $lte: "2021-07-01" },
+      date: {  $gte: startDt,
+        $lt: endDt,},
     },
     function (err, appointments) {
       if (err) {
@@ -287,7 +296,7 @@ app.get("/csv", async (req, res) => {
           } else {
             setTimeout(function () {
               fs.unlinkSync(filePath); // delete this file after 30 seconds
-            }, 30000);
+            }, 100000);
             return res.json(csv);
           }
         });

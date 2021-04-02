@@ -13,7 +13,8 @@ export default function AdminPage(props) {
   const [newAppointment, setNewAppointment] = useState(false);
   const [selected, setSelected] = useState("");
   const [search, setSearch] = useState("");
-  const [download, setDownload] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("")
 
   var today = new Date();
   var dd = today.getDate();
@@ -63,6 +64,7 @@ export default function AdminPage(props) {
     let target = evt.target;
     setSearch(target.value);
   }
+
   function searchQuery(evt) {
     evt.preventDefault();
     let query = `/search?${search}=${evt.target[0].value}`;
@@ -86,14 +88,19 @@ export default function AdminPage(props) {
     }
   });
   /*------------------------------------------------------------------------------------*/
+  function startChangeHandler(evt){
+    setStartDate(evt.target.value)
+  }
+  function endChangeHandler(evt){
+    setEndDate(evt.target.value)
+  }
   function Download(evt) {
     //window.location='/'
     evt.preventDefault();
-    let startDate = evt.target.value;
+    ;
     console.log(startDate);
-    let endDate = evt.target.value;
-    console.log(endDate);
-    let downloadCSV = `/csv`;
+     console.log(endDate);
+    let downloadCSV = `/csv?startDate=${startDate}&endDate=${endDate}`;
     fetch(downloadCSV)
       .then((res) => res.blob())
       .then((blob) => {
@@ -114,17 +121,21 @@ export default function AdminPage(props) {
     });
   console.log("user at admin page is", props.user);
   /*------------------------------------------------------------------------------------*/
+  
+  
+  
+  
+  
+  /*------------------------------------------------------------------------------------*/
   return props.user ? (
     <div>
       <div className="admin-container">
         <div className="admin-header">
           <form method="GET" action="/csv" onSubmit={Download}>
-            <label>
-              <input type="date" name="startDate" placeholder="From:" />
-            </label>
-            <label>
-              <input type="date" name="endDate" placeholder="To:" />
-            </label>
+            
+              <input type="date" onChange={startChangeHandler} name="startDate" placeholder="From:" />  
+              <input type="date" onChange={endChangeHandler}name="endDate" placeholder="To:" />
+           
             <button type="submit">Export as CSV</button>
           </form>
         </div>
