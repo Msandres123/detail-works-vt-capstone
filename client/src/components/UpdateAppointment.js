@@ -2,7 +2,9 @@ import React from 'react'
 import { useState } from 'react' 
 
 export default function UpdateAppointment(props) {
-    const [updateCustomerName, setUpdateCustomerName] = useState(props.appointmentMade.customerName)
+// const [updateCustomerName, setUpdateCustomerName] = useState(props.appointmentMade.customerName)
+const [updateFirstName, setUpdateFirstName] = useState(props.appointmentMade.firstName)
+const [updateLastName, setUpdateLastName] = useState(props.appointmentMade.lastName)
 const [updatePhoneNumber, setUpdatePhoneNumber] = useState(props.appointmentMade.phoneNumber)
 const [updateEmail, setUpdateEmail] = useState(props.appointmentMade.email)
 const [updateVehicleMake, setUpdateVehicleMake] = useState(props.appointmentMade.vehicleMake)
@@ -15,8 +17,8 @@ const [updateAdditionalNotes, setUpdateAdditionalNotes] = useState(props.appoint
     return (
         <div>
              <form method="POST" action={`/api/${props.appointmentMade._id}`} id="schedule-form">
-                <label>Name: <input type="text" name="customerName" value={updateCustomerName} onChange={(evt) => setUpdateCustomerName(evt.target.value)}/></label>
-          
+                <label>First Name: <input type="text" name="firstName" value={updateFirstName} onChange={(evt) => setUpdateFirstName(evt.target.value)}/></label>
+                <label>Last Name: <input type="text" name="lastName" value={updateLastName} onChange={(evt) => setUpdateLastName(evt.target.value)}/></label>
                 <label>Phone Number: <input type="text" name="phoneNumber" value={updatePhoneNumber} onChange={(evt) => setUpdatePhoneNumber(evt.target.value)}/></label>
                 <label>Email: <input type="text" name="email" value={updateEmail} onChange={(evt) => setUpdateEmail(evt.target.value)}/></label>
                 <label>Make, Year, and Model of your vehicle: <input type="text" name='vehicleMake' value={updateVehicleMake} onChange={(evt) => setUpdateVehicleMake(evt.target.value)}/>

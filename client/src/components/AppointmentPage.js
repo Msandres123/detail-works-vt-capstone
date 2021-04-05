@@ -32,11 +32,14 @@ export default function AppointmentPage(props) {
             <h2>Update or Cancel This Appointment</h2>
             <h4>Day: {appointmentMade.date}</h4>
             <p>Time: {appointmentMade.timeOfApp}</p>
-            <p>Customer: {appointmentMade.customerName}</p>
+            {/* <p>Customer: {appointmentMade.customerName}</p> */}
+            <p>First Name: {appointmentMade.firstName}</p>
+            <p>Last Name: {appointmentMade.lastName}</p>
             <p>Phone Number: {appointmentMade.phoneNumber}</p>
             <p>Email: {appointmentMade.email}</p>
             <p>Vehicle Make, Year, Model: {appointmentMade.vehicleMake}</p>
             <p>Vehicle Type: {appointmentMade.vehicleType}</p>
+            <p>Services: {appointmentMade.service}</p>
             <p>Appointment Made On:{moment(appointmentMade.dateAppMade).format('l')}</p>
             <button onClick={updateAppointmentHandler}>Update Appointment</button>
             {updateClick && <UpdateAppointment appointmentMade={appointmentMade} />}

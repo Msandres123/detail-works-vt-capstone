@@ -1,18 +1,32 @@
 import React from "react";
-//import DateTimePicker from 'react-datetime-picker'
+// import DatePicker from "react-date-picker";
 import { useState, useEffect, useRef } from "react";
+//Service Pricing Components
+import CoupePrice from "./CoupePrice";
+import HatchbackPrice from "./HatchbackPrice";
+import SuvPrice from "./SuvPrice";
 
 export default function Home() {
-  const [hatchCrossOver, setHatchCrossOver] = useState(false);
-  const [coupeSedan, setCoupeSedan] = useState(false);
-  const [suvTruckVan, setSuvTruckVan] = useState(false);
+  //Service Variables
+  const [vehicleType, setVehicleType] = useState("");
+  const [price, setPrice] = useState(0);
+  //Scheduling Variables
   const [dateOfApp, setDateOfApp] = useState("");
   const [time, setTime] = useState("");
-  const previousTime = usePrevious(time);
   const previousDate = usePrevious(dateOfApp);
   const [unavailableEight, setUnavailableEight] = useState(false);
   const [unavailableNoon, setUnavailableNoon] = useState(false);
   const [appointmentsMade, setAppointmentsMade] = useState([]);
+  const [scheduledNoon, setscheduledNoon] = useState(0);
+  const [scheduledEight, setScheduledEight] = useState(0);
+  const [blackedOut, setBlackedOut] = useState(false);
+  const [email, setEmail] = useState("")
+
+
+  //   const isWeekday = date => {
+  //     const day = getDay(date);
+  //     return day !== 0 && day !== 6;
+  //   }
   //prevents user from scheduling appointment for a date in the past
   var today = new Date();
   var dd = today.getDate();
@@ -37,11 +51,26 @@ export default function Home() {
     return ref.current;
   }
 
+  //   function noWeekends(dateString) {
+  //       console.log("I'm Hit Ked")
+  //     const day = (new Date(dateString)).getDay();
+  //     if (day === 0 || day === 6 ) {
+  //       setBlackedOut(true);
+  //     }
+  //     setBlackedOut(false);
+  //   }
+
   function dateChangeHandle(evt) {
     setDateOfApp(evt.target.value);
     setTime("");
     setUnavailableEight(false);
     setUnavailableNoon(false);
+    // noWeekends()
+  }
+
+  function vehicleChangeHandle(evt) {
+    setVehicleType(evt.target.value);
+    setPrice(0)
   }
 
   useEffect(() => {
@@ -64,12 +93,16 @@ export default function Home() {
   function blackOut() {
     let scheduleArrEight = [];
     let scheduleArrNoon = [];
+    setScheduledEight(0);
+    setscheduledNoon(0);
     appointmentArr.forEach((appointment) => {
       if (
         appointment.date === dateOfApp &&
         appointment.timeOfApp === "8:00am"
       ) {
         scheduleArrEight.push(appointment);
+        console.log("eight", scheduleArrEight);
+        setScheduledEight(scheduleArrEight.length);
         if (scheduleArrEight.length > 3) {
           setUnavailableEight(true);
         }
@@ -79,50 +112,73 @@ export default function Home() {
         appointment.timeOfApp === "12:00pm"
       ) {
         scheduleArrNoon.push(appointment);
+        console.log("noon arr", scheduleArrNoon);
+        setscheduledNoon(scheduleArrNoon.length);
+
         if (scheduleArrNoon.length > 3) {
           setUnavailableNoon(true);
         }
       }
     });
   }
+
+  function emailMatch () {
+    
+  }
+
+  console.log(vehicleType);
   return (
     <div className="home-container">
       <h1 id="app-header">Detail Works VT</h1>
       <h2 id="schedule-header">Schedule an Appointment</h2>
       <form method="POST" action="/api" id="schedule-form">
         <label>
-          Name: <br />
-          <input type="text" name="customerName" />
+          First Name: <br />
+          <input type="text" name="firstName" required />
         </label>
         <br />
-
         <label>
-          Phone Number: <br /> <input type="text" name="phoneNumber" />
+          Last Name: <br />
+          <input type="text" name="lastName" required />
+        </label>
+        <br />
+        <label>
+          Phone Number: <br /> <input type="text" name="phoneNumber" required />
         </label>
         <br />
         <label>
           Email: <br />
-          <input type="text" name="email" />
+          <input type="email" name="email" required />
+        </label>
+        <br />
+        <label>
+          Confirm Email: <br />
+          <input type="email" name="confirmEmail" required />
         </label>
         <br />
         <label>
           Make, Year, and Model of your vehicle: <br />
-          <input type="text" name="vehicleMake" />
+          <input type="text" name="vehicleMake" required />
         </label>
         <br />
         <label>
           Vehicle Type: <br />
-          <select name="vehicleType">
-            <option
-              value="coupe/sedan"
-              onClick={(evt) => setCoupeSedan(!coupeSedan)}
-            >
-              Coupe/Sedan
-            </option>
+          <select name="vehicleType" onChange={vehicleChangeHandle}>
+            <option value="select vehicle type">Select Vehicle Type</option>
+            <option value="coupe/sedan">Coupe/Sedan</option>
             <option value="hatchback/crossover">Hatchback/Crossover</option>
             <option value="suv/truck/minivan">SUV/Truck/Minivan</option>
           </select>
         </label>
+        {vehicleType === "coupe/sedan" && (
+          <CoupePrice price={price} setPrice={setPrice} />
+        )}
+        {vehicleType === "hatchback/crossover" && (
+          <HatchbackPrice price={price} setPrice={setPrice} />
+        )}
+        {vehicleType === "suv/truck/minivan" && (
+          <SuvPrice price={price} setPrice={setPrice} />
+        )}
         <br />
         <label>
           Additional Notes or Request: <br />
@@ -137,8 +193,15 @@ export default function Home() {
             name="date"
             min={today}
             onChange={(evt) => dateChangeHandle(evt)}
+            required
           />
         </label>
+        {/* <DatePicker
+        value={value}
+        name="date"
+        min={today}
+        onChange={(evt) => dateChangeHandle(evt)}
+      /> */}
         <br />
         <label>
           Select a Time: <br />
@@ -146,6 +209,7 @@ export default function Home() {
             name="timeOfApp"
             onChange={(evt) => setTime(evt.target.value)}
             value={time}
+            required
           >
             <option value="">Select A Time</option>
             <option value="8:00am" disabled={unavailableEight}>
@@ -156,7 +220,15 @@ export default function Home() {
             </option>
           </select>
         </label>
+        {dateOfApp && (
+          <h6>There are {4 - scheduledEight} appointments remaing at 8:00am</h6>
+        )}
+        {dateOfApp && (
+          <h6>There are {4 - scheduledNoon} appointments remaing at 12:00pm</h6>
+        )}
         <br />
+        {price > 0 && <h4>Your total is ${price}</h4>}
+        <input type="hidden" name="price" value={price} />
         <input
           type="submit"
           value="Schedule Appointment"

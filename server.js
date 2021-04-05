@@ -1,29 +1,33 @@
+//This import necessary for .env file to be executed
 require("dotenv").config();
 const express = require("express");
-//const request = require('request')
 
-//var cors = require("cors");
-// const request = require('request')
-const bodyParser = require("body-parser");
+//Imports required to set up the database
+//const bodyParser = require("body-parser");
 const path = require("path");
 const app = express();
 const mongoose = require("mongoose");
 mongoose.set("useCreateIndex", true);
 const port = process.env.PORT || 5000;
 const { MongoClient, ObjectId, MongoError } = require("mongodb");
-//const moment = require("moment");
 
 const nodemailer = require("nodemailer");
 const cron = require("node-cron");
 const request = require("request");
+
+//Imports required for Date format and .CSV download
 const moment = require("moment");
 const fs = require("fs");
-//const mdq = require("mongo-date-query");
 const json2csv = require("json2csv").parse;
-/*------------------------------------------------------------------------------------*/
-//middleware function
-app.use(express.static("public"));
 
+/*------------------------------------------------------------------------------------*/
+//server set-up-middleware required for set-up function
+app.use(express.static("public"));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static("./client/public"));
+app.use("/static", express.static(path.join(__dirname, "public")));
+
+//set-up to the database(local)
 mongoose.connect("mongodb://localhost:27017/schedule", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -33,25 +37,30 @@ const dateYear = new Date().getFullYear();
 const dateMonth = new Date().getMonth() + 1;
 const dateDay = new Date().getDate();
 /*------------------------------------------------------------------------------------*/
+//reference to the local database
 const tilDB = mongoose.connection;
+//// for connection error
 tilDB.on("error", console.error.bind(console, "connection error:"));
-//Journal schema for entries made through home page
+//Journal schema for entries made through home page(user-entry)
 const scheduleSchema = new mongoose.Schema({
-  customerName: String,
+  firstName: String,
+  lastName: String,
   phoneNumber: String,
   email: String,
   vehicleMake: Array,
   vehicleType: String,
+  service: Array,
   additionalNotes: String,
+  price: Number,
   date: String,
   timeOfApp: String,
   dateAppMade: { type: Date, default: Date.now },
 });
 /*------------------------------------------------------------------------------------*/
+//mongoose collection and schema is assigned to a reference model
 const ScheduleModel = mongoose.model("appointments", scheduleSchema);
 ScheduleModel.createIndexes();
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static("./client/public"));
+
 /*------------------------------------------------------------------------------------*/
 let transporter = nodemailer.createTransport({
   service: "gmail",
@@ -60,19 +69,25 @@ let transporter = nodemailer.createTransport({
     pass: process.env.PASSWORD,
   },
 });
-
+//add a single entry using the user's input
 app.post("/api", async (req, res) => {
   const newAppointment = new ScheduleModel({
-    customerName: req.body.customerName,
+    // customerName: req.body.customerName,
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
     phoneNumber: req.body.phoneNumber,
     email: req.body.email,
     vehicleMake: req.body.vehicleMake,
     vehicleType: req.body.vehicleType,
+    service: req.body.service,
+    price: req.body.price,
     additionalNotes: req.body.additionalNotes,
     date: req.body.date,
     timeOfApp: req.body.timeOfApp,
     dateAppMade: req.body.dateAppMade,
   });
+
+  //accepts new entry and stores in the db
   await newAppointment.save(function (err) {
     if (err) throw err;
   });
@@ -82,7 +97,7 @@ app.post("/api", async (req, res) => {
     from: "DWVTtest@gmail.com",
     to: req.body.email,
     subject: "Your appointment has been made.",
-    text: `Hello ${req.body.customerName} \n Your appointment on ${req.body.date} at ${req.body.timeOfApp} has been schedule with Detail Works VT. Thank You for your businnes and we look forward to seeing you. \n
+    text: `Hello ${req.body.firstName} ${req.body.lastName} \n Your appointment on ${req.body.date} at ${req.body.timeOfApp} has been schedule with Detail Works VT. Thank You for your businnes and we look forward to seeing you. \n
     Have a wonderful day \n The Staff at Detail Works VT`,
   };
 
@@ -105,7 +120,7 @@ async function queryDb() {
     results.push(entry);
   });
   results.forEach((appointment) => {
-    cron.schedule("00 00 07 * * *", () => {
+    cron.schedule("00 27 14 * * *", () => {
       let dayOfApp = appointment.date.split("-");
       let monthOf = +dayOfApp[1];
       let dayBefore = +dayOfApp[2] - 1;
@@ -115,7 +130,7 @@ async function queryDb() {
           from: "DWVTtest@gmail.com",
           to: appointment.email,
           subject: "Appointment Reminder Detail Works VT",
-          text: `Hello ${appointment.customerName} \n
+          text: `Hello ${appointment.firstName} ${appointment.lastName} \n
     Just a friendly reminder that you have an appointment with Detail Works VT tommorow ${appointment.date} at ${appointment.timeOfApp}. \n
     Have a wonderful day \n
     The Staff at Detail Works VT`,
@@ -137,7 +152,9 @@ queryDb();
 /*------------------------------------------------------------------------------------*/
 app.post("/adminapi", async (req, res) => {
   const newAppointment = new ScheduleModel({
-    customerName: req.body.customerName,
+    // customerName: req.body.customerName,
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
     phoneNumber: req.body.phoneNumber,
     email: req.body.email,
     vehicleMake: req.body.vehicleMake,
@@ -153,12 +170,17 @@ app.post("/adminapi", async (req, res) => {
   res.redirect("/admin");
 });
 /*------------------------------------------------------------------------------------*/
+//List all entries 
 app.get("/api", async (req, res) => {
+  // find all documents in the entry collection (as defined above)
   const cursor = await ScheduleModel.find({}).sort({ date: -1 });
+  // create empty array to hold our results
   let results = [];
+   // iterate over out cursor object to push each document into our array
   await cursor.forEach((entry) => {
     results.push(entry);
   });
+   // send the resulting array back as a json
   res.json(results);
 });
 /*------------------------------------------------------------------------------------*/
@@ -185,79 +207,68 @@ app.get("/filter", async (req, res) => {
 /*------------------------------------------------------------------------------------*/
 //Full text Search
 app.get("/search", async (req, res) => {
-  console.log("test search");
-  //try {
+
+ //The variable query is assigned to get the query from front-end 
   let query = req.query;
-  console.log(query);
   let key = Object.keys(query)[0];
-  console.log(key);
+  //this gives just the value of query
   let temp = query[key];
-  console.log(`search11`, query);
-  console.log(`search`, temp);
+// Full text search using the wildcard specifier,allows text search on all fields
   await ScheduleModel.createIndexes({ "$**": "text" });
+  //querying the database using the query filters
   const cursor = await ScheduleModel.find({ $text: { $search: temp } });
-  //const cursor = await ScheduleModel.find({customerName:temp});
+ 
 
-  console.log(`results`, cursor);
-  console.log("findme");
-
+  // create empty array to hold our results
   let results = [];
   await cursor.forEach((entry) => {
     results.push(entry);
   });
-  console.log("outresult", results);
+ 
+  // send the resulting array back as a json
   res.json(results);
 
-  //res.json({cursor:cursor})
-  //} catch (err) {
-  //  res.json({ message: err });
-  // }
-
-  //res.redirect("/admin");
 });
 /*------------------------------------------------------------------------------------*/
+//return a specific entry/post  data from database
 app.get(`/api/:id`, async (req, res) => {
   let result = await ScheduleModel.findOne({ _id: ObjectId(req.params.id) });
 
   res.json(result);
 });
 /*------------------------------------------------------------------------------------*/
+//edit an entry from database
 app.post("/api/:id", async (req, res) => {
   let setObj = { $set: req.body };
   const editAppointment = await ScheduleModel.updateOne(
     { _id: ObjectId(req.params.id) },
     setObj
   );
-
   res.redirect("/admin");
 });
 /*------------------------------------------------------------------------------------*/
+//delete an entry in the database
 app.post("/delete/:id", async (req, res) => {
   await ScheduleModel.deleteOne({ _id: ObjectId(req.params.id) });
-
-  res.redirect("/admin");
+res.redirect("/admin");
 });
 /*------------------------------------------------------------------------------------*/
-app.use("/static", express.static(path.join(__dirname, "public")));
-/*------------------------------------------------------------------------------------*/
-
-
+//Route to download a file from database as a .csv file
 app.get("/csv", async (req, res) => {
-  const fields = ["customerName", "email", "date"];
-  let { startDate, endDate } = req.body;
-  console.log({ startDate, endDate });
-  const test = await ScheduleModel.find({
-    date: {
-      $gte: new Date(new Date(startDate)),
-      $lt: new Date(new Date(endDate)),
-    },
-  });
-
-  console.log(`test`, test);
-
+  //the details to be downloaded from the database
+  const fields = ["firstName", "lastName", "email", "date"];
+ // create empty array to hold our results
+  let dates=[]
+  // The variable dates, gets the user-input query from the frontend and query the database and send back the result
+  dates=req.query
+ //user-inputs the date range of the information to downloaded from data base
+  let startDt=dates['startDate']
+  let endDt=dates['endDate']
+// query the database using query filters between the data range input
   await ScheduleModel.find(
     {
-      date: { $gte: "2021-04-01", $lte: "2021-07-01" },
+      date: {  $gte: startDt,
+        $lt: endDt,},
     },
     function (err, appointments) {
       if (err) {
@@ -265,13 +276,15 @@ app.get("/csv", async (req, res) => {
       } else {
         let csv;
         try {
-          csv = json2csv(appointments, { fields });
+          //download the file .csv with details extracted from the appointment collection with all the information mentioned in the fields
+          csv = json2csv(appointments, {fields});
           console.log(`download`, csv);
         } catch (err) {
           return res.status(500).json({ err });
         }
+        //date is formatted in the below format
         const dateTime = moment().format("YYYYMMDD");
-        console.log(`date`, dateTime);
+        //filepath where the file will be stored in the computer 
         const filePath = path.join(
           __dirname,
           "..",
@@ -279,15 +292,16 @@ app.get("/csv", async (req, res) => {
           "exports",
           "csv-" + dateTime + ".csv"
         );
-        // const filePath = path.join("csv-" + dateTime + ".csv")
-        console.log(`path`, filePath);
+        
         fs.writeFile(filePath, csv, function (err) {
           if (err) {
             return res.json(err).status(500);
           } else {
+            // the file exists only for a minute in the filepath mentioned and it gers deleted after the set time
             setTimeout(function () {
-              fs.unlinkSync(filePath); // delete this file after 30 seconds
-            }, 30000);
+              fs.unlinkSync(filePath); 
+            }, 100000);
+            // this is sent back to the front-end server to be downloaded with all the extracted information from database
             return res.json(csv);
           }
         });
@@ -296,6 +310,14 @@ app.get("/csv", async (req, res) => {
   );
 });
 /*------------------------------------------------------------------------------------*/
+//set up to catch all route 
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve('./client/public/index.html'))
+});
+
+
+// set up server to listen to requests at the port specified
 app.listen(port, () => {
   console.log("Listening on port", port);
 });
+//--------------------------------------------------------------------------------

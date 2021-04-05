@@ -1,17 +1,18 @@
 body{
   margin:0;
- 
+  
 }
 /* Container for the whole page */
 .container{
   position:relative;
-  height:100vh;
+  height:100%;
   width:100vw;
   background-color: darkgray;
   display:flex;
   justify-content:flex;
-  align-items:center;
+  /* align-items:center; */
   text-align: center;
+  margin: 0;
 
 }
 /* .content{
@@ -24,12 +25,21 @@ body{
   margin-top: 3vh;
 }
 
+#services-container{
+  display: flex;
+  flex-direction: column;
+}
 /* Home.js schedule block formation */
 #schedule-form{
   display: flex;
   flex-direction: column;
   margin-left: 5vw;
+  text-align: left;
  
+}
+#schedule-form h5{
+  margin:7px;
+
 }
 /* App.js headspace for Detail Works VT. Might be better to move this to Home.js? */
 #app-header{
@@ -55,9 +65,10 @@ margin-left: 4vw;
   display: flex;
   flex-direction:column;
   justify-content:flex-start;
-  height: 100vh;
+  height: 150vh;
   width: 12vw;
   background-color: gray;
+
 }
 /* This "a" appears to have a direct effect. Not fixing what isn't broke. */
 #NavBar-container a{
