@@ -15,6 +15,7 @@ export default function Home() {
   const [scheduledNoon, setscheduledNoon] = useState(0);
   const [scheduledEight, setScheduledEight] = useState(0);
   const [blackedOut, setBlackedOut] = useState(false);
+  const [email, setEmail] = useState("")
 
 
   //   const isWeekday = date => {
@@ -114,6 +115,11 @@ export default function Home() {
       }
     });
   }
+
+  function emailMatch () {
+    
+  }
+
   console.log(vehicleType);
   return (
     <div className="home-container">
