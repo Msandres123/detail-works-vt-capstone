@@ -1,21 +1,25 @@
 import React from "react";
-import DatePicker from "react-date-picker";
+// import DatePicker from "react-date-picker";
 import { useState, useEffect, useRef } from "react";
+//Service Pricing Components
+import CoupePrice from "./CoupePrice";
+import HatchbackPrice from "./HatchbackPrice";
+import SuvPrice from "./SuvPrice";
 
 export default function Home() {
+  //Service Variables
   const [vehicleType, setVehicleType] = useState("");
+  const [price, setPrice] = useState(0);
   //Scheduling Variables
   const [dateOfApp, setDateOfApp] = useState("");
   const [time, setTime] = useState("");
-  const previousTime = usePrevious(time);
   const previousDate = usePrevious(dateOfApp);
   const [unavailableEight, setUnavailableEight] = useState(false);
   const [unavailableNoon, setUnavailableNoon] = useState(false);
   const [appointmentsMade, setAppointmentsMade] = useState([]);
   const [scheduledNoon, setscheduledNoon] = useState(0);
   const [scheduledEight, setScheduledEight] = useState(0);
-  const [blackedOut, setBlackedOut] = useState(false);
-
+  // const [blackedOut, setBlackedOut] = useState(false);
 
   //   const isWeekday = date => {
   //     const day = getDay(date);
@@ -64,6 +68,7 @@ export default function Home() {
 
   function vehicleChangeHandle(evt) {
     setVehicleType(evt.target.value);
+    setPrice(0)
   }
 
   useEffect(() => {
@@ -114,7 +119,7 @@ export default function Home() {
       }
     });
   }
-  console.log(vehicleType);
+  console.log(price);
   return (
     <div className="home-container">
       <h2 id="schedule-header">Schedule an Appointment</h2>
@@ -157,289 +162,14 @@ export default function Home() {
             <option value="suv/truck/minivan">SUV/Truck/Minivan</option>
           </select>
         </label>
-
-        {vehicleType === "coupe/sedan" && <h5>Coupe/Sedan Base Services</h5>}
         {vehicleType === "coupe/sedan" && (
-          <label>
-            <input type="checkbox" name="service" value="Interior Detailing" />
-            Interior Detailing: $120
-          </label>
-        )}
-        {vehicleType === "coupe/sedan" && (
-          <label>
-            <input type="checkbox" name="service" value="Exterior Detailing" />
-            Exterior Detailing: $100
-          </label>
-        )}
-        {vehicleType === "coupe/sedan" && (
-          <label>
-            <input
-              type="checkbox"
-              name="services"
-              value="Interior/Exterior Combo Detailing"
-            />
-            Interior/Exterior Combo Detailing: $185
-          </label>
-        )}
-        {vehicleType === "coupe/sedan" && (
-          <h5>Interior Add-On Services for Coupes/Sedans:</h5>
-        )}
-        {vehicleType === "coupe/sedan" && (
-          <label>
-            <input type="checkbox" name="service" value="Machine Shampoo" />
-            Machine Shampoo: $50
-          </label>
-        )}
-        {vehicleType === "coupe/sedan" && (
-          <label>
-            <input type="checkbox" name="service" value="Pet Hair Removal" />
-            Pet Hair Removal: $50
-          </label>
-        )}
-        {vehicleType === "coupe/sedan" && (
-          <label>
-            <input type="checkbox" name="service" value="Headliner Cleaned" />
-            Headliner Cleaned: $30
-          </label>
-        )}
-        {vehicleType === "coupe/sedan" && (
-          <label>
-            <input type="checkbox" name="service" value="Major Stain Removal" />
-            Major Stain Removal: $100
-          </label>
-        )}
-        {vehicleType === "coupe/sedan" && (
-          <label>
-            <input type="checkbox" name="service" value="Deodorize" />
-            Deodorize: $30
-          </label>
-        )}
-        {vehicleType === "coupe/sedan" && (
-          <label>
-            <input type="checkbox" name="service" value="None Requested" />
-            None Requested
-          </label>
-        )}
-        {vehicleType === "coupe/sedan" && (
-          <h5>Exterior Add-Ons for Coupes/Sedans:</h5>
-        )}
-        {vehicleType === "coupe/sedan" && (
-          <label>
-            <input
-              type="checkbox"
-              name="service"
-              value="Headlight Restoration"
-            />
-            Headlight Restoration: $40
-          </label>
-        )}
-        {vehicleType === "coupe/sedan" && (
-          <label>
-            <input type="checkbox" name="service" value="Claybar Service" />
-            Claybar Service: $100
-          </label>
-        )}
-        {vehicleType === "coupe/sedan" && (
-          <label>
-            <input type="checkbox" name="service" value="Deluxe Exterior" />
-            Deluxe Exterior (Claybar/Buff/Sealant) $400
-          </label>
-        )}
-        {vehicleType === "coupe/sedan" && (
-          <label>
-            <input type="checkbox" name="service" value="None Requested" />
-            None Requested
-          </label>
+          <CoupePrice price={price} setPrice={setPrice} />
         )}
         {vehicleType === "hatchback/crossover" && (
-          <h5>Hatchback/Crossover Base Services</h5>
-        )}
-        {vehicleType === "hatchback/crossover" && (
-          <label>
-            <input type="checkbox" name="service" value="Interior Detailing" />
-            Interior Detailing: $135
-          </label>
-        )}
-        {vehicleType === "hatchback/crossover" && (
-          <label>
-            <input type="checkbox" name="service" value="Exterior Detailing" />
-            Exterior Detailing: $120
-          </label>
-        )}
-        {vehicleType === "hatchback/crossover" && (
-          <label>
-            <input
-              type="checkbox"
-              name="services"
-              value="Interior/Exterior Combo Detailing"
-            />
-            Interior/Exterior Combo Detailing: $220
-          </label>
-        )}
-        {vehicleType === "hatchback/crossover" && (
-          <h5>Interior Add-On Services for Hatchback/Crossover:</h5>
-        )}
-        {vehicleType === "hatchback/crossover" && (
-          <label>
-            <input type="checkbox" name="service" value="Machine Shampoo" />
-            Machine Shampoo: $60
-          </label>
-        )}
-        {vehicleType === "hatchback/crossover" && (
-          <label>
-            <input type="checkbox" name="service" value="Pet Hair Removal" />
-            Pet Hair Removal: $60
-          </label>
-        )}
-        {vehicleType === "hatchback/crossover" && (
-          <label>
-            <input type="checkbox" name="service" value="Headliner Cleaned" />
-            Headliner Cleaned: $30
-          </label>
-        )}
-        {vehicleType === "hatchback/crossover" && (
-          <label>
-            <input type="checkbox" name="service" value="Major Stain Removal" />
-            Major Stain Removal: $125
-          </label>
-        )}
-        {vehicleType === "hatchback/crossover" && (
-          <label>
-            <input type="checkbox" name="service" value="Deodorize" />
-            Deodorize: $30
-          </label>
-        )}
-        {vehicleType === "hatchback/crossover" && (
-          <label>
-            <input type="checkbox" name="service" value="None Requested" />
-            None Requested
-          </label>
-        )}
-        {vehicleType === "hatchback/crossover" && (
-          <h5>Exterior Add-Ons for Hatchback/Crossover:</h5>
-        )}
-        {vehicleType === "hatchback/crossover" && (
-          <label>
-            <input
-              type="checkbox"
-              name="service"
-              value="Headlight Restoration"
-            />
-            Headlight Restoration: $40
-          </label>
-        )}
-        {vehicleType === "hatchback/crossover" && (
-          <label>
-            <input type="checkbox" name="service" value="Claybar Service" />
-            Claybar Service: $125
-          </label>
-        )}
-        {vehicleType === "hatchback/crossover" && (
-          <label>
-            <input type="checkbox" name="service" value="Deluxe Exterior" />
-            Deluxe Exterior (Claybar/Buff/Sealant) $450
-          </label>
-        )}
-        {vehicleType === "hatchback/crossover" && (
-          <label>
-            <input type="checkbox" name="service" value="None Requested" />
-            None Requested
-          </label>
-        )}
-         {vehicleType === "suv/truck/minivan" && (
-          <h5>SUV/Truck/Minivan Base Services</h5>
+          <HatchbackPrice price={price} setPrice={setPrice} />
         )}
         {vehicleType === "suv/truck/minivan" && (
-          <label>
-            <input type="checkbox" name="service" value="Interior Detailing" />
-            Interior Detailing: $150
-          </label>
-        )}
-        {vehicleType === "suv/truck/minivan" && (
-          <label>
-            <input type="checkbox" name="service" value="Exterior Detailing" />
-            Exterior Detailing: $130
-          </label>
-        )}
-        {vehicleType === "suv/truck/minivan" && (
-          <label>
-            <input
-              type="checkbox"
-              name="services"
-              value="Interior/Exterior Combo Detailing"
-            />
-            Interior/Exterior Combo Detailing: $245
-          </label>
-        )}
-        {vehicleType === "suv/truck/minivan" && (
-          <h5>Interior Add-On Services for SUV/Truck/Minivan:</h5>
-        )}
-        {vehicleType === "suv/truck/minivan" && (
-          <label>
-            <input type="checkbox" name="service" value="Machine Shampoo" />
-            Machine Shampoo: $70
-          </label>
-        )}
-        {vehicleType === "suv/truck/minivan" && (
-          <label>
-            <input type="checkbox" name="service" value="Pet Hair Removal" />
-            Pet Hair Removal: $70
-          </label>
-        )}
-        {vehicleType === "suv/truck/minivan" && (
-          <label>
-            <input type="checkbox" name="service" value="Headliner Cleaned" />
-            Headliner Cleaned: $30
-          </label>
-        )}
-        {vehicleType === "suv/truck/minivan" && (
-          <label>
-            <input type="checkbox" name="service" value="Major Stain Removal" />
-            Major Stain Removal: $150
-          </label>
-        )}
-        {vehicleType === "suv/truck/minivan" && (
-          <label>
-            <input type="checkbox" name="service" value="Deodorize" />
-            Deodorize: $30
-          </label>
-        )}
-        {vehicleType === "suv/truck/minivan" && (
-          <label>
-            <input type="checkbox" name="service" value="None Requested" />
-            None Requested
-          </label>
-        )}
-        {vehicleType === "suv/truck/minivan" && (
-          <h5>Exterior Add-Ons for SUV/Truck/Minivan:</h5>
-        )}
-        {vehicleType === "suv/truck/minivan" && (
-          <label>
-            <input
-              type="checkbox"
-              name="service"
-              value="Headlight Restoration"
-            />
-            Headlight Restoration: $40
-          </label>
-        )}
-        {vehicleType === "suv/truck/minivan" && (
-          <label>
-            <input type="checkbox" name="service" value="Claybar Service" />
-            Claybar Service: $150
-          </label>
-        )}
-        {vehicleType === "suv/truck/minivan" && (
-          <label>
-            <input type="checkbox" name="service" value="Deluxe Exterior" />
-            Deluxe Exterior (Claybar/Buff/Sealant) $500
-          </label>
-        )}
-        {vehicleType === "suv/truck/minivan" && (
-          <label>
-            <input type="checkbox" name="service" value="None Requested" />
-            None Requested
-          </label>
+          <SuvPrice price={price} setPrice={setPrice} />
         )}
         <br />
         <label>
@@ -454,7 +184,6 @@ export default function Home() {
             type="date"
             name="date"
             min={today}
-            disabled={blackedOut}
             onChange={(evt) => dateChangeHandle(evt)}
             required
           />
@@ -490,6 +219,8 @@ export default function Home() {
           <h6>There are {4 - scheduledNoon} appointments remaing at 12:00pm</h6>
         )}
         <br />
+        {price > 0 && <h4>Your total is ${price}</h4>}
+        <input type="hidden" name="price" value={price} />
         <input
           type="submit"
           value="Schedule Appointment"
