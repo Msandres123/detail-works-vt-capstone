@@ -19,7 +19,9 @@ export default function Home() {
   const [appointmentsMade, setAppointmentsMade] = useState([]);
   const [scheduledNoon, setscheduledNoon] = useState(0);
   const [scheduledEight, setScheduledEight] = useState(0);
-  // const [blackedOut, setBlackedOut] = useState(false);
+  const [blackedOut, setBlackedOut] = useState(false);
+  const [email, setEmail] = useState("")
+
 
   //   const isWeekday = date => {
   //     const day = getDay(date);
@@ -119,7 +121,12 @@ export default function Home() {
       }
     });
   }
-  console.log(price);
+
+  function emailMatch () {
+    
+  }
+
+  console.log(vehicleType);
   return (
     <div className="home-container">
       <h2 id="schedule-header">Schedule an Appointment</h2>
