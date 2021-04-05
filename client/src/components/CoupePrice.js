@@ -162,7 +162,7 @@ export default function CoupePrice(props) {
       <label>
         <input
           type="checkbox"
-          name="services"
+          name="service"
           value="Interior/Exterior Combo Detailing"
           onChange={coupeIntExtCombo}
         />

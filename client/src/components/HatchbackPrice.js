@@ -160,7 +160,7 @@ export default function HatchbackPrice(props) {
       <label>
         <input
           type="checkbox"
-          name="services"
+          name="service"
           value="Interior/Exterior Combo Detailing"
           onChange={IntExtCombo}
         />

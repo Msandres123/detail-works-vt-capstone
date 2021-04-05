@@ -89,7 +89,7 @@ app.post("/api", async (req, res) => {
     from: "DWVTtest@gmail.com",
     to: req.body.email,
     subject: "Your appointment has been made.",
-    text: `Hello ${req.body.customerName} \n Your appointment on ${req.body.date} at ${req.body.timeOfApp} has been schedule with Detail Works VT. Thank You for your businnes and we look forward to seeing you. \n
+    text: `Hello ${req.body.firstName} ${req.body.lastName} \n Your appointment on ${req.body.date} at ${req.body.timeOfApp} has been schedule with Detail Works VT. Thank You for your businnes and we look forward to seeing you. \n
     Have a wonderful day \n The Staff at Detail Works VT`,
   };
 
@@ -103,7 +103,6 @@ app.post("/api", async (req, res) => {
 
   console.log(req.body.email);
   console.log(req.body.date);
-  console.log(req.body.id)
 });
 //Sends automated email reminder a day before appointment
 async function queryDb() {

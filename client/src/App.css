@@ -5,13 +5,14 @@ body{
 /* Container for the whole page */
 .container{
   position:relative;
-  height:100vh;
+  height:100%;
   width:100vw;
   background-color: darkgray;
   display:flex;
   justify-content:flex;
-  align-items:center;
+  /* align-items:center; */
   text-align: center;
+  margin: 0;
 
 }
 /* .content{
@@ -78,9 +79,10 @@ margin-left: 4vw;
   display: flex;
   flex-direction:column;
   justify-content:flex-start;
-  height: 100vh;
+  height: 150vh;
   width: 12vw;
   background-color: gray;
+
 }
 /* This "a" appears to have a direct effect. Not fixing what isn't broke. */
 #NavBar-container a{
