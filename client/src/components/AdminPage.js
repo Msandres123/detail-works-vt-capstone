@@ -1,3 +1,4 @@
+//imports from react
 import React from "react";
 import { useState, useEffect } from "react";
 import { Link, Redirect } from "react-router-dom";
@@ -44,6 +45,7 @@ export default function AdminPage(props) {
     setNewAppointment(!newAppointment);
   }
   /*------------------------------------------------------------------------------------*/
+  // Function to filter the items,the query from server and get the results
   function handleChange(evt) {
     let target = evt.target;
     setSelected(target.value);
@@ -96,19 +98,14 @@ export default function AdminPage(props) {
     setEndDate(evt.target.value)
   }
   function Download(evt) {
-    //window.location='/'
     evt.preventDefault();
-    ;
-    console.log(startDate);
-     console.log(endDate);
+    
     let downloadCSV = `/csv?startDate=${startDate}&endDate=${endDate}`;
     fetch(downloadCSV)
       .then((res) => res.blob())
       .then((blob) => {
         const url = window.URL.createObjectURL(blob);
-        console.log("urltest", url);
         let a = document.createElement("a");
-        console.log(a);
         a.href = url;
         a.download = "Appointments.csv";
         a.click();
@@ -121,12 +118,6 @@ export default function AdminPage(props) {
       appointmentArr.push(appointment);
     });
   console.log("user at admin page is", props.user);
-  /*------------------------------------------------------------------------------------*/
-  
-  
-  
-  
-  
   /*------------------------------------------------------------------------------------*/
   return props.user ? (
     <div>
