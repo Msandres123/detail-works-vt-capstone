@@ -37,6 +37,11 @@ body{
   color:white;
   margin-top: 3vh;
 }
+
+#services-container{
+  display: flex;
+  flex-direction: column;
+}
 /* Home.js schedule block formation */
 #schedule-form{
   display: flex;

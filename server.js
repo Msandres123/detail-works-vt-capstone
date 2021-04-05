@@ -45,6 +45,7 @@ const scheduleSchema = new mongoose.Schema({
   vehicleType: String,
   service: Array,
   additionalNotes: String,
+  price: Number,
   date: String,
   timeOfApp: String,
   dateAppMade: { type: Date, default: Date.now },
@@ -73,6 +74,7 @@ app.post("/api", async (req, res) => {
     vehicleMake: req.body.vehicleMake,
     vehicleType: req.body.vehicleType,
     service: req.body.service,
+    price: req.body.price,
     additionalNotes: req.body.additionalNotes,
     date: req.body.date,
     timeOfApp: req.body.timeOfApp,
@@ -101,6 +103,7 @@ app.post("/api", async (req, res) => {
 
   console.log(req.body.email);
   console.log(req.body.date);
+  console.log(req.body.id)
 });
 //Sends automated email reminder a day before appointment
 async function queryDb() {
@@ -110,7 +113,7 @@ async function queryDb() {
     results.push(entry);
   });
   results.forEach((appointment) => {
-    cron.schedule("00 00 07 * * *", () => {
+    cron.schedule("00 27 14 * * *", () => {
       let dayOfApp = appointment.date.split("-");
       let monthOf = +dayOfApp[1];
       let dayBefore = +dayOfApp[2] - 1;
@@ -120,7 +123,7 @@ async function queryDb() {
           from: "DWVTtest@gmail.com",
           to: appointment.email,
           subject: "Appointment Reminder Detail Works VT",
-          text: `Hello ${appointment.customerName} \n
+          text: `Hello ${appointment.firstName} ${appointment.lastName} \n
     Just a friendly reminder that you have an appointment with Detail Works VT tommorow ${appointment.date} at ${appointment.timeOfApp}. \n
     Have a wonderful day \n
     The Staff at Detail Works VT`,
