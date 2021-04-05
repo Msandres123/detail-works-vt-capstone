@@ -17,26 +17,13 @@ body{
 /* .content{
 } */
 /* Navbar Home */
-.container h8{
+.container h4{
   font-size:1.8rem;
   margin-left:.4rem;
   color:white;
   margin-top: 3vh;
 }
-/* Navbar Admin */
-.container h9{
-  font-size:1.8rem;
-  margin-left:.4rem;
-  color:white;
-  margin-top: 3vh;
-}
-/* Navbar Navbar Sign in. Any more tabs would be created in NavBar.js as h11, h12, etc. */
-.container h10{
-  font-size:1.8rem;
-  margin-left:.4rem;
-  color:white;
-  margin-top: 3vh;
-}
+
 /* Home.js schedule block formation */
 #schedule-form{
   display: flex;
