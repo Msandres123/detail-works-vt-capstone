@@ -262,7 +262,7 @@ res.redirect("/admin");
 //Route to download a file from database as a .csv file
 app.get("/csv", async (req, res) => {
   //the details to be downloaded from the database
-  const fields = ["firstName", "lastName", "email", "date"];
+  const fields = ["firstName", "lastName", "email", "date", "detailWorksList", "spectrumList" ];
  // create empty array to hold our results
   let dates=[]
   // The variable dates, gets the user-input query from the frontend and query the database and send back the result
