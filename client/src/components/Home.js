@@ -21,6 +21,7 @@ export default function Home() {
   const [scheduledEight, setScheduledEight] = useState(0);
   const [blackedOut, setBlackedOut] = useState(false);
   const [email, setEmail] = useState("")
+  const [matchEmail, setMatchEmail] = useState("")
 
 
   //   const isWeekday = date => {
@@ -73,6 +74,14 @@ export default function Home() {
     setPrice(0)
   }
 
+  function emailChangeHandle (evt) {
+    setEmail(evt.target.value)
+  }
+
+  function emailMatchChangeHandle (evt) {
+    setMatchEmail(evt.target.value)
+  }
+
   useEffect(() => {
     if (dateOfApp !== previousDate) {
       fetch(`/api/`)
@@ -122,9 +131,7 @@ export default function Home() {
     });
   }
 
-  function emailMatch () {
-    
-  }
+  
 
   console.log(vehicleType);
   return (
@@ -147,12 +154,12 @@ export default function Home() {
         <br />
         <label>
           Email: <br />
-          <input type="email" name="email" required />
+          <input type="email" name="email" required onChange={emailChangeHandle}/>
         </label>
         <br />
         <label>
           Confirm Email: <br />
-          <input type="email" name="confirmEmail" required />
+          <input type="email" name="confirmEmail"  required onChange={emailMatchChangeHandle} />
         </label>
         <br />
         <label><input type="checkbox" name="detailWorksList" value="yes"/>Yes, please add me to the Detail Works e-mail list!</label>
