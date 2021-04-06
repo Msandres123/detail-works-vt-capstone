@@ -6,7 +6,7 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/database";
 import moment from "moment";
-import Home from "./Home"
+import Home from "./Home";
 
 /*------------------------------------------------------------------------------------*/
 
@@ -16,7 +16,7 @@ export default function AdminPage(props) {
   const [selected, setSelected] = useState("");
   const [search, setSearch] = useState("");
   const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("")
+  const [endDate, setEndDate] = useState("");
 
   /*------------------------------------------------------------------------------------*/
   useEffect(() => {
@@ -77,15 +77,15 @@ export default function AdminPage(props) {
     }
   });
   /*------------------------------------------------------------------------------------*/
-  function startChangeHandler(evt){
-    setStartDate(evt.target.value)
+  function startChangeHandler(evt) {
+    setStartDate(evt.target.value);
   }
-  function endChangeHandler(evt){
-    setEndDate(evt.target.value)
+  function endChangeHandler(evt) {
+    setEndDate(evt.target.value);
   }
   function Download(evt) {
     evt.preventDefault();
-    
+
     let downloadCSV = `/csv?startDate=${startDate}&endDate=${endDate}`;
     fetch(downloadCSV)
       .then((res) => res.blob())
@@ -110,10 +110,19 @@ export default function AdminPage(props) {
       <div className="admin-container">
         <div className="admin-header">
           <form method="GET" action="/csv" onSubmit={Download}>
-            
-              <input type="date" onChange={startChangeHandler} name="startDate" placeholder="From:" />  
-              <input type="date" onChange={endChangeHandler}name="endDate" placeholder="To:" />
-           
+            <input
+              type="date"
+              onChange={startChangeHandler}
+              name="startDate"
+              placeholder="From:"
+            />
+            <input
+              type="date"
+              onChange={endChangeHandler}
+              name="endDate"
+              placeholder="To:"
+            />
+
             <button type="submit">Export as CSV</button>
           </form>
         </div>
@@ -154,7 +163,7 @@ export default function AdminPage(props) {
           Create New Appointment
         </button>
         <button onClick={props.logOut}>Sign Out</button>
-        {newAppointment && <Home /> }
+        {newAppointment && <Home />}
         <h1>Up-Coming Appointments</h1>
         {appointmentArr.map((appointment, index) => {
           return (
@@ -167,10 +176,13 @@ export default function AdminPage(props) {
                 <p>Last Name: {appointment.lastName}</p>
                 <p>Phone Number: {appointment.phoneNumber}</p>
                 <p>Email: {appointment.email}</p>
+                {(appointment.detailWorksList === "yes" ? <p>Singed up for Detail Works e-mail List: {appointment.detailWorksList}</p> : <p>Singed up for Detail Works e-mail List: No </p> )}
+                {( appointment.spectrumList === "yes" ? <p>Singed up for Spectrum e-mail List: {appointment.spectrumList}</p> :  <p>Singed up for Spectrum e-mail List: No </p> )}
                 <p>Vehicle Make, Year, Model: {appointment.vehicleMake}</p>
                 <p>Vehicle Type: {appointment.vehicleType}</p>
-                <p>
                 <p>Services: {appointment.service}</p>
+                <p>Price: {appointment.price}</p>
+                <p>
                   Appointment Made On:{" "}
                   {moment(appointment.dateAppMade).format("l")}
                 </p>
