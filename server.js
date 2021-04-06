@@ -27,11 +27,14 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static("./client/public"));
 app.use("/static", express.static(path.join(__dirname, "public")));
 
+const MONGODB_URI = process.env.MONGODB_URI
+
 //set-up to the database(local)
-mongoose.connect("mongodb://localhost:27017/schedule", {
+mongoose.connect( MONGODB_URI || "mongodb://localhost:27017/schedule", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
+
 /*------------------------------------------------------------------------------------*/
 const dateYear = new Date().getFullYear();
 const dateMonth = new Date().getMonth() + 1;
