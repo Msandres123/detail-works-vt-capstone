@@ -23,6 +23,14 @@ export default function Home() {
   const [email, setEmail] = useState("")
 
 
+
+
+
+
+
+
+
+
   //   const isWeekday = date => {
   //     const day = getDay(date);
   //     return day !== 0 && day !== 6;
@@ -59,6 +67,11 @@ export default function Home() {
   //     }
   //     setBlackedOut(false);
   //   }
+
+
+
+
+
 
   function dateChangeHandle(evt) {
     setDateOfApp(evt.target.value);
