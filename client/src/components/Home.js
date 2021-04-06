@@ -21,6 +21,15 @@ export default function Home() {
   const [scheduledEight, setScheduledEight] = useState(0);
   const [blackedOut, setBlackedOut] = useState(false);
   const [email, setEmail] = useState("")
+  const [matchEmail, setMatchEmail] = useState("")
+
+
+
+
+
+
+
+
 
 
   //   const isWeekday = date => {
@@ -60,6 +69,11 @@ export default function Home() {
   //     setBlackedOut(false);
   //   }
 
+
+
+
+
+
   function dateChangeHandle(evt) {
     setDateOfApp(evt.target.value);
     setTime("");
@@ -71,6 +85,14 @@ export default function Home() {
   function vehicleChangeHandle(evt) {
     setVehicleType(evt.target.value);
     setPrice(0)
+  }
+
+  function emailChangeHandle (evt) {
+    setEmail(evt.target.value)
+  }
+
+  function emailMatchChangeHandle (evt) {
+    setMatchEmail(evt.target.value)
   }
 
   useEffect(() => {
@@ -122,9 +144,7 @@ export default function Home() {
     });
   }
 
-  function emailMatch () {
-    
-  }
+  
 
   console.log(vehicleType);
   return (
@@ -157,12 +177,12 @@ Please book your appointment with Detail Works, a Spectrum Enterprise, using the
         <br />
         <label>
           Email: <br />
-          <input type="email" name="email" required />
+          <input type="email" name="email" required onChange={emailChangeHandle}/>
         </label>
         <br />
         <label>
           Confirm Email: <br />
-          <input type="email" name="confirmEmail" required />
+          <input type="email" name="confirmEmail"  required onChange={emailMatchChangeHandle} />
         </label>
         <br />
         <label><input type="checkbox" name="detailWorksList" value="yes"/>Yes, please add me to the Detail Works e-mail list!</label>
