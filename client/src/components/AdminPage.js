@@ -6,7 +6,7 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/database";
 import moment from "moment";
-import Home from "./Home"
+import Home from "./Home";
 
 /*------------------------------------------------------------------------------------*/
 
@@ -16,7 +16,7 @@ export default function AdminPage(props) {
   const [selected, setSelected] = useState("");
   const [search, setSearch] = useState("");
   const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("")
+  const [endDate, setEndDate] = useState("");
 
   /*------------------------------------------------------------------------------------*/
   useEffect(() => {
@@ -77,15 +77,15 @@ export default function AdminPage(props) {
     }
   });
   /*------------------------------------------------------------------------------------*/
-  function startChangeHandler(evt){
-    setStartDate(evt.target.value)
+  function startChangeHandler(evt) {
+    setStartDate(evt.target.value);
   }
-  function endChangeHandler(evt){
-    setEndDate(evt.target.value)
+  function endChangeHandler(evt) {
+    setEndDate(evt.target.value);
   }
   function Download(evt) {
     evt.preventDefault();
-    
+
     let downloadCSV = `/csv?startDate=${startDate}&endDate=${endDate}`;
     fetch(downloadCSV)
       .then((res) => res.blob())
@@ -109,52 +109,69 @@ export default function AdminPage(props) {
     <div>
       <div className="admin-container">
         <div className="admin-header">
-          <form method="GET" action="/csv" onSubmit={Download}>
-            
-              <input type="date" onChange={startChangeHandler} name="startDate" placeholder="From:" />  
-              <input type="date" onChange={endChangeHandler}name="endDate" placeholder="To:" />
-           
-            <button type="submit">Export as CSV</button>
-          </form>
-        </div>
-        {/*------------------------------------------------------------------------------------*/}
-        <h2>Appointment details</h2>
+          <div id="export-details">
+            <h2>Export Appointment Details</h2>
+            <form method="GET" action="/csv" onSubmit={Download}>
+              <input
+                type="date"
+                onChange={startChangeHandler}
+                name="startDate"
+                placeholder="From:"
+              />
+              <input
+                type="date"
+                onChange={endChangeHandler}
+                name="endDate"
+                placeholder="To:"
+              />
 
-        <form value={search} onChange={searchChange} onSubmit={searchQuery}>
-          <input type="text" name="search" placeholder="Search:" />
-          <button type="submit" value="Search">
-            Search
-          </button>
-        </form>
-        {/*------------------------------------------------------------------------------------*/}
-        {/* to filter the entries according to their values */}
-        <select name="selection" value={selected} onChange={handleChange}>
-          <option value="">Filter By</option>
-          <option value="serviceName">Service Name</option>
-          <option value="customerName">Customer Name</option>
-          <option value="date">Date of Appointment</option>
-        </select>
-        <div className="Filter">
-          {selected && (
-            <form id="FilterContainer" onSubmit={filter}>
-              <label>
-                <input type="text" name="filter" placeholder="Filter:" />
-              </label>
-              <input type="submit" value="Filter" />
+              <button type="submit">Export as CSV</button>
             </form>
-          )}
+          </div>
+          {/*------------------------------------------------------------------------------------*/}
+          <div id="search-container">
+            <h2>Appointment Search Filter</h2>
+
+            <form value={search} onChange={searchChange} onSubmit={searchQuery}>
+              <input type="text" name="search" placeholder="Search:" />
+              <button type="submit" value="Search">
+                Search
+              </button>
+            </form>
+            {/*------------------------------------------------------------------------------------*/}
+            {/* to filter the entries according to their values */}
+            <select name="selection" value={selected} onChange={handleChange}>
+              <option value="">Filter By</option>
+              <option value="serviceName">Service Name</option>
+              <option value="customerName">Customer Name</option>
+              <option value="date">Date of Appointment</option>
+            </select>
+            <div className="Filter">
+              {selected && (
+                <form id="FilterContainer" onSubmit={filter}>
+                  <label>
+                    <input type="text" name="filter" placeholder="Filter:" />
+                  </label>
+                  <input type="submit" value="Filter" />
+                </form>
+              )}
+            </div>
+            <Link to={"/admin"}>
+              <button
+                onClick="window.location.reload()"
+                id="remove-all-filters"
+              >
+                Remove All Filters
+              </button>
+            </Link>
+            {/*------------------------------------------------------------------------------------*/}
+            <button onClick={newAppointmentClickHandler}>
+              Create New Appointment
+            </button>
+            <button onClick={props.logOut}>Sign Out</button>
+            {newAppointment && <Home />}
+          </div>
         </div>
-        <Link to={"/admin"}>
-          <button onClick="window.location.reload()" id="remove-all-filters">
-            Remove All Filters
-          </button>
-        </Link>
-        {/*------------------------------------------------------------------------------------*/}
-        <button onClick={newAppointmentClickHandler}>
-          Create New Appointment
-        </button>
-        <button onClick={props.logOut}>Sign Out</button>
-        {newAppointment && <Home /> }
         <h1>Up-Coming Appointments</h1>
         {appointmentArr.map((appointment, index) => {
           return (
@@ -170,7 +187,7 @@ export default function AdminPage(props) {
                 <p>Vehicle Make, Year, Model: {appointment.vehicleMake}</p>
                 <p>Vehicle Type: {appointment.vehicleType}</p>
                 <p>
-                <p>Services: {appointment.service}</p>
+                  <p>Services: {appointment.service}</p>
                   Appointment Made On:{" "}
                   {moment(appointment.dateAppMade).format("l")}
                 </p>

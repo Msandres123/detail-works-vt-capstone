@@ -58,6 +58,18 @@ margin-left: 4vw;
   align-items: center;
   justify-content:center ;
 }
+/* Detail works appointment schedule header, information in a box above */
+#appointment-scheduler-container{
+  position:relative;
+  font-size:.8rem;
+  display:flex;
+  flex-direction: column;
+  text-align: left;
+  justify-content:flex-start;
+  height:27vh;
+  width:50vw;
+  background-color: darkgray;
+}
 /* NavBar.js container for the h8 and higher that ideally persists on all pages */
 #NavBar-container{
   position:relative;
@@ -91,7 +103,8 @@ margin-left: 4vw;
   border: 2px outset lightgray;
   margin-bottom: 3%;
   margin-left: 1%;
-  width: 30vw
+  width: 30vw;
+  background-color: darkgray;
 }
 /* AdminSignIn.js standalone containerless section  */
 .admin-signin{
@@ -107,15 +120,33 @@ margin-left: 4vw;
 .admin-container{
   position:relative;
   height:100vh;
-  width:100vw;
+  width:88vw;
   background-color: darkgray;
 }
 /* Admin page container */
 .admin-header{
-  height:7vh;
+  height:24vh;
   width:100vw;
   display:flex;
-  flex-direction: row;
-  justify-content: center;
-  
+}
+/* Export details block section */
+#export-details{
+  height:15vh;
+  width:35vw;
+  display:flex;
+  flex-direction: column;
+  margin-top: 1vh;
+}
+/* container for the search bars */
+#search-container{
+  height:15vh;
+  width:50vw;
+  display:flex;
+  flex-direction: column;
+}
+.admin-container h1{
+  display:flex;
+  flex-direction: column;
+  text-align: left;
+  justify-content:flex-start;
 }
