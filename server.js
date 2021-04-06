@@ -7,7 +7,7 @@ const express = require("express");
 const path = require("path");
 const app = express();
 const mongoose = require("mongoose");
-mongoose.set("useCreateIndex", true);
+//mongoose.set("useCreateIndex", true);
 const port = process.env.PORT || 5000;
 const { MongoClient, ObjectId, MongoError } = require("mongodb");
 
@@ -34,6 +34,7 @@ mongoose.connect(MONGODB_URI || "mongodb://localhost:27017/schedule", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
+
 /*------------------------------------------------------------------------------------*/
 const dateYear = new Date().getFullYear();
 const dateMonth = new Date().getMonth() + 1;
@@ -219,12 +220,13 @@ app.get("/search", async (req, res) => {
   let key = Object.keys(query)[0];
   //this gives just the value of query
   let temp = query[key];
+  console.log(temp)
 // Full text search using the wildcard specifier,allows text search on all fields
   await ScheduleModel.createIndexes({ "$**": "text" });
   //querying the database using the query filters
   const cursor = await ScheduleModel.find({ $text: { $search: temp } });
  
-
+console.log(cursor)
   // create empty array to hold our results
   let results = [];
   await cursor.forEach((entry) => {

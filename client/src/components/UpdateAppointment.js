@@ -1,13 +1,11 @@
 import React from "react";
 import { useState } from "react";
-import CoupePrice from './CoupePrice'
-import HatchbackPrice from './HatchbackPrice'
-import SuvPrice from './SuvPrice'
-
+import CoupePrice from "./CoupePrice";
+import HatchbackPrice from "./HatchbackPrice";
+import SuvPrice from "./SuvPrice";
 
 export default function UpdateAppointment(props) {
-    
-    // const [updateCustomerName, setUpdateCustomerName] = useState(props.appointmentMade.customerName)
+  // const [updateCustomerName, setUpdateCustomerName] = useState(props.appointmentMade.customerName)
   const [updateFirstName, setUpdateFirstName] = useState(
     props.appointmentMade.firstName
   );
@@ -34,9 +32,7 @@ export default function UpdateAppointment(props) {
     props.appointmentMade.additionalNotes
   );
 
-  const [price, setPrice] = useState(0)
-
-  const [services, setServices] = useState(props.appointmentMade.service)
+  const [price, setPrice] = useState(0);
 
   return (
     <div>
@@ -103,13 +99,13 @@ export default function UpdateAppointment(props) {
           </select>
         </label>
         {updateVehicleType === "coupe/sedan" && (
-          <CoupePrice price={price} setPrice={setPrice} services={services}/>
+          <CoupePrice price={price} setPrice={setPrice} />
         )}
         {updateVehicleType === "hatchback/crossover" && (
-          <HatchbackPrice price={price} setPrice={setPrice}services={services}/>
+          <HatchbackPrice price={price} setPrice={setPrice} />
         )}
         {updateVehicleType === "suv/truck/minivan" && (
-          <SuvPrice price={price} setPrice={setPrice} services={services}/>
+          <SuvPrice price={price} setPrice={setPrice} />
         )}
         <label>
           Additional Notes or Request:{" "}
@@ -140,7 +136,7 @@ export default function UpdateAppointment(props) {
             <option value="12:00pm">12:00pm</option>
           </select>
         </label>
-        <input type="hidden" name="price" value={price}/>
+        <input type="hidden" name="price" value={price} />
         <input
           type="submit"
           value="Update Appointment"
