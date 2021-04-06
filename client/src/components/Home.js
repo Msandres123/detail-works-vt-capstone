@@ -165,6 +165,9 @@ Please book your appointment with Detail Works, a Spectrum Enterprise, using the
           <input type="email" name="confirmEmail" required />
         </label>
         <br />
+        <label><input type="checkbox" name="detailWorksList" value="yes"/>Yes, please add me to the Detail Works e-mail list!</label>
+        <label><input type="checkbox" name="spectrumList" value="yes"/>Yes, please add me to the Spectrum e-mail list!</label>
+        <br/>
         <label>
           Make, Year, and Model of your vehicle: <br />
           <input type="text" name="vehicleMake" required />

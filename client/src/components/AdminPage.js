@@ -172,6 +172,17 @@ export default function AdminPage(props) {
             {newAppointment && <Home />}
           </div>
         </div>
+        <Link to={"/admin"}>
+          <button onClick="window.location.reload()" id="remove-all-filters">
+            Remove All Filters
+          </button>
+        </Link>
+        {/*------------------------------------------------------------------------------------*/}
+        <button onClick={newAppointmentClickHandler}>
+          Create New Appointment
+        </button>
+        <button onClick={props.logOut}>Sign Out</button>
+        {newAppointment && <Home />}
         <h1>Up-Coming Appointments</h1>
         {appointmentArr.map((appointment, index) => {
           return (
@@ -184,10 +195,13 @@ export default function AdminPage(props) {
                 <p>Last Name: {appointment.lastName}</p>
                 <p>Phone Number: {appointment.phoneNumber}</p>
                 <p>Email: {appointment.email}</p>
+                {(appointment.detailWorksList === "yes" ? <p>Singed up for Detail Works e-mail List: {appointment.detailWorksList}</p> : <p>Singed up for Detail Works e-mail List: No </p> )}
+                {( appointment.spectrumList === "yes" ? <p>Singed up for Spectrum e-mail List: {appointment.spectrumList}</p> :  <p>Singed up for Spectrum e-mail List: No </p> )}
                 <p>Vehicle Make, Year, Model: {appointment.vehicleMake}</p>
                 <p>Vehicle Type: {appointment.vehicleType}</p>
+                <p>Services: {appointment.service}</p>
+                <p>Price: {appointment.price}</p>
                 <p>
-                  <p>Services: {appointment.service}</p>
                   Appointment Made On:{" "}
                   {moment(appointment.dateAppMade).format("l")}
                 </p>

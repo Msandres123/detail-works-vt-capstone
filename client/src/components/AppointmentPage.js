@@ -30,6 +30,7 @@ export default function AppointmentPage(props) {
     return (
         <div>
             <h2>Update or Cancel This Appointment</h2>
+            <div id="appointment-container" >
             <h4>Day: {appointmentMade.date}</h4>
             <p>Time: {appointmentMade.timeOfApp}</p>
             {/* <p>Customer: {appointmentMade.customerName}</p> */}
@@ -45,6 +46,7 @@ export default function AppointmentPage(props) {
             {updateClick && <UpdateAppointment appointmentMade={appointmentMade} />}
             <button onClick={cancelClickHandler}>Cancel Appointment</button>
             {cancelClick && <Cancel appointmentMade={appointmentMade} cancelClickHandler={cancelClickHandler} />} 
+            </div>
         </div>
     )
 }
