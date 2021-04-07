@@ -44,7 +44,7 @@ const dateDay = new Date().getDate();
 const tilDB = mongoose.connection;
 //// for connection error
 tilDB.on("error", console.error.bind(console, "connection error:"));
-//Journal schema for entries made through home page(user-entry)
+//Schedule schema for entries made through home page(user-entry)
 const scheduleSchema = new mongoose.Schema({
   firstName: String,
   lastName: String,
@@ -180,7 +180,7 @@ app.post("/adminapi", async (req, res) => {
 //List all entries 
 app.get("/api", async (req, res) => {
   // find all documents in the entry collection (as defined above)
-  const cursor = await ScheduleModel.find({}).sort({ date: -1 });
+  const cursor = await ScheduleModel.find({}).sort({ date: 1 });
   // create empty array to hold our results
   let results = [];
    // iterate over out cursor object to push each document into our array
@@ -264,7 +264,7 @@ res.redirect("/admin");
 //Route to download a file from database as a .csv file
 app.get("/csv", async (req, res) => {
   //the details to be downloaded from the database
-  const fields = ["firstName", "lastName", "email", "date"];
+  const fields = ["firstName", "lastName", "email", "date", "detailWorksList", "spectrumList" ];
  // create empty array to hold our results
   let dates=[]
   // The variable dates, gets the user-input query from the frontend and query the database and send back the result
