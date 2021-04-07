@@ -1,98 +1,92 @@
-body{
-  margin:0;
-  
+body {
+  margin: 0;
 }
 /* Container for the whole page */
-.container{
-  position:relative;
-  height:100%;
-  width:100vw;
+.container {
+  position: relative;
+  height: 100%;
+  width: 100vw;
   background-color: darkgray;
-  display:flex;
-  justify-content:flex;
+  display: flex;
+  justify-content: flex;
   /* align-items:center; */
   text-align: center;
   margin: 0;
-
 }
 /* .content{
 } */
 /* Navbar Home */
-.container h4{
-  font-size:1.8rem;
-  margin-left:.4rem;
-  color:white;
+.container h4 {
+  font-size: 1.8rem;
+  margin-left: 0.4rem;
+  color: white;
   margin-top: 3vh;
 }
 
-#services-container{
+#services-container {
   display: flex;
   flex-direction: column;
 }
 /* Home.js schedule block formation */
-#schedule-form{
+#schedule-form {
   display: flex;
   flex-direction: column;
   margin-left: 5vw;
   text-align: left;
- 
 }
-#schedule-form h5{
-  margin:7px;
-
+#schedule-form h5 {
+  margin: 7px;
 }
 /* App.js headspace for Detail Works VT. Might be better to move this to Home.js? */
-#app-header{
+#app-header {
   font-size: 4rem;
-  display:flex;
+  display: flex;
   align-items: center;
   justify-content: center;
-margin-left: 4vw;
-  
+  margin-left: 4vw;
 }
 /* Home.js. Container for the home page */
-.home-container{
-  position:relative;
+.home-container {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content:center ;
+  justify-content: center;
 }
 /* Detail works appointment schedule header, information in a box above */
-#appointment-scheduler-container{
-  position:relative;
-  font-size:.8rem;
-  display:flex;
+#appointment-scheduler-container {
+  position: relative;
+  font-size: 0.8rem;
+  display: flex;
   flex-direction: column;
   text-align: left;
-  justify-content:flex-start;
-  height:27vh;
-  width:50vw;
+  justify-content: flex-start;
+  height: 27vh;
+  width: 50vw;
   background-color: darkgray;
 }
 /* NavBar.js container for the h8 and higher that ideally persists on all pages */
-#NavBar-container{
-  position:relative;
-  font-size:1.2rem;
+#NavBar-container {
+  position: relative;
+  font-size: 1.2rem;
   display: flex;
-  flex-direction:column;
-  justify-content:flex-start;
+  flex-direction: column;
+  justify-content: flex-start;
   height: 150vh;
   width: 12vw;
   background-color: gray;
-
 }
 /* This "a" appears to have a direct effect. Not fixing what isn't broke. */
-#NavBar-container a{
+#NavBar-container a {
   text-decoration: none;
   color: black;
 }
 /* Standalone h2 header that exists entirely within home.js inside .home-container */
-#schedule-header{
+#schedule-header {
   margin-left: 5vw;
 }
 /* Cancel.js standalone button, no container (yet) */
-#cancel-button-container{
+#cancel-button-container {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -107,50 +101,48 @@ margin-left: 4vw;
   background-color: darkgray;
 }
 /* AdminSignIn.js standalone containerless section  */
-.admin-signin{
-  height:30vh;
-  width:60vw;
+.admin-signin {
+  height: 30vh;
+  width: 60vw;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content:center;
-
+  justify-content: center;
 }
 
 /* Update appointment container */
 
-
 /* AdminPage.js Admin container */
-.admin-container{
-  position:relative;
-  height:100vh;
-  width:88vw;
+.admin-container {
+  position: relative;
+  height: 100vh;
+  width: 88vw;
   background-color: darkgray;
 }
 /* Admin page container */
-.admin-header{
-  height:24vh;
-  width:100vw;
-  display:flex;
+.admin-header {
+  height: 24vh;
+  width: 100vw;
+  display: flex;
 }
 /* Export details block section */
-#export-details{
-  height:15vh;
-  width:35vw;
-  display:flex;
+#export-details {
+  height: 15vh;
+  width: 35vw;
+  display: flex;
   flex-direction: column;
   margin-top: 1vh;
 }
 /* container for the search bars */
-#search-container{
-  height:15vh;
-  width:50vw;
-  display:flex;
+#search-container {
+  height: 15vh;
+  width: 50vw;
+  display: flex;
   flex-direction: column;
 }
-.admin-container h1{
-  display:flex;
+.admin-container h1 {
+  display: flex;
   flex-direction: column;
   text-align: left;
-  justify-content:flex-start;
+  justify-content: flex-start;
 }
