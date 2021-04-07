@@ -42,7 +42,7 @@ const dateDay = new Date().getDate();
 const tilDB = mongoose.connection;
 //// for connection error
 tilDB.on("error", console.error.bind(console, "connection error:"));
-//Journal schema for entries made through home page(user-entry)
+//Schedule schema for entries made through home page(user-entry)
 const scheduleSchema = new mongoose.Schema({
   firstName: String,
   lastName: String,
@@ -178,7 +178,7 @@ app.post("/adminapi", async (req, res) => {
 //List all entries 
 app.get("/api", async (req, res) => {
   // find all documents in the entry collection (as defined above)
-  const cursor = await ScheduleModel.find({}).sort({ date: -1 });
+  const cursor = await ScheduleModel.find({}).sort({ date: 1 });
   // create empty array to hold our results
   let results = [];
    // iterate over out cursor object to push each document into our array
