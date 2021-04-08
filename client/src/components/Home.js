@@ -105,7 +105,7 @@ export default function Home() {
     setscheduledNoon(0);
     appointmentArr.forEach((appointment) => {
       if (
-        appointment.date === dateOfApp &&
+        appointment.appointmentDate === dateOfApp &&
         appointment.timeOfApp === "8:00am"
       ) {
         scheduleArrEight.push(appointment);
@@ -116,7 +116,7 @@ export default function Home() {
         }
       }
       if (
-        appointment.date === dateOfApp &&
+        appointment.appointmentDate === dateOfApp &&
         appointment.timeOfApp === "12:00pm"
       ) {
         scheduleArrNoon.push(appointment);
@@ -156,95 +156,94 @@ export default function Home() {
           Comments, questions, or concerns? Give us a call! Our number is (802)
           497-2296.
         </h3>
-      </div>
-      <div>
-        <h2 id="schedule-header">Schedule an Appointment</h2>
-        <form method="POST" action="/api" id="schedule-form">
-          <label>
-            First Name: <br />
-            <input type="text" name="firstName" required />
-          </label>
-          <br />
-          <label>
-            Last Name: <br />
-            <input type="text" name="lastName" required />
-          </label>
-          <br />
-          <label>
-            Phone Number: <br />{" "}
-            <input type="text" name="phoneNumber" required />
-          </label>
-          <br />
-          <label>
-            Email: <br />
-            <input
-              type="email"
-              name="email"
-              required
-              onChange={emailChangeHandle}
-            />
-          </label>
-          <br />
-          <label>
-            Confirm Email: <br />
-            <input
-              type="email"
-              name="confirmEmail"
-              required
-              onChange={emailMatchChangeHandle}
-            />
-          </label>
-          <br />
-          <label>
-            <input type="checkbox" name="detailWorksList" value="yes" />
-            Yes, please add me to the Detail Works e-mail list!
-          </label>
-          <label>
-            <input type="checkbox" name="spectrumList" value="yes" />
-            Yes, please add me to the Spectrum e-mail list!
-          </label>
-          <br />
-          <label>
-            Make, Year, and Model of your vehicle: <br />
-            <input type="text" name="vehicleMake" required />
-          </label>
-          <br />
-          <label>
-            Vehicle Type: <br />
-            <select name="vehicleType" onChange={vehicleChangeHandle}>
-              <option value="select vehicle type">Select Vehicle Type</option>
-              <option value="coupe/sedan">Coupe/Sedan</option>
-              <option value="hatchback/crossover">Hatchback/Crossover</option>
-              <option value="suv/truck/minivan">SUV/Truck/Minivan</option>
-            </select>
-          </label>
-          {vehicleType === "coupe/sedan" && (
-            <CoupePrice price={price} setPrice={setPrice} />
-          )}
-          {vehicleType === "hatchback/crossover" && (
-            <HatchbackPrice price={price} setPrice={setPrice} />
-          )}
-          {vehicleType === "suv/truck/minivan" && (
-            <SuvPrice price={price} setPrice={setPrice} />
-          )}
-          <br />
-          <label>
-            Additional Notes or Request: <br />
-            <input type="text" name="additionalNotes" />
-          </label>
-          <br />
-          <label>
-            Select a Day: <br />
-            <input
-              id="calender"
-              type="date"
-              name="date"
-              min={today}
-              onChange={(evt) => dateChangeHandle(evt)}
-              required
-            />
-          </label>
-          {/* <DatePicker
+      </h3>
+      <h2 id="schedule-header">Schedule an Appointment</h2>
+      <form method="POST" action="/api" id="schedule-form">
+        <label>
+          First Name: <br />
+          <input type="text" name="firstName" required />
+        </label>
+        <br />
+        <label>
+          Last Name: <br />
+          <input type="text" name="lastName" required />
+        </label>
+        <br />
+        <label>
+          Phone Number: <br /> <input type="text" name="phoneNumber" required />
+        </label>
+        <br />
+        <label>
+          Email: <br />
+          <input
+            type="email"
+            name="email"
+            required
+            onChange={emailChangeHandle}
+          />
+        </label>
+        <br />
+        <label>
+          Confirm Email: <br />
+          <input
+            type="email"
+            name="confirmEmail"
+            required
+            onChange={emailMatchChangeHandle}
+          />
+        </label>
+        {email !== matchEmail && <div id="email-match">Emails Must Match</div>}
+        <br />
+        <label>
+          <input type="checkbox" name="detailWorksList" value="yes" />
+          Yes, please add me to the Detail Works e-mail list!
+        </label>
+        <label>
+          <input type="checkbox" name="spectrumList" value="yes" />
+          Yes, please add me to the Spectrum e-mail list!
+        </label>
+        <br />
+        <label>
+          Make, Year, and Model of your vehicle: <br />
+          <input type="text" name="vehicleMake" required />
+        </label>
+        <br />
+        <label>
+          Vehicle Type: <br />
+          <select name="vehicleType" onChange={vehicleChangeHandle}>
+            <option value="select vehicle type">Select Vehicle Type</option>
+            <option value="coupe/sedan">Coupe/Sedan</option>
+            <option value="hatchback/crossover">Hatchback/Crossover</option>
+            <option value="suv/truck/minivan">SUV/Truck/Minivan</option>
+          </select>
+        </label>
+        {vehicleType === "coupe/sedan" && (
+          <CoupePrice price={price} setPrice={setPrice} />
+        )}
+        {vehicleType === "hatchback/crossover" && (
+          <HatchbackPrice price={price} setPrice={setPrice} />
+        )}
+        {vehicleType === "suv/truck/minivan" && (
+          <SuvPrice price={price} setPrice={setPrice} />
+        )}
+        <br />
+        <label>
+          Additional Notes or Request: <br />
+          <input type="text" name="additionalNotes" />
+        </label>
+        <br />
+        <label>
+          Select a Day: <br />
+          <input
+            id="calender"
+            type="date"
+            name="appointmentDate"
+            min={today}
+            onChange={(evt) => dateChangeHandle(evt)}
+            required
+          />
+        </label>
+        {/* <DatePicker
         value={value}
         name="date"
         min={today}

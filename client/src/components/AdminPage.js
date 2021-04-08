@@ -7,6 +7,7 @@ import "firebase/auth";
 import "firebase/database";
 import moment from "moment";
 import Home from "./Home";
+const json2csv = require("json2csv").parse
 
 /*------------------------------------------------------------------------------------*/
 
@@ -85,12 +86,21 @@ export default function AdminPage(props) {
   }
   function Download(evt) {
     evt.preventDefault();
+let fields = ["firstName", "lastName", "email", "appointmentDate", "detailWorksList", "spectrumList" ]
 
-    let downloadCSV = `/csv?startDate=${startDate}&endDate=${endDate}`;
+let downloadCSV = `/csv?startDate=${startDate}&endDate=${endDate}`;
     fetch(downloadCSV)
-      .then((res) => res.blob())
-      .then((blob) => {
-        const url = window.URL.createObjectURL(blob);
+      .then((res)  => res.json())
+      .then((appointmentList)=>{
+        
+        //convert the data fetched as csv
+       let csv = json2csv(appointmentList, {fields})
+       //.csv cannot be sent directly as a file to be downloaded , so here we are converting csv to a file 
+       let contentType = 'text/csv';
+       let csvFile = new Blob([csv], {type: contentType});
+      
+       //creating a URL to download the file with all the required fields fetched from the database 
+       const url = window.URL.createObjectURL(csvFile);
         let a = document.createElement("a");
         a.href = url;
         a.download = "Appointments.csv";
@@ -179,7 +189,7 @@ export default function AdminPage(props) {
           return (
             <div>
               <div id="appointment-container" key={index}>
-                <h4>Day: {appointment.date}</h4>
+                <h4>Day: {appointment.appointmentDate}</h4>
                 <p>Time: {appointment.timeOfApp}</p>
                 {/* <p>Customer: {appointment.customerName}</p> */}
                 <p>First Name: {appointment.firstName}</p>
