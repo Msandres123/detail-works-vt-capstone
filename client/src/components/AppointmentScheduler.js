@@ -6,7 +6,7 @@ import CoupePrice from "./CoupePrice";
 import HatchbackPrice from "./HatchbackPrice";
 import SuvPrice from "./SuvPrice";
 
-export default function Home() {
+export default function AppointmentScheduler() {
   //Service Variables
   const [vehicleType, setVehicleType] = useState("");
   const [price, setPrice] = useState(0);
@@ -146,7 +146,7 @@ export default function Home() {
         </label>
         <br />
         <label>
-          Phone Number: <br /> <input type="text" name="phoneNumber" required />
+          Phone Number (###-###-####): <br /> <input type="tel" name="phoneNumber" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required />
         </label>
         <br />
         <label>

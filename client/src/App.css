@@ -1,5 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Questrial&display=swap');
 body {
-  margin: 0;
+  margin-bottom: 5vh;
+  background-color: darkgray;
+  font-family: 'Questrial', sans-serif;
 }
 /* Container for the whole page */
 .container {
@@ -39,18 +42,16 @@ body {
 }
 /* App.js headspace for Detail Works VT. Might be better to move this to Home.js? */
 #app-header {
-  font-size: 2rem;
+  /* font-size: 2rem; */
   display: flex;
   align-items: center;
   justify-content: center;
 }
 /* Home.js. Container for the home page */
 .home-container {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  text-align: left;
+  margin-right: 25vw;
+  margin-left: 5vw;
 }
 /* Detail works appointment schedule header, information in a box above */
 #appointment-scheduler-container {
@@ -60,12 +61,10 @@ body {
   text-align: left;
   justify-content: flex-start;
   height: 27vh;
-  width: 45vw;
+  
   background-color: darkgray;
 }
-h3{
-  font-size: .7rem;
-}
+
 /* NavBar.js container for the h8 and higher that ideally persists on all pages */
 #NavBar-container {
   position: relative;
@@ -84,7 +83,7 @@ h3{
 }
 /* Standalone h2 header that exists entirely within home.js inside .home-container */
 #schedule-header {
-  /* margin-top: 20vh; */
+  margin-left: 5vw;
 }
 /* Cancel.js standalone button, no container (yet) */
 #cancel-button-container {
@@ -93,6 +92,12 @@ h3{
   justify-content: center;
 }
 /* AdminPage.js container for the box that appointments currently exist in */
+
+#appointment-page-container{
+  display: flex;
+  flex-direction: row;
+}
+
 #appointment-container {
   /* box-shadow: 0 0 5px gray; */
   border: 2px outset lightgray;
@@ -103,12 +108,16 @@ h3{
 }
 /* AdminSignIn.js standalone containerless section  */
 .admin-signin {
-  height: 30vh;
-  width: 60vw;
+  /* height: 30vh;
+  width: 60vw; */
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  flex-direction: row;
+  /* align-items: center;
+  justify-content: center; */
+}
+
+#signin-form {
+  margin-left: 5vw;
 }
 
 /* Update appointment container */
@@ -116,15 +125,19 @@ h3{
 /* AdminPage.js Admin container */
 .admin-container {
   position: relative;
+  display: flex;
+  flex-direction: column;
   height: 100vh;
   width: 88vw;
   background-color: darkgray;
 }
 /* Admin page container */
 .admin-header {
-  height: 24vh;
-  width: 100vw;
+  /* height: 24vh;
+  width: 100vw; */
   display: flex;
+  flex-direction: row;
+  padding-bottom: 15vh;
 }
 /* Export details block section */
 #export-details {
@@ -142,6 +155,26 @@ h3{
   align-items: center;
   flex-direction: column;
 }
+
+#admin-buttons-container {
+  display: flex;
+  flex-direction: column;
+}
+
+#admin-scheduler-container{
+  padding-bottom: 125vh;
+}
+
+#Filter {
+  display: flex;
+  flex-direction: row;
+}
+
+#admin-page {
+  display: flex;
+  flex-direction: row;
+}
+
 .admin-container h1 {
   display: flex;
   flex-direction: column;
