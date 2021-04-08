@@ -4,7 +4,6 @@ import { useState, useEffect, useRef } from "react";
 //Service Pricing Components
 import AppointmentScheduler from "./AppointmentScheduler"
 
-
 export default function Home() {
   
   return (
