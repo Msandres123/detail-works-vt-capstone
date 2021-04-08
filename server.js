@@ -142,7 +142,7 @@ async function queryDb() {
         };
         return transporter.sendMail(mailReminder, (err, data) => {
           if (err) {
-            console.log("error occured");
+            console.log("error occurred");
             return;
           } else {
             console.log("success on reminder");
