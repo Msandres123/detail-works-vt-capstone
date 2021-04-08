@@ -63,6 +63,7 @@ body {
   height: 27vh;
   
   background-color: darkgray;
+  
 }
 
 /* NavBar.js container for the h8 and higher that ideally persists on all pages */
@@ -185,5 +186,37 @@ body {
 #email-match {
   color: white;
   background-color: red;
-  width: 40%;
+  width: 12%;
 }
+
+#form-name {
+  display:flex;
+  flex-direction: row;
+}
+
+.first-name {
+  margin-right: 5px;
+}
+
+#date-time {
+  display:flex;
+  flex-direction: row;
+}
+
+#day {
+  margin-right: 5px
+}
+
+#email-form {
+  display:flex;
+  flex-direction: row;
+}
+
+#email {
+  margin-right: 5px
+}
+
+.submit {
+  margin-bottom: 1%
+}
+

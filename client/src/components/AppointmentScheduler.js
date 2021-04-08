@@ -81,6 +81,11 @@ export default function AppointmentScheduler() {
     setMatchEmail(evt.target.value);
   }
 
+  function alertOnSubmit() {
+    alert("Your appointment has been successfully booked");
+    
+  }
+
   useEffect(() => {
     if (dateOfApp !== previousDate) {
       fetch(`/api/`)
@@ -130,45 +135,54 @@ export default function AppointmentScheduler() {
     });
   }
 
-  
   return (
-      <div id="appointment-scheduler-container">
+    <div id="appointment-scheduler-container">
       <h2 id="schedule-header">Schedule an Appointment</h2>
-      <form method="POST" action="/api" id="schedule-form">
-        <label>
-          First Name: <br />
-          <input type="text" name="firstName" required />
-        </label>
+      <form method="POST" action="/api" id="schedule-form" onSubmit={alertOnSubmit}>
+        <container id="form-name">
+          <span className="first-name">
+            First Name: <br />
+            <input type="text" name="firstName" required />
+          </span>
+          <span>
+            Last Name: <br />
+            <input type="text" name="lastName" required />
+          </span>
+        </container>
+
         <br />
-        <label>
-          Last Name: <br />
-          <input type="text" name="lastName" required />
-        </label>
-        <br />
-        <label>
-          Phone Number (###-###-####): <br /> <input type="tel" name="phoneNumber" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required />
-        </label>
-        <br />
-        <label>
-          Email: <br />
-          <input
-            type="email"
-            name="email"
-            required
-            onChange={emailChangeHandle}
-          />
-        </label>
-        <br />
-        <label>
-          Confirm Email: <br />
-          <input
-            type="email"
-            name="confirmEmail"
-            required
-            onChange={emailMatchChangeHandle}
-          />
-        </label>
+        <container id="email-form">
+          <span id="email">
+            Email: <br />
+            <input
+              type="email"
+              name="email"
+              required
+              onChange={emailChangeHandle}
+            />
+          </span>
+          <br />
+          <span>
+            Confirm Email: <br />
+            <input
+              type="email"
+              name="confirmEmail"
+              required
+              onChange={emailMatchChangeHandle}
+            />
+          </span>
+        </container>
         {email !== matchEmail && <div id="email-match">Emails Must Match</div>}
+        <br />
+        <label>
+          Phone Number (###-###-####): <br />{" "}
+          <input
+            type="tel"
+            name="phoneNumber"
+            pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+            required
+          />
+        </label>
         <br />
         <label>
           <input type="checkbox" name="detailWorksList" value="yes" />
@@ -208,41 +222,37 @@ export default function AppointmentScheduler() {
           <input type="text" name="additionalNotes" />
         </label>
         <br />
-        <label>
-          Select a Day: <br />
-          <input
-            id="calender"
-            type="date"
-            name="appointmentDate"
-            min={today}
-            onChange={(evt) => dateChangeHandle(evt)}
-            required
-          />
-        </label>
-        {/* <DatePicker
-        value={value}
-        name="date"
-        min={today}
-        onChange={(evt) => dateChangeHandle(evt)}
-      /> */}
-        <br />
-        <label>
-          Select a Time: <br />
-          <select
-            name="timeOfApp"
-            onChange={(evt) => setTime(evt.target.value)}
-            value={time}
-            required
-          >
-            <option value="">Select A Time</option>
-            <option value="8:00am" disabled={unavailableEight}>
-              8:00am
-            </option>
-            <option value="12:00pm" disabled={unavailableNoon}>
-              12:00pm
-            </option>
-          </select>
-        </label>
+        <container id="date-time">
+          <span id="day">
+            Select a Day: <br />
+            <input
+              id="calender"
+              type="date"
+              name="appointmentDate"
+              min={today}
+              onChange={(evt) => dateChangeHandle(evt)}
+              required
+            />
+          </span>
+          <br />
+          <span>
+            Select a Time: <br />
+            <select
+              name="timeOfApp"
+              onChange={(evt) => setTime(evt.target.value)}
+              value={time}
+              required
+            >
+              <option value="">Select A Time</option>
+              <option value="8:00am" disabled={unavailableEight}>
+                8:00am
+              </option>
+              <option value="12:00pm" disabled={unavailableNoon}>
+                12:00pm
+              </option>
+            </select>
+          </span>
+        </container>
         {dateOfApp && (
           <h6>There are {4 - scheduledEight} appointments remaing at 8:00am</h6>
         )}
@@ -253,10 +263,12 @@ export default function AppointmentScheduler() {
         {price > 0 && <h4>Your total is ${price}</h4>}
         <input type="hidden" name="price" value={price} />
         <input
+          class="submit"
           type="submit"
           value="Schedule Appointment"
           style={{ width: "15vw" }}
           disabled={email !== matchEmail}
+          
         />
       </form>
     </div>
