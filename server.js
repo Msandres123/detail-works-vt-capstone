@@ -15,8 +15,7 @@ const nodemailer = require("nodemailer");
 const cron = require("node-cron");
 const request = require("request");
 
-//Imports required for Date format and .CSV download
-//const moment = require("moment");
+
 
 /*------------------------------------------------------------------------------------*/
 //server set-up-middleware required for set-up function
