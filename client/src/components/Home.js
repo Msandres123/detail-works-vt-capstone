@@ -22,7 +22,6 @@ export default function Home() {
   const [blackedOut, setBlackedOut] = useState(false);
   const [email, setEmail] = useState("");
   const [matchEmail, setMatchEmail] = useState("");
-  const [submit, setSubmit] = useState(true);
 
   //   const isWeekday = date => {
   //     const day = getDay(date);
@@ -135,7 +134,7 @@ export default function Home() {
   return (
     <div className="home-container">
       <h1 id="app-header">Detail Works VT</h1>
-      <h3 id="appointment-scheduler-container">
+      <div id="appointment-scheduler-container">
         <h3>Detail Works Appointment Scheduler</h3>
         Please book your appointment with Detail Works, a Spectrum Enterprise,
         using the below form. We are located at 22 Avenue C, Williston, VT 05495
@@ -284,6 +283,7 @@ export default function Home() {
           disabled={email !== matchEmail}
         />
       </form>
+    </div>
     </div>
   );
 }
