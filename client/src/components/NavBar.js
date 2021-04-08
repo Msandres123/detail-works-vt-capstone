@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-export default function NavBar() {
+export default function NavBar(props) {
     return (
         <div id="NavBar-container">
             <h4>
@@ -11,6 +11,7 @@ export default function NavBar() {
             <Link to={'/admin'}>Admin</Link>
             </h4>
             <h4><Link to={'/signin'}>Log In</Link></h4>
+            <h4 onClick={props.logOut}>Sign Out</h4>
         </div>
     )
 }

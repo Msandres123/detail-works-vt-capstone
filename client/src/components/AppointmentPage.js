@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import React from "react";
+import NavBar from "./NavBar"
 import UpdateAppointment from "./UpdateAppointment";
 import Cancel from "./Cancel";
 import moment from "moment";
@@ -27,7 +28,11 @@ export default function AppointmentPage(props) {
   });
 
   return (
-    <div>
+    <div id="appointment-page-container">
+       <div>
+       <NavBar logOut={props.logOut}/>
+       </div>
+       <div>
       <h2>Update or Cancel This Appointment</h2>
       <div id="appointment-container">
         <h4>Day: {appointmentMade.appointmentDate}</h4>
@@ -52,6 +57,7 @@ export default function AppointmentPage(props) {
             cancelClickHandler={cancelClickHandler}
           />
         )}
+        </div>
       </div>
     </div>
   );

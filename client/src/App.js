@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import { Switch, Route, useHistory } from "react-router-dom";
 
 import Home from "./components/Home";
-import NavBar from "./components/NavBar";
 import AdminPage from "./components/AdminPage";
 import AppointmentPage from "./components/AppointmentPage";
 import AdminSignIn from "./components/AdminSignIn";
@@ -83,7 +82,6 @@ function App(props) {
   return (
     <div>
       <div className="container">
-        <NavBar />
         <div className="content">
 
           <Switch>
@@ -100,7 +98,7 @@ function App(props) {
             <Route
               path={"/admin/:id"}
               render={(props) => {
-                return <AppointmentPage user={user} match={props.match} />;
+                return <AppointmentPage user={user} match={props.match} logOut={logOut} />;
               }}
             />
             {/* <Route path={"/admin/:id"} component={AppointmentPage} />  */}
@@ -116,6 +114,7 @@ function App(props) {
                     emailChangeHandler={emailChangeHandler}
                     login={login}
                     passwordChange={passwordChange}
+                    logOut={logOut}
                   />
                 );
               }}

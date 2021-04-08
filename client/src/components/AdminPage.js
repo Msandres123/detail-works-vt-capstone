@@ -6,8 +6,10 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/database";
 import moment from "moment";
-import AppointmentScheduler from './AppointmentScheduler'
-const json2csv = require("json2csv").parse
+import AppointmentScheduler from "./AppointmentScheduler";
+import NavBar from "./NavBar";
+import { ParserOptions } from "@fast-csv/parse";
+const json2csv = require("json2csv").parse;
 
 /*------------------------------------------------------------------------------------*/
 
@@ -122,47 +124,23 @@ export default function AdminPage(props) {
   console.log("user at admin page is", props.user);
   /*------------------------------------------------------------------------------------*/
   return props.user ? (
-    <div>
+    <div id="admin-page">
+      <NavBar logOut={props.logOut}/>
       <div className="admin-container">
         <div className="admin-header">
-          <div id="export-details">
-            <h2>Export Appointment Details</h2>
-            <form method="GET" action="/csv" onSubmit={Download}>
-              <input
-                type="date"
-                onChange={startChangeHandler}
-                name="startDate"
-                placeholder="From:"
-              />
-              <input
-                type="date"
-                onChange={endChangeHandler}
-                name="endDate"
-                placeholder="To:"
-              />
-
-              <button type="submit">Export as CSV</button>
-            </form>
-          </div>
-          {/*------------------------------------------------------------------------------------*/}
           <div id="search-container">
             <h2>Appointment Search Filter</h2>
 
             <form value={search} onChange={searchChange} onSubmit={searchQuery}>
               <input type="text" name="search" placeholder="Search:" />
+
               <button type="submit" value="Search">
                 Search
               </button>
             </form>
             {/*------------------------------------------------------------------------------------*/}
             {/* to filter the entries according to their values */}
-            <select name="selection" value={selected} onChange={handleChange}>
-              <option value="">Filter By</option>
-              <option value="serviceName">Service Name</option>
-              <option value="customerName">Customer Name</option>
-              <option value="date">Date of Appointment</option>
-            </select>
-            <div className="Filter">
+            <div id="Filter">
               {selected && (
                 <form id="FilterContainer" onSubmit={filter}>
                   <label>
@@ -171,68 +149,105 @@ export default function AdminPage(props) {
                   <input type="submit" value="Filter" />
                 </form>
               )}
+              <select name="selection" value={selected} onChange={handleChange}>
+                <option value="">Filter By</option>
+                <option value="service">Service Name</option>
+                <option value="lastName">Last Name</option>
+                <option value="appointmentDate">Date of Appointment</option>
+              </select>
+
+              <Link to={"/admin"}>
+                <button
+                  onClick="window.location.reload()"
+                  id="remove-all-filters"
+                >
+                  Remove All Filters
+                </button>
+              </Link>
             </div>
-            <Link to={"/admin"}>
-              <button
-                onClick="window.location.reload()"
-                id="remove-all-filters"
-              >
-                Remove All Filters
-              </button>
-            </Link>
             {/*------------------------------------------------------------------------------------*/}
-            <button onClick={newAppointmentClickHandler}>
-              Create New Appointment
-            </button>
-            <button onClick={props.logOut}>Sign Out</button>
-            {newAppointment &&  <AppointmentScheduler/>}
+            <div id="export-details">
+              <h2>Export Appointment Details</h2>
+              <form method="GET" action="/csv" onSubmit={Download}>
+                <input
+                  type="date"
+                  onChange={startChangeHandler}
+                  name="startDate"
+                  placeholder="From:"
+                />
+                <input
+                  type="date"
+                  onChange={endChangeHandler}
+                  name="endDate"
+                  placeholder="To:"
+                />
+
+                <button type="submit">Export as CSV</button>
+              </form>
+            </div>
+            {/*------------------------------------------------------------------------------------*/}
+            <div id="admin-buttons-container">
+              <div>
+                <button onClick={newAppointmentClickHandler}>
+                  Create New Appointment
+                </button>
+
+                <button onClick={props.logOut}>Sign Out</button>
+              </div>
+
+              {newAppointment && (
+                <div id="admin-scheduler-container">
+                  {" "}
+                  <AppointmentScheduler />{" "}
+                </div>
+              )}
+            </div>
+
+            {/*------------------------------------------------------------------------------------*/}
+            <div id="data-container">
+              <h1>Up-Coming Appointments</h1>
+              {appointmentArr.map((appointment, index) => {
+                return (
+                  <div id="appointment-container" key={index}>
+                    <h4>Day: {appointment.appointmentDate}</h4>
+                    <p>Time: {appointment.timeOfApp}</p>
+                    <p>First Name: {appointment.firstName}</p>
+                    <p>Last Name: {appointment.lastName}</p>
+                    <p>Phone Number: {appointment.phoneNumber}</p>
+                    <p>Email: {appointment.email}</p>
+                    {appointment.detailWorksList === "yes" ? (
+                      <p>
+                        Singed up for Detail Works e-mail List:{" "}
+                        {appointment.detailWorksList}
+                      </p>
+                    ) : (
+                      <p>Singed up for Detail Works e-mail List: No </p>
+                    )}
+                    {appointment.spectrumList === "yes" ? (
+                      <p>
+                        Singed up for Spectrum e-mail List:{" "}
+                        {appointment.spectrumList}
+                      </p>
+                    ) : (
+                      <p>Singed up for Spectrum e-mail List: No </p>
+                    )}
+                    <p>Vehicle Make, Year, Model: {appointment.vehicleMake}</p>
+                    <p>Vehicle Type: {appointment.vehicleType}</p>
+                    <p>Services: {appointment.service}</p>
+                    <p>Price: {appointment.price}</p>
+                    <p>
+                      Appointment Made On:{" "}
+                      {moment(appointment.dateAppMade).format("l")}
+                    </p>
+                    <Link to={`/admin/${appointment._id}`}>
+                      <button>Update or Cancel Appointment</button>
+                    </Link>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
-        
-        {/*------------------------------------------------------------------------------------*/}
-        <h1>Up-Coming Appointments</h1>
-        {appointmentArr.map((appointment, index) => {
-          return (
-            <div>
-              <div id="appointment-container" key={index}>
-                <h4>Day: {appointment.appointmentDate}</h4>
-                <p>Time: {appointment.timeOfApp}</p>
-                {/* <p>Customer: {appointment.customerName}</p> */}
-                <p>First Name: {appointment.firstName}</p>
-                <p>Last Name: {appointment.lastName}</p>
-                <p>Phone Number: {appointment.phoneNumber}</p>
-                <p>Email: {appointment.email}</p>
-                {appointment.detailWorksList === "yes" ? (
-                  <p>
-                    Singed up for Detail Works e-mail List:{" "}
-                    {appointment.detailWorksList}
-                  </p>
-                ) : (
-                  <p>Singed up for Detail Works e-mail List: No </p>
-                )}
-                {appointment.spectrumList === "yes" ? (
-                  <p>
-                    Singed up for Spectrum e-mail List:{" "}
-                    {appointment.spectrumList}
-                  </p>
-                ) : (
-                  <p>Singed up for Spectrum e-mail List: No </p>
-                )}
-                <p>Vehicle Make, Year, Model: {appointment.vehicleMake}</p>
-                <p>Vehicle Type: {appointment.vehicleType}</p>
-                <p>Services: {appointment.service}</p>
-                <p>Price: {appointment.price}</p>
-                <p>
-                  Appointment Made On:{" "}
-                  {moment(appointment.dateAppMade).format("l")}
-                </p>
-                <Link to={`/admin/${appointment._id}`}>
-                  <button>Update or Cancel Appointment</button>
-                </Link>
-              </div>
-            </div>
-          );
-        })}
       </div>
     </div>
   ) : (
