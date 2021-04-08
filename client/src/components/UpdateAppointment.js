@@ -22,8 +22,8 @@ export default function UpdateAppointment(props) {
   const [updateVehicleType, setUpdateVehicleType] = useState(
     props.appointmentMade.vehicleType
   );
-  const [updateDateOfApp, setUpdateDateOfApp] = useState(
-    props.appointmentMade.date
+  const [updateAppointmentDate ,setUpdateAppointmentDate] = useState(
+    props.appointmentMade.appointmentDate
   );
   const [updateTimeOfApp, setUpdateTimeOfApp] = useState(
     props.appointmentMade.timeOfApp
@@ -120,9 +120,9 @@ export default function UpdateAppointment(props) {
           Select a Day:{" "}
           <input
             type="date"
-            name="date"
-            value={updateDateOfApp}
-            onChange={(evt) => setUpdateDateOfApp(evt.target.value)}
+            name="appointmentDate"
+            value={updateAppointmentDate}
+            onChange={(evt) => setUpdateAppointmentDate(evt.target.value)}
           />
         </label>
         <label>

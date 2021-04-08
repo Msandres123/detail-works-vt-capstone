@@ -119,7 +119,7 @@ export default function Home() {
     setscheduledNoon(0);
     appointmentArr.forEach((appointment) => {
       if (
-        appointment.date === dateOfApp &&
+        appointment.appointmentDate === dateOfApp &&
         appointment.timeOfApp === "8:00am"
       ) {
         scheduleArrEight.push(appointment);
@@ -130,7 +130,7 @@ export default function Home() {
         }
       }
       if (
-        appointment.date === dateOfApp &&
+        appointment.appointmentDate === dateOfApp &&
         appointment.timeOfApp === "12:00pm"
       ) {
         scheduleArrNoon.push(appointment);
@@ -222,7 +222,7 @@ Please book your appointment with Detail Works, a Spectrum Enterprise, using the
           <input
             id="calender"
             type="date"
-            name="date"
+            name="appointmentDate"
             min={today}
             onChange={(evt) => dateChangeHandle(evt)}
             required

@@ -31,7 +31,7 @@ export default function AppointmentPage(props) {
         <div>
             <h2>Update or Cancel This Appointment</h2>
             <div id="appointment-container" >
-            <h4>Day: {appointmentMade.date}</h4>
+            <h4>Day: {appointmentMade.appointmentDate}</h4>
             <p>Time: {appointmentMade.timeOfApp}</p>
             {/* <p>Customer: {appointmentMade.customerName}</p> */}
             <p>First Name: {appointmentMade.firstName}</p>

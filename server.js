@@ -55,7 +55,7 @@ const scheduleSchema = new mongoose.Schema({
   service: Array,
   additionalNotes: String,
   price: Number,
-  date: String,
+  appointmentDate:String,
   timeOfApp: String,
   dateAppMade: { type: Date, default: Date.now },
 });
@@ -87,7 +87,7 @@ app.post("/api", async (req, res) => {
     service: req.body.service,
     price: req.body.price,
     additionalNotes: req.body.additionalNotes,
-    date: req.body.date,
+    appointmentDate: req.body.appointmentDate,
     timeOfApp: req.body.timeOfApp,
     dateAppMade: req.body.dateAppMade,
   });
@@ -102,7 +102,7 @@ app.post("/api", async (req, res) => {
     from: "DWVTtest@gmail.com",
     to: req.body.email,
     subject: "Your appointment has been made.",
-    text: `Hello ${req.body.firstName} ${req.body.lastName} \n Your appointment on ${req.body.date} at ${req.body.timeOfApp} has been schedule with Detail Works VT. Thank You for your businnes and we look forward to seeing you. \n
+    text: `Hello ${req.body.firstName} ${req.body.lastName} \n Your appointment on ${req.body.appointmentDate} at ${req.body.timeOfApp} has been schedule with Detail Works VT. Thank You for your businnes and we look forward to seeing you. \n
     Have a wonderful day \n The Staff at Detail Works VT`,
   };
 
@@ -115,7 +115,7 @@ app.post("/api", async (req, res) => {
   });
 
   console.log(req.body.email);
-  console.log(req.body.date);
+  console.log(req.body.appointmentDate);
 });
 //Sends automated email reminder a day before appointment
 async function queryDb() {
@@ -126,7 +126,7 @@ async function queryDb() {
   });
   results.forEach((appointment) => {
     cron.schedule("00 27 14 * * *", () => {
-      let dayOfApp = appointment.date.split("-");
+      let dayOfApp = appointment.appointmentDate.split("-");
       let monthOf = +dayOfApp[1];
       let dayBefore = +dayOfApp[2] - 1;
       let yearOf = +dayOfApp[0];
@@ -136,7 +136,7 @@ async function queryDb() {
           to: appointment.email,
           subject: "Appointment Reminder Detail Works VT",
           text: `Hello ${appointment.firstName} ${appointment.lastName} \n
-    Just a friendly reminder that you have an appointment with Detail Works VT tommorow ${appointment.date} at ${appointment.timeOfApp}. \n
+    Just a friendly reminder that you have an appointment with Detail Works VT tomorrow ${appointment.appointmentDate} at ${appointment.timeOfApp}. \n
     Have a wonderful day \n
     The Staff at Detail Works VT`,
         };
@@ -165,7 +165,7 @@ app.post("/adminapi", async (req, res) => {
     vehicleMake: req.body.vehicleMake,
     vehicleType: req.body.vehicleType,
     additionalNotes: req.body.additionalNotes,
-    date: req.body.date,
+    appointmentDate: req.body.appointmentDate,
     timeOfApp: req.body.timeOfApp,
     dateAppMade: req.body.dateAppMade,
   });
@@ -178,7 +178,7 @@ app.post("/adminapi", async (req, res) => {
 //List all entries 
 app.get("/api", async (req, res) => {
   // find all documents in the entry collection (as defined above)
-  const cursor = await ScheduleModel.find({}).sort({ date: -1 });
+  const cursor = await ScheduleModel.find({}).sort({ appointmentDate: 1 });
   // create empty array to hold our results
   let results = [];
    // iterate over out cursor object to push each document into our array
@@ -198,7 +198,7 @@ app.get("/filter", async (req, res) => {
   let temp = filter[key];
   console.log(temp);
   const cursor = await ScheduleModel.find({ [key]: `${temp}` }).sort({
-    date: -1,
+    appointmentDate: 1,
   });
   let results = [];
 
@@ -261,8 +261,7 @@ res.redirect("/admin");
 /*------------------------------------------------------------------------------------*/
 //Route to download a file from database as a .csv file
 app.get("/csv", async (req, res) => {
-  //the details to be downloaded from the database
-  const fields = ["firstName", "lastName", "email", "date", "detailWorksList", "spectrumList" ];
+  
  // create empty array to hold our results
   let dates=[]
   // The variable dates, gets the user-input query from the frontend and query the database and send back the result
@@ -273,48 +272,20 @@ app.get("/csv", async (req, res) => {
 // query the database using query filters between the data range input
   await ScheduleModel.find(
     {
-      date: {  $gte: startDt,
+      appointmentDate: {  $gte: startDt,
         $lt: endDt,},
     },
     function (err, appointments) {
       if (err) {
         return res.status(500).json({ err });
       } else {
-        let csv;
-        try {
-          //download the file .csv with details extracted from the appointment collection with all the information mentioned in the fields
-          csv = json2csv(appointments, {fields});
-          console.log(`download`, csv);
-        } catch (err) {
-          return res.status(500).json({ err });
-        }
-        //date is formatted in the below format
-        const dateTime = moment().format("YYYYMMDD");
-        //filepath where the file will be stored in the computer 
-        const filePath = path.join(
-          __dirname,
-          "..",
-          "public",
-          "exports",
-          "csv-" + dateTime + ".csv"
-        );
-        
-        fs.writeFile(filePath, csv, function (err) {
-          if (err) {
-            return res.json(err).status(500);
-          } else {
-            // the file exists only for a minute in the filepath mentioned and it gers deleted after the set time
-            setTimeout(function () {
-              fs.unlinkSync(filePath); 
-            }, 100000);
-            // this is sent back to the front-end server to be downloaded with all the extracted information from database
-            return res.json(csv);
+         return res.json(appointments);
           }
         });
       }
-    }
+    
   );
-});
+;
 /*------------------------------------------------------------------------------------*/
 //set up to catch all route 
 app.get('*', (req, res) => {
