@@ -8,7 +8,6 @@ import "firebase/database";
 import moment from "moment";
 import AppointmentScheduler from "./AppointmentScheduler";
 import NavBar from "./NavBar";
-import { ParserOptions } from "@fast-csv/parse";
 const json2csv = require("json2csv").parse;
 
 /*------------------------------------------------------------------------------------*/
