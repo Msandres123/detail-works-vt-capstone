@@ -92,14 +92,13 @@ let downloadCSV = `/csv?startDate=${startDate}&endDate=${endDate}`;
     fetch(downloadCSV)
       .then((res)  => res.json())
       .then((appointmentList)=>{
-        console.log('adminRes',appointmentList)
+        
         //convert the data fetched as csv
        let csv = json2csv(appointmentList, {fields})
        //.csv cannot be sent directly as a file to be downloaded , so here we are converting csv to a file 
        let contentType = 'text/csv';
        let csvFile = new Blob([csv], {type: contentType});
-       console.log('admin',csv)
-       console.log('adminBLOB',csvFile)
+      
        //creating a URL to download the file with all the required fields fetched from the database 
        const url = window.URL.createObjectURL(csvFile);
         let a = document.createElement("a");

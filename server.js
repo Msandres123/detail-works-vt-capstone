@@ -16,9 +16,7 @@ const cron = require("node-cron");
 const request = require("request");
 
 //Imports required for Date format and .CSV download
-const moment = require("moment");
-const fs = require("fs");
-const json2csv = require("json2csv").parse;
+//const moment = require("moment");
 
 /*------------------------------------------------------------------------------------*/
 //server set-up-middleware required for set-up function
@@ -28,7 +26,7 @@ app.use(express.static("./client/public"));
 app.use("/static", express.static(path.join(__dirname, "public")));
 
 //set-up to the database(local)
-mongoose.connect( "mongodb://localhost:27017/schedule", {
+mongoose.connect("mongodb://localhost:27017/schedule", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -42,7 +40,7 @@ const dateDay = new Date().getDate();
 const tilDB = mongoose.connection;
 //// for connection error
 tilDB.on("error", console.error.bind(console, "connection error:"));
-//Journal schema for entries made through home page(user-entry)
+//Schedule schema for entries made through home page(user-entry)
 const scheduleSchema = new mongoose.Schema({
   firstName: String,
   lastName: String,
@@ -97,7 +95,7 @@ app.post("/api", async (req, res) => {
     if (err) throw err;
   });
   res.redirect("/");
-/*------------------------------------------------------------------------------------*/
+  /*------------------------------------------------------------------------------------*/
   let mailOptions = {
     from: "DWVTtest@gmail.com",
     to: req.body.email,
@@ -175,17 +173,17 @@ app.post("/adminapi", async (req, res) => {
   res.redirect("/admin");
 });
 /*------------------------------------------------------------------------------------*/
-//List all entries 
+//List all entries
 app.get("/api", async (req, res) => {
   // find all documents in the entry collection (as defined above)
   const cursor = await ScheduleModel.find({}).sort({ appointmentDate: 1 });
   // create empty array to hold our results
   let results = [];
-   // iterate over out cursor object to push each document into our array
+  // iterate over out cursor object to push each document into our array
   await cursor.forEach((entry) => {
     results.push(entry);
   });
-   // send the resulting array back as a json
+  // send the resulting array back as a json
   res.json(results);
 });
 /*------------------------------------------------------------------------------------*/
@@ -212,28 +210,26 @@ app.get("/filter", async (req, res) => {
 /*------------------------------------------------------------------------------------*/
 //Full text Search
 app.get("/search", async (req, res) => {
-
- //The variable query is assigned to get the query from front-end 
+  //The variable query is assigned to get the query from front-end
   let query = req.query;
   let key = Object.keys(query)[0];
   //this gives just the value of query
   let temp = query[key];
-  console.log(temp)
-// Full text search using the wildcard specifier,allows text search on all fields
+  console.log(temp);
+  // Full text search using the wildcard specifier,allows text search on all fields
   await ScheduleModel.createIndexes({ "$**": "text" });
   //querying the database using the query filters
   const cursor = await ScheduleModel.find({ $text: { $search: temp } });
- 
-console.log(cursor)
+
+  console.log(cursor);
   // create empty array to hold our results
   let results = [];
   await cursor.forEach((entry) => {
     results.push(entry);
   });
- 
+
   // send the resulting array back as a json
   res.json(results);
-
 });
 /*------------------------------------------------------------------------------------*/
 //return a specific entry/post  data from database
@@ -256,24 +252,24 @@ app.post("/api/:id", async (req, res) => {
 //delete an entry in the database
 app.post("/delete/:id", async (req, res) => {
   await ScheduleModel.deleteOne({ _id: ObjectId(req.params.id) });
-res.redirect("/admin");
+  res.redirect("/admin");
 });
 /*------------------------------------------------------------------------------------*/
 //Route to download a file from database as a .csv file
 app.get("/csv", async (req, res) => {
+  //the details to be downloaded from the database
   
- // create empty array to hold our results
-  let dates=[]
+  // create empty array to hold our results
+  let dates = [];
   // The variable dates, gets the user-input query from the frontend and query the database and send back the result
-  dates=req.query
- //user-inputs the date range of the information to downloaded from data base
-  let startDt=dates['startDate']
-  let endDt=dates['endDate']
-// query the database using query filters between the data range input
+  dates = req.query;
+  //user-inputs the date range of the information to downloaded from data base
+  let startDt = dates["startDate"];
+  let endDt = dates["endDate"];
+  // query the database using query filters between the data range input
   await ScheduleModel.find(
     {
-      appointmentDate: {  $gte: startDt,
-        $lt: endDt,},
+      appointmentDate: { $gte: startDt, $lt: endDt },
     },
     function (err, appointments) {
       if (err) {
@@ -287,11 +283,10 @@ app.get("/csv", async (req, res) => {
   );
 ;
 /*------------------------------------------------------------------------------------*/
-//set up to catch all route 
-app.get('*', (req, res) => {
-  res.sendFile(path.resolve('./client/public/index.html'))
+//set up to catch all route
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve("./client/public/index.html"));
 });
-
 
 // set up server to listen to requests at the port specified
 app.listen(port, () => {
