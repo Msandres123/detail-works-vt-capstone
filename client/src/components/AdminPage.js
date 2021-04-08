@@ -188,17 +188,8 @@ export default function AdminPage(props) {
             {newAppointment && <Home />}
           </div>
         </div>
-        <Link to={"/admin"}>
-          <button onClick="window.location.reload()" id="remove-all-filters">
-            Remove All Filters
-          </button>
-        </Link>
+        
         {/*------------------------------------------------------------------------------------*/}
-        <button onClick={newAppointmentClickHandler}>
-          Create New Appointment
-        </button>
-        <button onClick={props.logOut}>Sign Out</button>
-        {newAppointment && <Home />}
         <h1>Up-Coming Appointments</h1>
         {appointmentArr.map((appointment, index) => {
           return (

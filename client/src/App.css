@@ -39,11 +39,10 @@ body {
 }
 /* App.js headspace for Detail Works VT. Might be better to move this to Home.js? */
 #app-header {
-  font-size: 4rem;
+  font-size: 2rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-left: 4vw;
 }
 /* Home.js. Container for the home page */
 .home-container {
@@ -56,14 +55,16 @@ body {
 /* Detail works appointment schedule header, information in a box above */
 #appointment-scheduler-container {
   position: relative;
-  font-size: 0.8rem;
   display: flex;
   flex-direction: column;
   text-align: left;
   justify-content: flex-start;
   height: 27vh;
-  width: 50vw;
+  width: 45vw;
   background-color: darkgray;
+}
+h3{
+  font-size: .7rem;
 }
 /* NavBar.js container for the h8 and higher that ideally persists on all pages */
 #NavBar-container {
@@ -83,7 +84,7 @@ body {
 }
 /* Standalone h2 header that exists entirely within home.js inside .home-container */
 #schedule-header {
-  margin-left: 5vw;
+  margin-top: 20vh;
 }
 /* Cancel.js standalone button, no container (yet) */
 #cancel-button-container {
@@ -136,8 +137,9 @@ body {
 /* container for the search bars */
 #search-container {
   height: 15vh;
-  width: 50vw;
+  width: 40vw;
   display: flex;
+  align-items: center;
   flex-direction: column;
 }
 .admin-container h1 {
