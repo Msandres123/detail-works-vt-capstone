@@ -22,7 +22,7 @@ export default function Home() {
   const [blackedOut, setBlackedOut] = useState(false);
   const [email, setEmail] = useState("");
   const [matchEmail, setMatchEmail] = useState("");
-  const [submit, setSubmit] = useState(true);
+  
 
   //   const isWeekday = date => {
   //     const day = getDay(date);
