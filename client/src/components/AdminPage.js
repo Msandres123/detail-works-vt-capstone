@@ -6,7 +6,7 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/database";
 import moment from "moment";
-import Home from "./Home";
+import AppointmentScheduler from './AppointmentScheduler'
 const json2csv = require("json2csv").parse
 
 /*------------------------------------------------------------------------------------*/
@@ -179,7 +179,7 @@ let downloadCSV = `/csv?startDate=${startDate}&endDate=${endDate}`;
               Create New Appointment
             </button>
             <button onClick={props.logOut}>Sign Out</button>
-            {newAppointment && <Home />}
+            {newAppointment &&  <AppointmentScheduler/>}
           </div>
         </div>
         

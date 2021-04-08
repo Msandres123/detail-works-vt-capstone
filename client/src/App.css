@@ -84,7 +84,7 @@ h3{
 }
 /* Standalone h2 header that exists entirely within home.js inside .home-container */
 #schedule-header {
-  margin-top: 20vh;
+  /* margin-top: 20vh; */
 }
 /* Cancel.js standalone button, no container (yet) */
 #cancel-button-container {
