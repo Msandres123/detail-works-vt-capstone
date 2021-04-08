@@ -6,7 +6,7 @@ import CoupePrice from "./CoupePrice";
 import HatchbackPrice from "./HatchbackPrice";
 import SuvPrice from "./SuvPrice";
 
-export default function Home() {
+export default function AppointmentScheduler () {
   //Service Variables
   const [vehicleType, setVehicleType] = useState("");
   const [price, setPrice] = useState(0);

@@ -1,6 +1,5 @@
 import React from "react";
 // import DatePicker from "react-date-picker";
-import { useState, useEffect, useRef } from "react";
 //Service Pricing Components
 import AppointmentScheduler from "./AppointmentScheduler"
 
