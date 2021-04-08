@@ -17,7 +17,7 @@ export default function Home() {
   const [unavailableEight, setUnavailableEight] = useState(false);
   const [unavailableNoon, setUnavailableNoon] = useState(false);
   const [appointmentsMade, setAppointmentsMade] = useState([]);
-  const [scheduledNoon, setscheduledNoon] = useState(0);
+  const [scheduledNoon, setScheduledNoon] = useState(0);
   const [scheduledEight, setScheduledEight] = useState(0);
   const [blackedOut, setBlackedOut] = useState(false);
   const [email, setEmail] = useState("");
@@ -102,7 +102,7 @@ export default function Home() {
     let scheduleArrEight = [];
     let scheduleArrNoon = [];
     setScheduledEight(0);
-    setscheduledNoon(0);
+    setScheduledNoon(0);
     appointmentArr.forEach((appointment) => {
       if (
         appointment.appointmentDate === dateOfApp &&
@@ -121,7 +121,7 @@ export default function Home() {
       ) {
         scheduleArrNoon.push(appointment);
         console.log("noon arr", scheduleArrNoon);
-        setscheduledNoon(scheduleArrNoon.length);
+        setScheduledNoon(scheduleArrNoon.length);
 
         if (scheduleArrNoon.length > 3) {
           setUnavailableNoon(true);
