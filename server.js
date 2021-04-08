@@ -25,7 +25,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static("./client/public"));
 app.use("/static", express.static(path.join(__dirname, "public")));
 
-const MONGODB_URI = process.env.MONGODB_URI
+const MONGODB_URI = process.env.MONGODB_URI;
 
 //set-up to the database(local)
 mongoose.connect(MONGODB_URI || "mongodb://localhost:27017/schedule", {
@@ -55,7 +55,7 @@ const scheduleSchema = new mongoose.Schema({
   service: Array,
   additionalNotes: String,
   price: Number,
-  appointmentDate:String,
+  appointmentDate: String,
   timeOfApp: String,
   dateAppMade: { type: Date, default: Date.now },
 });
@@ -260,7 +260,7 @@ app.post("/delete/:id", async (req, res) => {
 //Route to download a file from database as a .csv file
 app.get("/csv", async (req, res) => {
   //the details to be downloaded from the database
-  
+
   // create empty array to hold our results
   let dates = [];
   // The variable dates, gets the user-input query from the frontend and query the database and send back the result
@@ -277,13 +277,11 @@ app.get("/csv", async (req, res) => {
       if (err) {
         return res.status(500).json({ err });
       } else {
-         return res.json(appointments);
-          }
-        });
+        return res.json(appointments);
       }
-    
+    }
   );
-;
+});
 /*------------------------------------------------------------------------------------*/
 //set up to catch all route
 app.get("*", (req, res) => {

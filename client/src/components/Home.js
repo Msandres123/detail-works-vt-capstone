@@ -156,7 +156,7 @@ export default function Home() {
           Comments, questions, or concerns? Give us a call! Our number is (802)
           497-2296.
         </h3>
-      </h3>
+    
       <h2 id="schedule-header">Schedule an Appointment</h2>
       <form method="POST" action="/api" id="schedule-form">
         <label>
