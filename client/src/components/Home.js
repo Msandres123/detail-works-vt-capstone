@@ -130,25 +130,20 @@ export default function Home() {
     });
   }
 
-  console.log(vehicleType);
+  
   return (
     <div className="home-container">
       <h1 id="app-header">Detail Works VT</h1>
       <div id="appointment-scheduler-container">
         <h3>Detail Works Appointment Scheduler</h3>
-
-        <p>
-          Please book your appointment with Detail Works, a Spectrum Enterprise,
-          using the below form. We are located at 22 Avenue C, Williston, VT
-          05495 in a large blue building on the corner of Avenue C and
-          Industrial Avenue.
-        </p>
-
+        Please book your appointment with Detail Works, a Spectrum Enterprise,
+        using the below form. We are located at 22 Avenue C, Williston, VT 05495
+        in a large blue building on the corner of Avenue C and Industrial
+        Avenue.
         <h3>
           PLEASE NOTE OUR DROP OFF AND PICK UP PROCEDURE HAS CHANGED DUE TO
           COVID-19.
         </h3>
-
         <h3>
           Please drop off your vehicle at 22 Avenue C, Williston VT and leave
           your keys in the overnight drop box located at the front of our
@@ -157,7 +152,6 @@ export default function Home() {
           vehicle is completed we will call you for payment and with pickup
           instructions. Early drop-offs are welcome and appreciated.
         </h3>
-
         <h3>
           Comments, questions, or concerns? Give us a call! Our number is (802)
           497-2296.
@@ -256,44 +250,41 @@ export default function Home() {
         min={today}
         onChange={(evt) => dateChangeHandle(evt)}
       /> */}
-          <br />
-          <label>
-            Select a Time: <br />
-            <select
-              name="timeOfApp"
-              onChange={(evt) => setTime(evt.target.value)}
-              value={time}
-              required
-            >
-              <option value="">Select A Time</option>
-              <option value="8:00am" disabled={unavailableEight}>
-                8:00am
-              </option>
-              <option value="12:00pm" disabled={unavailableNoon}>
-                12:00pm
-              </option>
-            </select>
-          </label>
-          {dateOfApp && (
-            <h6>
-              There are {4 - scheduledEight} appointments remaing at 8:00am
-            </h6>
-          )}
-          {dateOfApp && (
-            <h6>
-              There are {4 - scheduledNoon} appointments remaing at 12:00pm
-            </h6>
-          )}
-          <br />
-          {price > 0 && <h4>Your total is ${price}</h4>}
-          <input type="hidden" name="price" value={price} />
-          <input
-            type="submit"
-            value="Schedule Appointment"
-            style={{ width: "15vw" }}
-          />
-        </form>
-      </div>
+        <br />
+        <label>
+          Select a Time: <br />
+          <select
+            name="timeOfApp"
+            onChange={(evt) => setTime(evt.target.value)}
+            value={time}
+            required
+          >
+            <option value="">Select A Time</option>
+            <option value="8:00am" disabled={unavailableEight}>
+              8:00am
+            </option>
+            <option value="12:00pm" disabled={unavailableNoon}>
+              12:00pm
+            </option>
+          </select>
+        </label>
+        {dateOfApp && (
+          <h6>There are {4 - scheduledEight} appointments remaing at 8:00am</h6>
+        )}
+        {dateOfApp && (
+          <h6>There are {4 - scheduledNoon} appointments remaing at 12:00pm</h6>
+        )}
+        <br />
+        {price > 0 && <h4>Your total is ${price}</h4>}
+        <input type="hidden" name="price" value={price} />
+        <input
+          type="submit"
+          value="Schedule Appointment"
+          style={{ width: "15vw" }}
+          disabled={email !== matchEmail}
+        />
+      </form>
+    </div>
     </div>
   );
 }
