@@ -1,7 +1,4 @@
 import React from "react";
-// import DatePicker from "react-date-picker";
-
-//Service Pricing Components
 import AppointmentScheduler from "./AppointmentScheduler";
 
 export default function Home() {
