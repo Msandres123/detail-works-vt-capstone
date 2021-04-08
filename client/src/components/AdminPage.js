@@ -214,21 +214,21 @@ export default function AdminPage(props) {
                     <p>Last Name: {appointment.lastName}</p>
                     <p>Phone Number: {appointment.phoneNumber}</p>
                     <p>Email: {appointment.email}</p>
-                    {appointment.detailWorksList === "yes" ? (
+                    {appointment.detailWorksList === "Yes" ? (
                       <p>
-                        Singed up for Detail Works e-mail List:{" "}
+                        Signed up for Detail Works e-mail List:{" "}
                         {appointment.detailWorksList}
                       </p>
                     ) : (
-                      <p>Singed up for Detail Works e-mail List: No </p>
+                      <p>Signed up for Detail Works e-mail List: No </p>
                     )}
-                    {appointment.spectrumList === "yes" ? (
+                    {appointment.spectrumList === "Yes" ? (
                       <p>
-                        Singed up for Spectrum e-mail List:{" "}
+                        Signed up for Spectrum e-mail List:{" "}
                         {appointment.spectrumList}
                       </p>
                     ) : (
-                      <p>Singed up for Spectrum e-mail List: No </p>
+                      <p>Signed up for Spectrum e-mail List: No </p>
                     )}
                     <p>Vehicle Make, Year, Model: {appointment.vehicleMake}</p>
                     <p>Vehicle Type: {appointment.vehicleType}</p>

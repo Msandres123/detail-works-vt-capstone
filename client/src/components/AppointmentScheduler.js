@@ -185,11 +185,11 @@ export default function AppointmentScheduler() {
         </label>
         <br />
         <label>
-          <input type="checkbox" name="detailWorksList" value="yes" />
+          <input type="checkbox" name="detailWorksList" value="Yes" />
           Yes, please add me to the Detail Works e-mail list!
         </label>
         <label>
-          <input type="checkbox" name="spectrumList" value="yes" />
+          <input type="checkbox" name="spectrumList" value="Yes" />
           Yes, please add me to the Spectrum e-mail list!
         </label>
         <br />
@@ -254,10 +254,10 @@ export default function AppointmentScheduler() {
           </span>
         </container>
         {dateOfApp && (
-          <h6>There are {4 - scheduledEight} appointments remaing at 8:00am</h6>
+          <h6>There are {4 - scheduledEight} appointments remaining at 8:00am</h6>
         )}
         {dateOfApp && (
-          <h6>There are {4 - scheduledNoon} appointments remaing at 12:00pm</h6>
+          <h6>There are {4 - scheduledNoon} appointments remaining at 12:00pm</h6>
         )}
         <br />
         {price > 0 && <h4>Your total is ${price}</h4>}
