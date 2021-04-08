@@ -148,3 +148,9 @@ h3{
   text-align: left;
   justify-content: flex-start;
 }
+
+#email-match {
+  color: white;
+  background-color: red;
+  width: 40%
+}
