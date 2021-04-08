@@ -20,17 +20,9 @@ export default function Home() {
   const [scheduledNoon, setscheduledNoon] = useState(0);
   const [scheduledEight, setScheduledEight] = useState(0);
   const [blackedOut, setBlackedOut] = useState(false);
-  const [email, setEmail] = useState("")
-  const [matchEmail, setMatchEmail] = useState("")
-
-
-
-
-
-
-
-
-
+  const [email, setEmail] = useState("");
+  const [matchEmail, setMatchEmail] = useState("");
+  const [submit, setSubmit] = useState(true);
 
   //   const isWeekday = date => {
   //     const day = getDay(date);
@@ -69,11 +61,6 @@ export default function Home() {
   //     setBlackedOut(false);
   //   }
 
-
-
-
-
-
   function dateChangeHandle(evt) {
     setDateOfApp(evt.target.value);
     setTime("");
@@ -84,15 +71,15 @@ export default function Home() {
 
   function vehicleChangeHandle(evt) {
     setVehicleType(evt.target.value);
-    setPrice(0)
+    setPrice(0);
   }
 
-  function emailChangeHandle (evt) {
-    setEmail(evt.target.value)
+  function emailChangeHandle(evt) {
+    setEmail(evt.target.value);
   }
 
-  function emailMatchChangeHandle (evt) {
-    setMatchEmail(evt.target.value)
+  function emailMatchChangeHandle(evt) {
+    setMatchEmail(evt.target.value);
   }
 
   useEffect(() => {
@@ -145,20 +132,32 @@ export default function Home() {
   }
 
   
-
-  console.log(vehicleType);
   return (
     <div className="home-container">
       <h1 id="app-header">Detail Works VT</h1>
-      <h3 id="appointment-scheduler-container"><h3>Detail Works Appointment Scheduler</h3>
-
-Please book your appointment with Detail Works, a Spectrum Enterprise, using the below form. We are located at 22 Avenue C, Williston, VT 05495 in a large blue building on the corner of Avenue C and Industrial Avenue.
-
-<h3>PLEASE NOTE OUR DROP OFF AND PICK UP PROCEDURE HAS CHANGED DUE TO COVID-19.</h3>
-
-<h3>Please drop off your vehicle at 22 Avenue C, Williston VT and leave your keys in the overnight drop box located at the front of our building facing Avenue C. Once you’ve dropped your vehicle off call, text, or email us and we will retrieve your car for service. Once your vehicle is completed we will call you for payment and with pickup instructions. Early drop-offs are welcome and appreciated.</h3>
-
-<h3>Comments, questions, or concerns? Give us a call! Our number is (802) 497-2296.</h3></h3>
+      <h3 id="appointment-scheduler-container">
+        <h3>Detail Works Appointment Scheduler</h3>
+        Please book your appointment with Detail Works, a Spectrum Enterprise,
+        using the below form. We are located at 22 Avenue C, Williston, VT 05495
+        in a large blue building on the corner of Avenue C and Industrial
+        Avenue.
+        <h3>
+          PLEASE NOTE OUR DROP OFF AND PICK UP PROCEDURE HAS CHANGED DUE TO
+          COVID-19.
+        </h3>
+        <h3>
+          Please drop off your vehicle at 22 Avenue C, Williston VT and leave
+          your keys in the overnight drop box located at the front of our
+          building facing Avenue C. Once you’ve dropped your vehicle off call,
+          text, or email us and we will retrieve your car for service. Once your
+          vehicle is completed we will call you for payment and with pickup
+          instructions. Early drop-offs are welcome and appreciated.
+        </h3>
+        <h3>
+          Comments, questions, or concerns? Give us a call! Our number is (802)
+          497-2296.
+        </h3>
+      </h3>
       <h2 id="schedule-header">Schedule an Appointment</h2>
       <form method="POST" action="/api" id="schedule-form">
         <label>
@@ -177,17 +176,34 @@ Please book your appointment with Detail Works, a Spectrum Enterprise, using the
         <br />
         <label>
           Email: <br />
-          <input type="email" name="email" required onChange={emailChangeHandle}/>
+          <input
+            type="email"
+            name="email"
+            required
+            onChange={emailChangeHandle}
+          />
         </label>
         <br />
         <label>
           Confirm Email: <br />
-          <input type="email" name="confirmEmail"  required onChange={emailMatchChangeHandle} />
+          <input
+            type="email"
+            name="confirmEmail"
+            required
+            onChange={emailMatchChangeHandle}
+          />
+        </label>
+        {email !== matchEmail && <div id="email-match">Emails Must Match</div>}
+        <br />
+        <label>
+          <input type="checkbox" name="detailWorksList" value="yes" />
+          Yes, please add me to the Detail Works e-mail list!
+        </label>
+        <label>
+          <input type="checkbox" name="spectrumList" value="yes" />
+          Yes, please add me to the Spectrum e-mail list!
         </label>
         <br />
-        <label><input type="checkbox" name="detailWorksList" value="yes"/>Yes, please add me to the Detail Works e-mail list!</label>
-        <label><input type="checkbox" name="spectrumList" value="yes"/>Yes, please add me to the Spectrum e-mail list!</label>
-        <br/>
         <label>
           Make, Year, and Model of your vehicle: <br />
           <input type="text" name="vehicleMake" required />
@@ -265,6 +281,7 @@ Please book your appointment with Detail Works, a Spectrum Enterprise, using the
           type="submit"
           value="Schedule Appointment"
           style={{ width: "15vw" }}
+          disabled={email !== matchEmail}
         />
       </form>
     </div>
