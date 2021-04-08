@@ -2,9 +2,7 @@ import React from "react";
 // import DatePicker from "react-date-picker";
 import { useState, useEffect, useRef } from "react";
 //Service Pricing Components
-import CoupePrice from "./CoupePrice";
-import HatchbackPrice from "./HatchbackPrice";
-import SuvPrice from "./SuvPrice";
+import AppointmentScheduler from "./AppointmentScheduler"
 
 export default function Home() {
   //Service Variables
@@ -130,11 +128,12 @@ export default function Home() {
     });
   }
 
+export default function Home() {
   
   return (
+    <>
     <div className="home-container">
       <h1 id="app-header">Detail Works VT</h1>
-      <div id="appointment-scheduler-container">
         <h3>Detail Works Appointment Scheduler</h3>
         Please book your appointment with Detail Works, a Spectrum Enterprise,
         using the below form. We are located at 22 Avenue C, Williston, VT 05495
@@ -156,134 +155,9 @@ export default function Home() {
           Comments, questions, or concerns? Give us a call! Our number is (802)
           497-2296.
         </h3>
+        </div>
+      <AppointmentScheduler/>
+      </>
     
-      <h2 id="schedule-header">Schedule an Appointment</h2>
-      <form method="POST" action="/api" id="schedule-form">
-        <label>
-          First Name: <br />
-          <input type="text" name="firstName" required />
-        </label>
-        <br />
-        <label>
-          Last Name: <br />
-          <input type="text" name="lastName" required />
-        </label>
-        <br />
-        <label>
-          Phone Number: <br /> <input type="text" name="phoneNumber" required />
-        </label>
-        <br />
-        <label>
-          Email: <br />
-          <input
-            type="email"
-            name="email"
-            required
-            onChange={emailChangeHandle}
-          />
-        </label>
-        <br />
-        <label>
-          Confirm Email: <br />
-          <input
-            type="email"
-            name="confirmEmail"
-            required
-            onChange={emailMatchChangeHandle}
-          />
-        </label>
-        {email !== matchEmail && <div id="email-match">Emails Must Match</div>}
-        <br />
-        <label>
-          <input type="checkbox" name="detailWorksList" value="yes" />
-          Yes, please add me to the Detail Works e-mail list!
-        </label>
-        <label>
-          <input type="checkbox" name="spectrumList" value="yes" />
-          Yes, please add me to the Spectrum e-mail list!
-        </label>
-        <br />
-        <label>
-          Make, Year, and Model of your vehicle: <br />
-          <input type="text" name="vehicleMake" required />
-        </label>
-        <br />
-        <label>
-          Vehicle Type: <br />
-          <select name="vehicleType" onChange={vehicleChangeHandle}>
-            <option value="select vehicle type">Select Vehicle Type</option>
-            <option value="coupe/sedan">Coupe/Sedan</option>
-            <option value="hatchback/crossover">Hatchback/Crossover</option>
-            <option value="suv/truck/minivan">SUV/Truck/Minivan</option>
-          </select>
-        </label>
-        {vehicleType === "coupe/sedan" && (
-          <CoupePrice price={price} setPrice={setPrice} />
-        )}
-        {vehicleType === "hatchback/crossover" && (
-          <HatchbackPrice price={price} setPrice={setPrice} />
-        )}
-        {vehicleType === "suv/truck/minivan" && (
-          <SuvPrice price={price} setPrice={setPrice} />
-        )}
-        <br />
-        <label>
-          Additional Notes or Request: <br />
-          <input type="text" name="additionalNotes" />
-        </label>
-        <br />
-        <label>
-          Select a Day: <br />
-          <input
-            id="calender"
-            type="date"
-            name="appointmentDate"
-            min={today}
-            onChange={(evt) => dateChangeHandle(evt)}
-            required
-          />
-        </label>
-        {/* <DatePicker
-        value={value}
-        name="date"
-        min={today}
-        onChange={(evt) => dateChangeHandle(evt)}
-      /> */}
-        <br />
-        <label>
-          Select a Time: <br />
-          <select
-            name="timeOfApp"
-            onChange={(evt) => setTime(evt.target.value)}
-            value={time}
-            required
-          >
-            <option value="">Select A Time</option>
-            <option value="8:00am" disabled={unavailableEight}>
-              8:00am
-            </option>
-            <option value="12:00pm" disabled={unavailableNoon}>
-              12:00pm
-            </option>
-          </select>
-        </label>
-        {dateOfApp && (
-          <h6>There are {4 - scheduledEight} appointments remaing at 8:00am</h6>
-        )}
-        {dateOfApp && (
-          <h6>There are {4 - scheduledNoon} appointments remaing at 12:00pm</h6>
-        )}
-        <br />
-        {price > 0 && <h4>Your total is ${price}</h4>}
-        <input type="hidden" name="price" value={price} />
-        <input
-          type="submit"
-          value="Schedule Appointment"
-          style={{ width: "15vw" }}
-          disabled={email !== matchEmail}
-        />
-      </form>
-    </div>
-    </div>
   );
 }

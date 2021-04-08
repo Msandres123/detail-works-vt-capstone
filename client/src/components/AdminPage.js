@@ -6,8 +6,8 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/database";
 import moment from "moment";
-import Home from "./Home";
-const json2csv = require("json2csv").parse;
+import AppointmentScheduler from './AppointmentScheduler'
+const json2csv = require("json2csv").parse
 
 /*------------------------------------------------------------------------------------*/
 
@@ -185,7 +185,7 @@ export default function AdminPage(props) {
               Create New Appointment
             </button>
             <button onClick={props.logOut}>Sign Out</button>
-            {newAppointment && <Home />}
+            {newAppointment &&  <AppointmentScheduler/>}
           </div>
         </div>
         
