@@ -22,7 +22,7 @@ export default function UpdateAppointment(props) {
   const [updateVehicleType, setUpdateVehicleType] = useState(
     props.appointmentMade.vehicleType
   );
-  const [updateAppointmentDate ,setUpdateAppointmentDate] = useState(
+  const [updateAppointmentDate, setUpdateAppointmentDate] = useState(
     props.appointmentMade.appointmentDate
   );
   const [updateTimeOfApp, setUpdateTimeOfApp] = useState(
