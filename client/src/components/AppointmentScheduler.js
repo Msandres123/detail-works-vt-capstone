@@ -1,5 +1,5 @@
 import React from "react";
-// import DatePicker from "react-date-picker";
+import DatePicker from "react-date-picker";
 import { useState, useEffect, useRef } from "react";
 //Service Pricing Components
 import CoupePrice from "./CoupePrice";
@@ -17,9 +17,9 @@ export default function AppointmentScheduler() {
   const [unavailableEight, setUnavailableEight] = useState(false);
   const [unavailableNoon, setUnavailableNoon] = useState(false);
   const [appointmentsMade, setAppointmentsMade] = useState([]);
-  const [scheduledNoon, setscheduledNoon] = useState(0);
+  const [scheduledNoon, setScheduledNoon] = useState(0);
   const [scheduledEight, setScheduledEight] = useState(0);
-  const [blackedOut, setBlackedOut] = useState(false);
+  //const [blackedOut, setBlackedOut] = useState(false);
   const [email, setEmail] = useState("");
   const [matchEmail, setMatchEmail] = useState("");
 
@@ -81,6 +81,10 @@ export default function AppointmentScheduler() {
     setMatchEmail(evt.target.value);
   }
 
+  function alertOnSubmit() {
+    alert("Your appointment has been successfully booked");
+  }
+
   useEffect(() => {
     if (dateOfApp !== previousDate) {
       fetch(`/api/`)
@@ -102,7 +106,7 @@ export default function AppointmentScheduler() {
     let scheduleArrEight = [];
     let scheduleArrNoon = [];
     setScheduledEight(0);
-    setscheduledNoon(0);
+    setScheduledNoon(0);
     appointmentArr.forEach((appointment) => {
       if (
         appointment.appointmentDate === dateOfApp &&
@@ -121,7 +125,7 @@ export default function AppointmentScheduler() {
       ) {
         scheduleArrNoon.push(appointment);
         console.log("noon arr", scheduleArrNoon);
-        setscheduledNoon(scheduleArrNoon.length);
+        setScheduledNoon(scheduleArrNoon.length);
 
         if (scheduleArrNoon.length > 3) {
           setUnavailableNoon(true);
@@ -133,19 +137,54 @@ export default function AppointmentScheduler() {
   return (
     <div id="appointment-scheduler-container">
       <h2 id="schedule-header">Schedule an Appointment</h2>
-      <form method="POST" action="/api" id="schedule-form">
-        <label>
-          First Name: <br />
-          <input type="text" name="firstName" required />
-        </label>
+      <form
+        method="POST"
+        action="/api"
+        id="schedule-form"
+        onSubmit={alertOnSubmit}
+      >
+        <container id="form-name">
+          <span className="first-name">
+            First Name <span class="asterisk">*</span>
+            <br />
+            <input type="text" name="firstName" required />
+          </span>
+          <span>
+            Last Name <span class="asterisk">*</span>
+            <br />
+            <input type="text" name="lastName" required />
+          </span>
+        </container>
+
+        <br />
+        <container id="email-form">
+          <span id="email">
+            Email <span class="asterisk">*</span>
+            <br />
+            <input
+              type="email"
+              name="email"
+              required
+              onChange={emailChangeHandle}
+            />
+          </span>
+          <br />
+          <span>
+            Confirm Email <span class="asterisk">*</span>
+            <br />
+            <input
+              type="email"
+              name="confirmEmail"
+              required
+              onChange={emailMatchChangeHandle}
+            />
+          </span>
+        </container>
+        {email !== matchEmail && <div id="email-match">Emails Must Match</div>}
         <br />
         <label>
-          Last Name: <br />
-          <input type="text" name="lastName" required />
-        </label>
-        <br />
-        <label>
-          Phone Number (###-###-####): <br />{" "}
+          Phone Number (###-###-####) <span class="asterisk">*</span>
+          <br />{" "}
           <input
             type="tel"
             name="phoneNumber"
@@ -155,42 +194,23 @@ export default function AppointmentScheduler() {
         </label>
         <br />
         <label>
-          Email: <br />
-          <input
-            type="email"
-            name="email"
-            required
-            onChange={emailChangeHandle}
-          />
-        </label>
-        <br />
-        <label>
-          Confirm Email: <br />
-          <input
-            type="email"
-            name="confirmEmail"
-            required
-            onChange={emailMatchChangeHandle}
-          />
-        </label>
-        {email !== matchEmail && <div id="email-match">Emails Must Match</div>}
-        <br />
-        <label>
-          <input type="checkbox" name="detailWorksList" value="yes" />
+          <input type="checkbox" name="detailWorksList" value="Yes" />
           Yes, please add me to the Detail Works e-mail list!
         </label>
         <label>
-          <input type="checkbox" name="spectrumList" value="yes" />
+          <input type="checkbox" name="spectrumList" value="Yes" />
           Yes, please add me to the Spectrum e-mail list!
         </label>
         <br />
         <label>
-          Make, Year, and Model of your vehicle: <br />
+          Make, Year, and Model of your vehicle <span class="asterisk">*</span>
+          <br />
           <input type="text" name="vehicleMake" required />
         </label>
         <br />
         <label>
-          Vehicle Type: <br />
+          Vehicle Type: <span class="asterisk">*</span>
+          <br />
           <select name="vehicleType" onChange={vehicleChangeHandle}>
             <option value="select vehicle type">Select Vehicle Type</option>
             <option value="coupe/sedan">Coupe/Sedan</option>
@@ -213,51 +233,54 @@ export default function AppointmentScheduler() {
           <input type="text" name="additionalNotes" />
         </label>
         <br />
-        <label>
-          Select a Day: <br />
-          <input
-            id="calender"
-            type="date"
-            name="appointmentDate"
-            min={today}
-            onChange={(evt) => dateChangeHandle(evt)}
-            required
-          />
-        </label>
-        {/* <DatePicker
-        value={value}
-        name="date"
-        min={today}
-        onChange={(evt) => dateChangeHandle(evt)}
-      /> */}
-        <br />
-        <label>
-          Select a Time: <br />
-          <select
-            name="timeOfApp"
-            onChange={(evt) => setTime(evt.target.value)}
-            value={time}
-            required
-          >
-            <option value="">Select A Time</option>
-            <option value="8:00am" disabled={unavailableEight}>
-              8:00am
-            </option>
-            <option value="12:00pm" disabled={unavailableNoon}>
-              12:00pm
-            </option>
-          </select>
-        </label>
+        <container id="date-time">
+          <span id="day">
+            Select a Day: <span class="asterisk">*</span>
+            <br />
+            <input
+              id="calender"
+              type="date"
+              name="appointmentDate"
+              min={today}
+              onChange={(evt) => dateChangeHandle(evt)}
+              required
+            />
+          </span>
+          <br />
+          <span>
+            Select a Time: <span class="asterisk">*</span>
+            <br />
+            <select
+              name="timeOfApp"
+              onChange={(evt) => setTime(evt.target.value)}
+              value={time}
+              required
+            >
+              <option value="">Select A Time</option>
+              <option value="8:00am" disabled={unavailableEight}>
+                8:00am
+              </option>
+              <option value="12:00pm" disabled={unavailableNoon}>
+                12:00pm
+              </option>
+            </select>
+          </span>
+        </container>
         {dateOfApp && (
-          <h6>There are {4 - scheduledEight} appointments remaing at 8:00am</h6>
+          <h6>
+            There are {4 - scheduledEight} appointments remaining at 8:00am
+          </h6>
         )}
         {dateOfApp && (
-          <h6>There are {4 - scheduledNoon} appointments remaing at 12:00pm</h6>
+          <h6>
+            There are {4 - scheduledNoon} appointments remaining at 12:00pm
+          </h6>
         )}
         <br />
         {price > 0 && <h4>Your total is ${price}</h4>}
         <input type="hidden" name="price" value={price} />
         <input
+          class="submit"
           type="submit"
           value="Schedule Appointment"
           style={{ width: "15vw" }}

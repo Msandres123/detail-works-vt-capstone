@@ -1,20 +1,21 @@
 import React from "react";
-// import DatePicker from "react-date-picker";
-import { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
+
 //Service Pricing Components
-import AppointmentScheduler from "./AppointmentScheduler"
+import AppointmentScheduler from "./AppointmentScheduler";
 
 export default function Home() {
-  
   return (
     <>
-    <div className="home-container">
-      <h1 id="app-header">Detail Works VT</h1>
+      <div className="home-container">
+        <h1 id="app-header">Detail Works VT</h1>
         <h2>Detail Works Appointment Scheduler</h2>
-        <p>Please book your appointment with Detail Works, a Spectrum Enterprise,
-        using the below form. We are located at 22 Avenue C, Williston, VT 05495
-        in a large blue building on the corner of Avenue C and Industrial
-        Avenue.</p>
+        <p>
+          Please book your appointment with Detail Works, a Spectrum Enterprise,
+          using the below form. We are located at 22 Avenue C, Williston, VT
+          05495 in a large blue building on the corner of Avenue C and
+          Industrial Avenue.
+        </p>
         <h3>
           PLEASE NOTE OUR DROP OFF AND PICK UP PROCEDURE HAS CHANGED DUE TO
           COVID-19.
@@ -31,9 +32,9 @@ export default function Home() {
           Comments, questions, or concerns? Give us a call! Our number is (802)
           497-2296.
         </p>
-        </div>
-      <AppointmentScheduler/>
-      </>
-    
+      </div>
+      <AppointmentScheduler />
+      <div><h5 class="admin-sign-in"><Link to={'/signin'}>Admin Sign In</Link></h5></div>
+    </>
   );
 }
