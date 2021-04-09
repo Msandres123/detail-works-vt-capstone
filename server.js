@@ -19,10 +19,8 @@ const request = require("request");
 
 /*------------------------------------------------------------------------------------*/
 //server set-up-middleware required for set-up function
-app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("./client/public"));
-app.use("/static", express.static(path.join(__dirname, "public")));
 
 const MONGODB_URI = process.env.MONGODB_URI;
 
