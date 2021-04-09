@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Questrial&display=swap');
 body {
   margin-bottom: 5vh;
-  background-color: darkgray;
+  background-color: #f8f8ff;
   font-family: 'Questrial', sans-serif;
 }
 /* Container for the whole page */
@@ -9,7 +9,7 @@ body {
   position: relative;
   height: 100%;
   width: 100vw;
-  background-color: darkgray;
+  background-color: #f8f8ff;
   display: flex;
   justify-content: flex;
   /* align-items:center; */
@@ -22,7 +22,7 @@ body {
 .container h4 {
   font-size: 1.8rem;
   margin-left: 0.4rem;
-  color: white;
+  color: black;
   margin-top: 3vh;
 }
 
@@ -52,6 +52,7 @@ body {
   text-align: left;
   margin-right: 25vw;
   margin-left: 5vw;
+  border-bottom: 1px dotted ghostwhite
 }
 /* Detail works appointment schedule header, information in a box above */
 #appointment-scheduler-container {
@@ -62,7 +63,7 @@ body {
   justify-content: flex-start;
   height: 27vh;
   
-  background-color: darkgray;
+  background-color: #f8f8ff;
   
 }
 
@@ -75,12 +76,12 @@ body {
   justify-content: flex-start;
   height: 150vh;
   width: 12vw;
-  background-color: gray;
+  background-color: #ED463E;
 }
 /* This "a" appears to have a direct effect. Not fixing what isn't broke. */
 #NavBar-container a {
   text-decoration: none;
-  color: black;
+  color: white;
 }
 /* Standalone h2 header that exists entirely within home.js inside .home-container */
 #schedule-header {
@@ -105,7 +106,7 @@ body {
   margin-bottom: 3%;
   margin-left: 1%;
   width: 30vw;
-  background-color: darkgray;
+  background-color: #f8f8ff;
 }
 /* AdminSignIn.js standalone containerless section  */
 .admin-signin {
@@ -130,7 +131,7 @@ body {
   flex-direction: column;
   height: 100vh;
   width: 88vw;
-  background-color: darkgray;
+  background-color: #f8f8ff;
 }
 /* Admin page container */
 .admin-header {
@@ -223,4 +224,28 @@ body {
 #sign-out:hover {
   cursor: pointer;
 }
+
+#sign-out {
+  color: white
+}
+
+.asterisk {
+  color: red;
+  font-size:larger
+}
+
+.submit {
+  background-color: #ED463E;
+  color: white;
+  border: 1px solid black;
+  
+}
+
+.admin-sign-in {
+  margin: 0;
+  width: 10%;
+  float:left
+}
+
+
 

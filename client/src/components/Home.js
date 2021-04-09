@@ -1,5 +1,5 @@
 import React from "react";
-// import DatePicker from "react-date-picker";
+import { Link } from "react-router-dom";
 
 //Service Pricing Components
 import AppointmentScheduler from "./AppointmentScheduler";
@@ -34,6 +34,7 @@ export default function Home() {
         </p>
       </div>
       <AppointmentScheduler />
+      <div><h5 class="admin-sign-in"><Link to={'/signin'}>Admin Sign In</Link></h5></div>
     </>
   );
 }

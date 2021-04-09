@@ -141,11 +141,11 @@ export default function AppointmentScheduler() {
       <form method="POST" action="/api" id="schedule-form" onSubmit={alertOnSubmit}>
         <container id="form-name">
           <span className="first-name">
-            First Name: <br />
+            First Name <span class="asterisk">*</span><br />
             <input type="text" name="firstName" required />
           </span>
           <span>
-            Last Name: <br />
+            Last Name <span class="asterisk">*</span><br />
             <input type="text" name="lastName" required />
           </span>
         </container>
@@ -153,7 +153,7 @@ export default function AppointmentScheduler() {
         <br />
         <container id="email-form">
           <span id="email">
-            Email: <br />
+            Email <span class="asterisk">*</span><br />
             <input
               type="email"
               name="email"
@@ -163,7 +163,7 @@ export default function AppointmentScheduler() {
           </span>
           <br />
           <span>
-            Confirm Email: <br />
+            Confirm Email <span class="asterisk">*</span><br />
             <input
               type="email"
               name="confirmEmail"
@@ -175,7 +175,7 @@ export default function AppointmentScheduler() {
         {email !== matchEmail && <div id="email-match">Emails Must Match</div>}
         <br />
         <label>
-          Phone Number (###-###-####): <br />{" "}
+          Phone Number (###-###-####) <span class="asterisk">*</span><br />{" "}
           <input
             type="tel"
             name="phoneNumber"
@@ -194,12 +194,12 @@ export default function AppointmentScheduler() {
         </label>
         <br />
         <label>
-          Make, Year, and Model of your vehicle: <br />
+          Make, Year, and Model of your vehicle <span class="asterisk">*</span><br />
           <input type="text" name="vehicleMake" required />
         </label>
         <br />
         <label>
-          Vehicle Type: <br />
+          Vehicle Type: <span class="asterisk">*</span><br />
           <select name="vehicleType" onChange={vehicleChangeHandle}>
             <option value="select vehicle type">Select Vehicle Type</option>
             <option value="coupe/sedan">Coupe/Sedan</option>
@@ -224,7 +224,7 @@ export default function AppointmentScheduler() {
         <br />
         <container id="date-time">
           <span id="day">
-            Select a Day: <br />
+            Select a Day: <span class="asterisk">*</span><br />
             <input
               id="calender"
               type="date"
@@ -236,7 +236,7 @@ export default function AppointmentScheduler() {
           </span>
           <br />
           <span>
-            Select a Time: <br />
+            Select a Time: <span class="asterisk">*</span><br />
             <select
               name="timeOfApp"
               onChange={(evt) => setTime(evt.target.value)}
