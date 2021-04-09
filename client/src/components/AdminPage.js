@@ -2,9 +2,11 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Link, Redirect } from "react-router-dom";
-import firebase from "firebase/app";
-import "firebase/auth";
-import "firebase/database";
+import {app, auth} from "./FirebaseAuth"
+
+// import firebase from "firebase/app";
+// import "firebase/auth";
+// import "firebase/database";
 import moment from "moment";
 import AppointmentScheduler from "./AppointmentScheduler";
 import NavBar from "./NavBar";
@@ -22,10 +24,10 @@ export default function AdminPage(props) {
   const json2csv = require("json2csv").parse;
   /*------------------------------------------------------------------------------------*/
   useEffect(() => {
-    firebase.auth().onAuthStateChanged((userObj) => {
+    auth.onAuthStateChanged((userObj) => {
       if (userObj) {
         props.setUser(userObj);
-      }
+      } 
     });
   });
   /*------------------------------------------------------------------------------------*/
@@ -125,7 +127,7 @@ export default function AdminPage(props) {
   /*------------------------------------------------------------------------------------*/
   return props.user ? (
     <div id="admin-page">
-      <NavBar logOut={props.logOut}/>
+      <NavBar logOut={props.logOut} />
       <div className="admin-container">
         <div className="admin-header">
           <div id="search-container">
@@ -158,7 +160,7 @@ export default function AdminPage(props) {
 
               <Link to={"/admin"}>
                 <button
-                  onClick="window.location.reload()"
+                  onClick={"window.location.reload()"}
                   id="remove-all-filters"
                 >
                   Remove All Filters
@@ -210,31 +212,31 @@ export default function AdminPage(props) {
                 return (
                   <div id="appointment-container" key={index}>
                     <h4>Day: {appointment.appointmentDate}</h4>
-                    <p>Time: {appointment.timeOfApp}</p>
+                    <h5>Time: {appointment.timeOfApp}</h5>
                     <p>First Name: {appointment.firstName}</p>
                     <p>Last Name: {appointment.lastName}</p>
                     <p>Phone Number: {appointment.phoneNumber}</p>
                     <p>Email: {appointment.email}</p>
-                    {appointment.detailWorksList === "yes" ? (
+                    {appointment.detailWorksList === "Yes" ? (
                       <p>
-                        Singed up for Detail Works e-mail List:{" "}
+                        Signed up for Detail Works e-mail List:{" "}
                         {appointment.detailWorksList}
                       </p>
                     ) : (
-                      <p>Singed up for Detail Works e-mail List: No </p>
+                      <p>Signed up for Detail Works e-mail List: No </p>
                     )}
-                    {appointment.spectrumList === "yes" ? (
+                    {appointment.spectrumList === "Yes" ? (
                       <p>
-                        Singed up for Spectrum e-mail List:{" "}
+                        Signed up for Spectrum e-mail List:{" "}
                         {appointment.spectrumList}
                       </p>
                     ) : (
-                      <p>Singed up for Spectrum e-mail List: No </p>
+                      <p>Signed up for Spectrum e-mail List: No </p>
                     )}
                     <p>Vehicle Make, Year, Model: {appointment.vehicleMake}</p>
                     <p>Vehicle Type: {appointment.vehicleType}</p>
                     <p>Services: {appointment.service}</p>
-                    <p>Price: {appointment.price}</p>
+                    <p>Price: ${appointment.price}</p>
                     <p>
                       Appointment Made On:{" "}
                       {moment(appointment.dateAppMade).format("l")}
@@ -249,8 +251,6 @@ export default function AdminPage(props) {
           </div>
         </div>
       </div>
-    </div>
-  ) : (
-    <Redirect to="/" />
-  );
+    </div> ): (
+  <Redirect to=""/> ) 
 }

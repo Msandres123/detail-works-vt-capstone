@@ -19,10 +19,8 @@ const request = require("request");
 
 /*------------------------------------------------------------------------------------*/
 //server set-up-middleware required for set-up function
-app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("./client/public"));
-app.use("/static", express.static(path.join(__dirname, "public")));
 
 const MONGODB_URI = process.env.MONGODB_URI;
 
@@ -101,7 +99,7 @@ app.post("/api", async (req, res) => {
     from: "DWVTtest@gmail.com",
     to: req.body.email,
     subject: "Your appointment has been made.",
-    text: `Hello ${req.body.firstName} ${req.body.lastName} \n Your appointment on ${req.body.appointmentDate} at ${req.body.timeOfApp} has been schedule with Detail Works VT. Thank You for your businnes and we look forward to seeing you. \n
+    text: `Hello ${req.body.firstName} ${req.body.lastName} \n Your appointment on ${req.body.appointmentDate} at ${req.body.timeOfApp} has been schedule with Detail Works VT. Thank You for your business and we look forward to seeing you. \n
     Have a wonderful day \n The Staff at Detail Works VT`,
   };
 
