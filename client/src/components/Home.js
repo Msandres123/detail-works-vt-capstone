@@ -34,7 +34,11 @@ export default function Home() {
         </p>
       </div>
       <AppointmentScheduler />
-      <div><h5 class="admin-sign-in"><Link to={'/signin'}>Admin Sign In</Link></h5></div>
+      
+        <h5 class="admin-sign-in">
+          <Link to={"/signin"}>Admin Sign In</Link>
+        </h5>
+      
     </>
   );
 }
