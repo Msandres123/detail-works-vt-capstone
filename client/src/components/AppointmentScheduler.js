@@ -130,9 +130,8 @@ export default function AppointmentScheduler() {
     });
   }
 
-  
   return (
-      <div id="appointment-scheduler-container">
+    <div id="appointment-scheduler-container">
       <h2 id="schedule-header">Schedule an Appointment</h2>
       <form method="POST" action="/api" id="schedule-form">
         <label>
@@ -146,7 +145,13 @@ export default function AppointmentScheduler() {
         </label>
         <br />
         <label>
-          Phone Number (###-###-####): <br /> <input type="tel" name="phoneNumber" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required />
+          Phone Number (###-###-####): <br />{" "}
+          <input
+            type="tel"
+            name="phoneNumber"
+            pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+            required
+          />
         </label>
         <br />
         <label>
