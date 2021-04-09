@@ -11,7 +11,7 @@ export default function NavBar(props) {
             <Link to={'/admin'}>Admin</Link>
             </h4>
             <h4><Link to={'/signin'}>Log In</Link></h4>
-            <h4 onClick={props.logOut}>Sign Out</h4>
+            <Link><h4 onClick={props.logOut}>Sign Out</h4></Link>
         </div>
     )
 }

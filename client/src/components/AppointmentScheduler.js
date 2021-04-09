@@ -1,5 +1,5 @@
 import React from "react";
-// import DatePicker from "react-date-picker";
+import DatePicker from "react-date-picker";
 import { useState, useEffect, useRef } from "react";
 //Service Pricing Components
 import CoupePrice from "./CoupePrice";
@@ -257,7 +257,7 @@ export default function AppointmentScheduler() {
           value="Schedule Appointment"
           style={{ width: "15vw" }}
           disabled={email !== matchEmail}
-        />
+         />
       </form>
     </div>
   );

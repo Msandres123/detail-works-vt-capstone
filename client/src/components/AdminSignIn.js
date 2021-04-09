@@ -1,8 +1,21 @@
 import React from "react";
 import NavBar from './NavBar'
+import {useEffect} from 'react'
+import {app, auth} from './FirebaseAuth'
+// import firebase from "firebase/app";
+// import "firebase/auth";
+// import "firebase/database";
 
 
 export default function AdminSignIn(props) {
+  useEffect(() => {
+    auth.onAuthStateChanged((userObj) => {
+      if (userObj) {
+        props.setUser(userObj);
+      }
+    });
+  });
+
   return (
     <div className="admin-signin">
        <NavBar logOut={props.logOut}/>

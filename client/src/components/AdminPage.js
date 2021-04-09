@@ -2,9 +2,11 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Link, Redirect } from "react-router-dom";
-import firebase from "firebase/app";
-import "firebase/auth";
-import "firebase/database";
+import {app, auth} from "./FirebaseAuth"
+
+// import firebase from "firebase/app";
+// import "firebase/auth";
+// import "firebase/database";
 import moment from "moment";
 import AppointmentScheduler from "./AppointmentScheduler";
 import NavBar from "./NavBar";
@@ -19,13 +21,13 @@ export default function AdminPage(props) {
   const [search, setSearch] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-
+  
   /*------------------------------------------------------------------------------------*/
   useEffect(() => {
-    firebase.auth().onAuthStateChanged((userObj) => {
+    auth.onAuthStateChanged((userObj) => {
       if (userObj) {
         props.setUser(userObj);
-      }
+      } 
     });
   });
   /*------------------------------------------------------------------------------------*/
@@ -124,7 +126,7 @@ export default function AdminPage(props) {
   /*------------------------------------------------------------------------------------*/
   return props.user ? (
     <div id="admin-page">
-      <NavBar logOut={props.logOut}/>
+      <NavBar logOut={props.logOut} />
       <div className="admin-container">
         <div className="admin-header">
           <div id="search-container">
@@ -157,7 +159,7 @@ export default function AdminPage(props) {
 
               <Link to={"/admin"}>
                 <button
-                  onClick="window.location.reload()"
+                  onClick={"window.location.reload()"}
                   id="remove-all-filters"
                 >
                   Remove All Filters
@@ -248,8 +250,6 @@ export default function AdminPage(props) {
           </div>
         </div>
       </div>
-    </div>
-  ) : (
-    <Redirect to="/" />
-  );
+    </div> ): (
+  <Redirect to=""/> ) 
 }
