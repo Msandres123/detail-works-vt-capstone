@@ -8,7 +8,7 @@ import "firebase/database";
 import moment from "moment";
 import AppointmentScheduler from "./AppointmentScheduler";
 import NavBar from "./NavBar";
-const json2csv = require("json2csv").parse;
+
 
 /*------------------------------------------------------------------------------------*/
 
@@ -19,7 +19,7 @@ export default function AdminPage(props) {
   const [search, setSearch] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-
+  const json2csv = require("json2csv").parse;
   /*------------------------------------------------------------------------------------*/
   useEffect(() => {
     firebase.auth().onAuthStateChanged((userObj) => {
@@ -87,6 +87,7 @@ export default function AdminPage(props) {
   }
   function Download(evt) {
     evt.preventDefault();
+    //required information fetched from the database to be on the csv download 
     let fields = [
       "firstName",
       "lastName",
