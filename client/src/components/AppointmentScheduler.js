@@ -17,9 +17,9 @@ export default function AppointmentScheduler() {
   const [unavailableEight, setUnavailableEight] = useState(false);
   const [unavailableNoon, setUnavailableNoon] = useState(false);
   const [appointmentsMade, setAppointmentsMade] = useState([]);
-  const [scheduledNoon, setscheduledNoon] = useState(0);
+  const [scheduledNoon, setScheduledNoon] = useState(0);
   const [scheduledEight, setScheduledEight] = useState(0);
-  const [blackedOut, setBlackedOut] = useState(false);
+  //const [blackedOut, setBlackedOut] = useState(false);
   const [email, setEmail] = useState("");
   const [matchEmail, setMatchEmail] = useState("");
 
@@ -102,7 +102,7 @@ export default function AppointmentScheduler() {
     let scheduleArrEight = [];
     let scheduleArrNoon = [];
     setScheduledEight(0);
-    setscheduledNoon(0);
+    setScheduledNoon(0);
     appointmentArr.forEach((appointment) => {
       if (
         appointment.appointmentDate === dateOfApp &&
@@ -121,7 +121,7 @@ export default function AppointmentScheduler() {
       ) {
         scheduleArrNoon.push(appointment);
         console.log("noon arr", scheduleArrNoon);
-        setscheduledNoon(scheduleArrNoon.length);
+        setScheduledNoon(scheduleArrNoon.length);
 
         if (scheduleArrNoon.length > 3) {
           setUnavailableNoon(true);
@@ -244,10 +244,10 @@ export default function AppointmentScheduler() {
           </select>
         </label>
         {dateOfApp && (
-          <h6>There are {4 - scheduledEight} appointments remaing at 8:00am</h6>
+          <h6>There are {4 - scheduledEight} appointments remaining at 8:00am</h6>
         )}
         {dateOfApp && (
-          <h6>There are {4 - scheduledNoon} appointments remaing at 12:00pm</h6>
+          <h6>There are {4 - scheduledNoon} appointments remaining at 12:00pm</h6>
         )}
         <br />
         {price > 0 && <h4>Your total is ${price}</h4>}
