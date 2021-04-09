@@ -209,7 +209,7 @@ export default function AdminPage(props) {
                 return (
                   <div id="appointment-container" key={index}>
                     <h4>Day: {appointment.appointmentDate}</h4>
-                    <p>Time: {appointment.timeOfApp}</p>
+                    <h5>Time: {appointment.timeOfApp}</h5>
                     <p>First Name: {appointment.firstName}</p>
                     <p>Last Name: {appointment.lastName}</p>
                     <p>Phone Number: {appointment.phoneNumber}</p>
@@ -233,7 +233,7 @@ export default function AdminPage(props) {
                     <p>Vehicle Make, Year, Model: {appointment.vehicleMake}</p>
                     <p>Vehicle Type: {appointment.vehicleType}</p>
                     <p>Services: {appointment.service}</p>
-                    <p>Price: {appointment.price}</p>
+                    <p>Price: ${appointment.price}</p>
                     <p>
                       Appointment Made On:{" "}
                       {moment(appointment.dateAppMade).format("l")}
