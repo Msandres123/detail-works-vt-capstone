@@ -7,7 +7,7 @@ import Home from "./components/Home";
 import AdminPage from "./components/AdminPage";
 import AppointmentPage from "./components/AppointmentPage";
 import AdminSignIn from "./components/AdminSignIn";
-// import pageNotFound from "./components/pageNotFound";
+import PageNotFound from "./components/pageNotFound";
 //import AutoEmail from "./components/AutoEmail";
 
 import firebase from "firebase/app";
@@ -125,7 +125,7 @@ function App(props) {
                 );
               }}
             />
-            {/* <Route path={"*"} component={pageNotFound} /> */}
+            <Route component={PageNotFound} />
           </Switch>
         </div>
       </div>
