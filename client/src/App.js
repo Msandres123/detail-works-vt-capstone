@@ -7,6 +7,7 @@ import Home from "./components/Home";
 import AdminPage from "./components/AdminPage";
 import AppointmentPage from "./components/AppointmentPage";
 import AdminSignIn from "./components/AdminSignIn";
+import PageNotFound from "./components/pageNotFound";
 //import AutoEmail from "./components/AutoEmail";
 
 import firebase from "firebase/app";
@@ -83,7 +84,6 @@ function App(props) {
     <div>
       <div className="container">
         <div className="content">
-
           <Switch>
             <Route exact path={"/"} component={Home} />
             <Route
@@ -98,7 +98,13 @@ function App(props) {
             <Route
               path={"/admin/:id"}
               render={(props) => {
-                return <AppointmentPage user={user} match={props.match} logOut={logOut} />;
+                return (
+                  <AppointmentPage
+                    user={user}
+                    match={props.match}
+                    logOut={logOut}
+                  />
+                );
               }}
             />
             {/* <Route path={"/admin/:id"} component={AppointmentPage} />  */}
@@ -119,6 +125,7 @@ function App(props) {
                 );
               }}
             />
+            <Route component={PageNotFound} />
           </Switch>
         </div>
       </div>
