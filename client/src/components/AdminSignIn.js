@@ -2,9 +2,6 @@ import React from "react";
 import NavBar from "./NavBar";
 import { useEffect } from "react";
 import { app, auth } from "./FirebaseAuth";
-// import firebase from "firebase/app";
-// import "firebase/auth";
-// import "firebase/database";
 
 export default function AdminSignIn(props) {
   useEffect(() => {

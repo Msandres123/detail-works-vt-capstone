@@ -4,9 +4,6 @@ import { useState, useEffect } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { app, auth } from "./FirebaseAuth";
 
-// import firebase from "firebase/app";
-// import "firebase/auth";
-// import "firebase/database";
 import moment from "moment";
 import AppointmentScheduler from "./AppointmentScheduler";
 import NavBar from "./NavBar";
@@ -66,8 +63,6 @@ export default function AdminPage(props) {
       .then((appointmentList) => {
         setAppointmentsMade(appointmentList);
       });
-
-    //console.log(search);
   }
   /*------------------------------------------------------------------------------------*/
   useEffect(() => {
@@ -216,8 +211,14 @@ export default function AdminPage(props) {
                     <p>Last Name: {appointment.lastName}</p>
                     <p>Phone Number: {appointment.phoneNumber}</p>
                     <p>Email: {appointment.email}</p>
-                    <p>Signed up for Detail Works e-mail List: {appointment.detailWorksList}</p>
-                    <p>Signed up for Spectrum e-mail List: {appointment.spectrumList}</p>
+                    <p>
+                      Signed up for Detail Works e-mail List:{" "}
+                      {appointment.detailWorksList}
+                    </p>
+                    <p>
+                      Signed up for Spectrum e-mail List:{" "}
+                      {appointment.spectrumList}
+                    </p>
                     <p>Vehicle Make, Year, Model: {appointment.vehicleMake}</p>
                     <p>Vehicle Type: {appointment.vehicleType}</p>
                     <p>Services: {appointment.service}</p>

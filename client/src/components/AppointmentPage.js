@@ -37,7 +37,6 @@ export default function AppointmentPage(props) {
       <div id="appointment-container">
         <h4>Day: {appointmentMade.appointmentDate}</h4>
         <p>Time: {appointmentMade.timeOfApp}</p>
-        {/* <p>Customer: {appointmentMade.customerName}</p> */}
         <p>First Name: {appointmentMade.firstName}</p>
         <p>Last Name: {appointmentMade.lastName}</p>
         <p>Phone Number: {appointmentMade.phoneNumber}</p>
