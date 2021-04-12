@@ -256,7 +256,7 @@ app.post("/delete/:id", async (req, res) => {
 /*------------------------------------------------------------------------------------*/
 //Route to download a file from database as a .csv file
 app.get("/csv", async (req, res) => {
-  //the details to be downloaded from the database
+  
 
   // create empty array to hold our results
   let dates = [];
@@ -268,7 +268,7 @@ app.get("/csv", async (req, res) => {
   // query the database using query filters between the data range input
   await ScheduleModel.find(
     {
-      appointmentDate: { $gte: startDt, $lt: endDt },
+      appointmentDate: { $gte: startDt, $lte: endDt },
     },
     function (err, appointments) {
       if (err) {

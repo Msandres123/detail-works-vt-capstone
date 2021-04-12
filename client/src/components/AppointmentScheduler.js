@@ -1,5 +1,5 @@
 import React from "react";
-import DatePicker from "react-date-picker";
+
 import { useState, useEffect, useRef } from "react";
 //Service Pricing Components
 import CoupePrice from "./CoupePrice";
@@ -47,6 +47,7 @@ export default function AppointmentScheduler() {
 
   today = yyyy + "-" + mm + "-" + dd;
 
+
   function usePrevious(value) {
     const ref = useRef();
     useEffect(() => {
@@ -63,6 +64,8 @@ export default function AppointmentScheduler() {
   //     }
   //     setBlackedOut(false);
   //   }
+
+
 
   function dateChangeHandle(evt) {
     setDateOfApp(evt.target.value);
@@ -84,7 +87,7 @@ export default function AppointmentScheduler() {
   function emailMatchChangeHandle(evt) {
     setMatchEmail(evt.target.value);
   }
-
+//subscribe to the Detail Works subscriber list
   function handleDWClick(){
     if (subDTWL !== "Yes") {
     setSubDTWL("Yes")
@@ -92,7 +95,7 @@ export default function AppointmentScheduler() {
       setSubDTWL("No")
     }
   }
-
+//subscribe to the Spectrum subscriber list
   function handleSpecClick(){
     if (subSL !== "Yes") {
     setSubSL("Yes")
@@ -158,6 +161,7 @@ export default function AppointmentScheduler() {
   console.log(subSL)
 
   return (
+    
     <div id="appointment-scheduler-container">
       <h2 id="schedule-header">Schedule an Appointment</h2>
       <form
@@ -267,6 +271,7 @@ export default function AppointmentScheduler() {
               type="date"
               name="appointmentDate"
               min={today}
+              
               onChange={(evt) => dateChangeHandle(evt)}
               required
             />
@@ -311,7 +316,11 @@ export default function AppointmentScheduler() {
           style={{ width: "15vw" }}
           disabled={email !== matchEmail}
         />
+       
       </form>
+      
+     
+  
     </div>
   );
 }
