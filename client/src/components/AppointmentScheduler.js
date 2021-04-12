@@ -19,14 +19,13 @@ export default function AppointmentScheduler() {
   const [appointmentsMade, setAppointmentsMade] = useState([]);
   const [scheduledNoon, setScheduledNoon] = useState(0);
   const [scheduledEight, setScheduledEight] = useState(0);
-  //const [blackedOut, setBlackedOut] = useState(false);
   const [email, setEmail] = useState("");
   const [matchEmail, setMatchEmail] = useState("");
 
-  //   const isWeekday = date => {
-  //     const day = getDay(date);
-  //     return day !== 0 && day !== 6;
-  //   }
+  //Email list variables
+  const [subDTWL, setSubDTWL] = useState("No");
+  const [subSL, setSubSL] = useState("No");
+
   //prevents user from scheduling appointment for a date in the past
   var today = new Date();
   var dd = today.getDate();
@@ -51,21 +50,11 @@ export default function AppointmentScheduler() {
     return ref.current;
   }
 
-  //   function noWeekends(dateString) {
-  //       console.log("I'm Hit Ked")
-  //     const day = (new Date(dateString)).getDay();
-  //     if (day === 0 || day === 6 ) {
-  //       setBlackedOut(true);
-  //     }
-  //     setBlackedOut(false);
-  //   }
-
   function dateChangeHandle(evt) {
     setDateOfApp(evt.target.value);
     setTime("");
     setUnavailableEight(false);
     setUnavailableNoon(false);
-    // noWeekends()
   }
 
   function vehicleChangeHandle(evt) {
@@ -73,12 +62,29 @@ export default function AppointmentScheduler() {
     setPrice(0);
   }
 
+  //stores email inputs to check if they match
   function emailChangeHandle(evt) {
     setEmail(evt.target.value);
   }
 
   function emailMatchChangeHandle(evt) {
     setMatchEmail(evt.target.value);
+  }
+
+  function handleDWClick() {
+    if (subDTWL !== "Yes") {
+      setSubDTWL("Yes");
+    } else {
+      setSubDTWL("No");
+    }
+  }
+
+  function handleSpecClick() {
+    if (subSL !== "Yes") {
+      setSubSL("Yes");
+    } else {
+      setSubSL("No");
+    }
   }
 
   function alertOnSubmit() {
@@ -133,6 +139,9 @@ export default function AppointmentScheduler() {
       }
     });
   }
+
+  console.log(subDTWL);
+  console.log(subSL);
 
   return (
     <div id="appointment-scheduler-container">
@@ -194,13 +203,15 @@ export default function AppointmentScheduler() {
         </label>
         <br />
         <label>
-          <input type="checkbox" name="detailWorksList" value="Yes" />
+          <input type="checkbox" onClick={handleDWClick} />
           Yes, please add me to the Detail Works e-mail list!
         </label>
         <label>
-          <input type="checkbox" name="spectrumList" value="Yes" />
+          <input type="checkbox" onClick={handleSpecClick} />
           Yes, please add me to the Spectrum e-mail list!
         </label>
+        <input type="hidden" name="spectrumList" value={subSL} />
+        <input type="hidden" name="detailWorksList" value={subDTWL} />
         <br />
         <label>
           Make, Year, and Model of your vehicle <span class="asterisk">*</span>
@@ -284,7 +295,7 @@ export default function AppointmentScheduler() {
           type="submit"
           value="Schedule Appointment"
           style={{ width: "15vw" }}
-          disabled={email !== matchEmail}
+          disabled={email !== matchEmail} //disables submit if emails dont match
         />
       </form>
     </div>

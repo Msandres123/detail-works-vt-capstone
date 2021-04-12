@@ -15,8 +15,6 @@ const nodemailer = require("nodemailer");
 const cron = require("node-cron");
 const request = require("request");
 
-
-
 /*------------------------------------------------------------------------------------*/
 //server set-up-middleware required for set-up function
 app.use(express.urlencoded({ extended: true }));
