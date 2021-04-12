@@ -242,9 +242,18 @@ body {
 }
 
 .admin-sign-in {
-  margin: 0;
-  width: 10%;
-  float:left
+  
+  position: fixed;
+  top: 0;
+  right: 0;
+  margin-right: 1%;
+  margin-top: 1%;
+  text-decoration: none;
+}
+
+#admin-sign-in-link {
+  text-decoration: none;
+  
 }
 
 

@@ -34,7 +34,7 @@ function App(props) {
   const [user, setUser] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  
+
   let history = useHistory();
 
   function emailChangeHandler(evt) {
@@ -44,15 +44,15 @@ function App(props) {
   function passwordChange(evt) {
     setPassword(evt.target.value);
   }
-useEffect(() => {
-  auth.onAuthStateChanged((userObj) => {
-    if (userObj) {
-      setUser(userObj);
-    } else {
-      setUser("");
-    }
+  useEffect(() => {
+    auth.onAuthStateChanged((userObj) => {
+      if (userObj) {
+        setUser(userObj);
+      } else {
+        setUser("");
+      }
+    });
   });
-})
 
   async function login(evt) {
     evt.preventDefault();
@@ -94,9 +94,9 @@ useEffect(() => {
               exact
               path={"/admin"}
               render={(props) => {
-                return  (
+                return (
                   <AdminPage user={user} setUser={setUser} logOut={logOut} />
-                ) 
+                );
               }}
             />
             <Route
