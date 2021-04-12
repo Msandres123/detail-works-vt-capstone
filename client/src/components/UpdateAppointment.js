@@ -5,7 +5,7 @@ import HatchbackPrice from "./HatchbackPrice";
 import SuvPrice from "./SuvPrice";
 
 export default function UpdateAppointment(props) {
-  // const [updateCustomerName, setUpdateCustomerName] = useState(props.appointmentMade.customerName)
+  
   const [updateFirstName, setUpdateFirstName] = useState(
     props.appointmentMade.firstName
   );
