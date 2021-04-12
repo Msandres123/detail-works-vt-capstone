@@ -25,7 +25,8 @@ export default function AppointmentPage(props) {
           setAppointmentMade(appointmentList);
         });
     }
-  });
+  }); 
+
 
   return (
     <div id="appointment-page-container">
@@ -45,7 +46,7 @@ export default function AppointmentPage(props) {
         <p>Signed up for Spectrum e-mail List: {appointmentMade.spectrumList}</p>
         <p>Vehicle Make, Year, Model: {appointmentMade.vehicleMake}</p>
         <p>Vehicle Type: {appointmentMade.vehicleType}</p>
-        <p>Services: {appointmentMade.service}</p>
+       { appointmentMade.service && <p>Services: {appointmentMade.service.join(", ")}</p>}
         <p>
           Appointment Made On:{moment(appointmentMade.dateAppMade).format("l")}
         </p>
