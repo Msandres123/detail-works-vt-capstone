@@ -57,6 +57,7 @@ export default function AppointmentScheduler() {
     setPrice(0);
   }
 
+  //stores email inputs to check if they match
   function emailChangeHandle(evt) {
     setEmail(evt.target.value);
   }
@@ -298,7 +299,7 @@ export default function AppointmentScheduler() {
           type="submit"
           value="Schedule Appointment"
           style={{ width: "15vw" }}
-          disabled={email !== matchEmail}
+          disabled={email !== matchEmail} //disables submit if emails dont match
         />
       </form>
     </div>

@@ -6,6 +6,7 @@ import SuvPrice from "./SuvPrice";
 
 
 export default function UpdateAppointment(props) {
+  
   const [updateFirstName, setUpdateFirstName] = useState(
     props.appointmentMade.firstName
   );
