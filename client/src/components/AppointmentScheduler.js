@@ -1,5 +1,7 @@
+//React components 
 import React from "react";
-import DatePicker from "react-date-picker";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import { useState, useEffect, useRef } from "react";
 //Service Pricing Components
 import CoupePrice from "./CoupePrice";
@@ -19,34 +21,14 @@ export default function AppointmentScheduler() {
   const [appointmentsMade, setAppointmentsMade] = useState([]);
   const [scheduledNoon, setScheduledNoon] = useState(0);
   const [scheduledEight, setScheduledEight] = useState(0);
-  //const [blackedOut, setBlackedOut] = useState(false);
   const [email, setEmail] = useState("");
   const [matchEmail, setMatchEmail] = useState("");
 
   //Email list variables
-  const [subDTWL, setSubDTWL] = useState("No")
-  const [subSL, setSubSL] = useState("No")
+  const [subDTWL, setSubDTWL] = useState("No");
+  const [subSL, setSubSL] = useState("No");
 
-  //   const isWeekday = date => {
-  //     const day = getDay(date);
-  //     return day !== 0 && day !== 6;
-  //   }
-  //prevents user from scheduling appointment for a date in the past
-  var today = new Date();
-  var dd = today.getDate();
-  var mm = today.getMonth() + 1;
-  var yyyy = today.getFullYear();
-
-  if (dd < 10) {
-    dd = "0" + dd;
-  }
-
-  if (mm < 10) {
-    mm = "0" + mm;
-  }
-
-  today = yyyy + "-" + mm + "-" + dd;
-
+//Function to store perviously selected values
   function usePrevious(value) {
     const ref = useRef();
     useEffect(() => {
@@ -55,23 +37,21 @@ export default function AppointmentScheduler() {
     return ref.current;
   }
 
-  //   function noWeekends(dateString) {
-  //       console.log("I'm Hit Ked")
-  //     const day = (new Date(dateString)).getDay();
-  //     if (day === 0 || day === 6 ) {
-  //       setBlackedOut(true);
-  //     }
-  //     setBlackedOut(false);
-  //   }
+  
+//Function that filters out and disables weekends
+  const isWeekday = date => {
+    const day = date.getDay();
+    return day !== 0 && day !== 6;
+  }
 
-  function dateChangeHandle(evt) {
-    setDateOfApp(evt.target.value);
+//Handles the selection of different dates
+  function dateChangeHandle(date) {
+    setDateOfApp(date);
     setTime("");
     setUnavailableEight(false);
     setUnavailableNoon(false);
-    // noWeekends()
   }
-
+//Handles the selection of different vehicle types
   function vehicleChangeHandle(evt) {
     setVehicleType(evt.target.value);
     setPrice(0);
@@ -84,27 +64,27 @@ export default function AppointmentScheduler() {
   function emailMatchChangeHandle(evt) {
     setMatchEmail(evt.target.value);
   }
-
-  function handleDWClick(){
+//Handles the checkbox click for detail works email list
+  function handleDWClick() {
     if (subDTWL !== "Yes") {
-    setSubDTWL("Yes")
+      setSubDTWL("Yes");
     } else {
-      setSubDTWL("No")
+      setSubDTWL("No");
     }
   }
-
-  function handleSpecClick(){
+//Handles the checkbox click for Spectrum email list
+  function handleSpecClick() {
     if (subSL !== "Yes") {
-    setSubSL("Yes")
+      setSubSL("Yes");
     } else {
-      setSubSL("No")
+      setSubSL("No");
     }
   }
 
   function alertOnSubmit() {
     alert("Your appointment has been successfully booked");
   }
-
+//Queries the database 
   useEffect(() => {
     if (dateOfApp !== previousDate) {
       fetch(`/api/`)
@@ -115,21 +95,23 @@ export default function AppointmentScheduler() {
     }
     blackOut();
   });
-
+//puts results queried from DB into an array 
   let appointmentArr = [];
   appointmentsMade &&
     appointmentsMade.forEach((appointment) => {
       appointmentArr.push(appointment);
     });
-
+//Prevents overbooking and limits 4 appointments to each time slot for any given day
   function blackOut() {
     let scheduleArrEight = [];
     let scheduleArrNoon = [];
     setScheduledEight(0);
     setScheduledNoon(0);
+    //iterates through each appointment in database
     appointmentArr.forEach((appointment) => {
+      //Finds appointments in DB for date user selects 
       if (
-        appointment.appointmentDate === dateOfApp &&
+        appointment.appointmentDate === dateOfApp.toString() &&
         appointment.timeOfApp === "8:00am"
       ) {
         scheduleArrEight.push(appointment);
@@ -140,7 +122,7 @@ export default function AppointmentScheduler() {
         }
       }
       if (
-        appointment.appointmentDate === dateOfApp &&
+        appointment.appointmentDate === dateOfApp.toString() &&
         appointment.timeOfApp === "12:00pm"
       ) {
         scheduleArrNoon.push(appointment);
@@ -154,9 +136,6 @@ export default function AppointmentScheduler() {
     });
   }
 
-  console.log(subDTWL)
-  console.log(subSL)
-
   return (
     <div id="appointment-scheduler-container">
       <h2 id="schedule-header">Schedule an Appointment</h2>
@@ -168,12 +147,12 @@ export default function AppointmentScheduler() {
       >
         <container id="form-name">
           <span className="first-name">
-            First Name <span class="asterisk">*</span>
+            First Name <span className="asterisk">*</span>
             <br />
             <input type="text" name="firstName" required />
           </span>
           <span>
-            Last Name <span class="asterisk">*</span>
+            Last Name <span className="asterisk">*</span>
             <br />
             <input type="text" name="lastName" required />
           </span>
@@ -182,7 +161,7 @@ export default function AppointmentScheduler() {
         <br />
         <container id="email-form">
           <span id="email">
-            Email <span class="asterisk">*</span>
+            Email <span className="asterisk">*</span>
             <br />
             <input
               type="email"
@@ -193,7 +172,7 @@ export default function AppointmentScheduler() {
           </span>
           <br />
           <span>
-            Confirm Email <span class="asterisk">*</span>
+            Confirm Email <span className="asterisk">*</span>
             <br />
             <input
               type="email"
@@ -206,7 +185,7 @@ export default function AppointmentScheduler() {
         {email !== matchEmail && <div id="email-match">Emails Must Match</div>}
         <br />
         <label>
-          Phone Number (###-###-####) <span class="asterisk">*</span>
+          Phone Number (###-###-####) <span className="asterisk">*</span>
           <br />{" "}
           <input
             type="tel"
@@ -221,20 +200,21 @@ export default function AppointmentScheduler() {
           Yes, please add me to the Detail Works e-mail list!
         </label>
         <label>
-          <input type="checkbox"  onClick={handleSpecClick} />
+          <input type="checkbox" onClick={handleSpecClick} />
           Yes, please add me to the Spectrum e-mail list!
         </label>
         <input type="hidden" name="spectrumList" value={subSL} />
-        <input type="hidden" name="detailWorksList" value={subDTWL}/>
+        <input type="hidden" name="detailWorksList" value={subDTWL} />
         <br />
         <label>
-          Make, Year, and Model of your vehicle <span class="asterisk">*</span>
+          Make, Year, and Model of your vehicle{" "}
+          <span className="asterisk">*</span>
           <br />
           <input type="text" name="vehicleMake" required />
         </label>
         <br />
         <label>
-          Vehicle Type: <span class="asterisk">*</span>
+          Vehicle Type: <span className="asterisk">*</span>
           <br />
           <select name="vehicleType" onChange={vehicleChangeHandle}>
             <option value="select vehicle type">Select Vehicle Type</option>
@@ -259,21 +239,30 @@ export default function AppointmentScheduler() {
         </label>
         <br />
         <container id="date-time">
-          <span id="day">
-            Select a Day: <span class="asterisk">*</span>
-            <br />
-            <input
+          <div id="day">
+            Select a Day: <span className="asterisk">*</span>
+            {/* <input
               id="calender"
               type="date"
               name="appointmentDate"
               min={today}
               onChange={(evt) => dateChangeHandle(evt)}
               required
-            />
-          </span>
+            /> */}
+          <br/>
+          <DatePicker
+            value={dateOfApp}
+            minDate={new Date()}
+            selected={dateOfApp}
+            filterDate={isWeekday}
+            onChange={(date) => dateChangeHandle(date)}
+          />
+          </div>
+          <input type="hidden" name="appointmentDate" value={dateOfApp} />
+
           <br />
           <span>
-            Select a Time: <span class="asterisk">*</span>
+            Select a Time: <span className="asterisk">*</span>
             <br />
             <select
               name="timeOfApp"
@@ -305,7 +294,7 @@ export default function AppointmentScheduler() {
         {price > 0 && <h4>Your total is ${price}</h4>}
         <input type="hidden" name="price" value={price} />
         <input
-          class="submit"
+          className="submit"
           type="submit"
           value="Schedule Appointment"
           style={{ width: "15vw" }}
