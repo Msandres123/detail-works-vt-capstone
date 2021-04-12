@@ -23,6 +23,10 @@ export default function AppointmentScheduler() {
   const [email, setEmail] = useState("");
   const [matchEmail, setMatchEmail] = useState("");
 
+  //Email list variables
+  const [subDTWL, setSubDTWL] = useState("No")
+  const [subSL, setSubSL] = useState("No")
+
   //   const isWeekday = date => {
   //     const day = getDay(date);
   //     return day !== 0 && day !== 6;
@@ -81,9 +85,24 @@ export default function AppointmentScheduler() {
     setMatchEmail(evt.target.value);
   }
 
+  function handleDWClick(){
+    if (subDTWL !== "Yes") {
+    setSubDTWL("Yes")
+    } else {
+      setSubDTWL("No")
+    }
+  }
+
+  function handleSpecClick(){
+    if (subSL !== "Yes") {
+    setSubSL("Yes")
+    } else {
+      setSubSL("No")
+    }
+  }
+
   function alertOnSubmit() {
     alert("Your appointment has been successfully booked");
-    
   }
 
   useEffect(() => {
@@ -135,17 +154,27 @@ export default function AppointmentScheduler() {
     });
   }
 
+  console.log(subDTWL)
+  console.log(subSL)
+
   return (
     <div id="appointment-scheduler-container">
       <h2 id="schedule-header">Schedule an Appointment</h2>
-      <form method="POST" action="/api" id="schedule-form" onSubmit={alertOnSubmit}>
+      <form
+        method="POST"
+        action="/api"
+        id="schedule-form"
+        onSubmit={alertOnSubmit}
+      >
         <container id="form-name">
           <span className="first-name">
-            First Name <span class="asterisk">*</span><br />
+            First Name <span class="asterisk">*</span>
+            <br />
             <input type="text" name="firstName" required />
           </span>
           <span>
-            Last Name <span class="asterisk">*</span><br />
+            Last Name <span class="asterisk">*</span>
+            <br />
             <input type="text" name="lastName" required />
           </span>
         </container>
@@ -153,7 +182,8 @@ export default function AppointmentScheduler() {
         <br />
         <container id="email-form">
           <span id="email">
-            Email <span class="asterisk">*</span><br />
+            Email <span class="asterisk">*</span>
+            <br />
             <input
               type="email"
               name="email"
@@ -163,7 +193,8 @@ export default function AppointmentScheduler() {
           </span>
           <br />
           <span>
-            Confirm Email <span class="asterisk">*</span><br />
+            Confirm Email <span class="asterisk">*</span>
+            <br />
             <input
               type="email"
               name="confirmEmail"
@@ -175,7 +206,8 @@ export default function AppointmentScheduler() {
         {email !== matchEmail && <div id="email-match">Emails Must Match</div>}
         <br />
         <label>
-          Phone Number (###-###-####) <span class="asterisk">*</span><br />{" "}
+          Phone Number (###-###-####) <span class="asterisk">*</span>
+          <br />{" "}
           <input
             type="tel"
             name="phoneNumber"
@@ -185,21 +217,25 @@ export default function AppointmentScheduler() {
         </label>
         <br />
         <label>
-          <input type="checkbox" name="detailWorksList" value="Yes" />
+          <input type="checkbox" onClick={handleDWClick} />
           Yes, please add me to the Detail Works e-mail list!
         </label>
         <label>
-          <input type="checkbox" name="spectrumList" value="Yes" />
+          <input type="checkbox"  onClick={handleSpecClick} />
           Yes, please add me to the Spectrum e-mail list!
         </label>
+        <input type="hidden" name="spectrumList" value={subSL} />
+        <input type="hidden" name="detailWorksList" value={subDTWL}/>
         <br />
         <label>
-          Make, Year, and Model of your vehicle <span class="asterisk">*</span><br />
+          Make, Year, and Model of your vehicle <span class="asterisk">*</span>
+          <br />
           <input type="text" name="vehicleMake" required />
         </label>
         <br />
         <label>
-          Vehicle Type: <span class="asterisk">*</span><br />
+          Vehicle Type: <span class="asterisk">*</span>
+          <br />
           <select name="vehicleType" onChange={vehicleChangeHandle}>
             <option value="select vehicle type">Select Vehicle Type</option>
             <option value="coupe/sedan">Coupe/Sedan</option>
@@ -224,7 +260,8 @@ export default function AppointmentScheduler() {
         <br />
         <container id="date-time">
           <span id="day">
-            Select a Day: <span class="asterisk">*</span><br />
+            Select a Day: <span class="asterisk">*</span>
+            <br />
             <input
               id="calender"
               type="date"
@@ -236,7 +273,8 @@ export default function AppointmentScheduler() {
           </span>
           <br />
           <span>
-            Select a Time: <span class="asterisk">*</span><br />
+            Select a Time: <span class="asterisk">*</span>
+            <br />
             <select
               name="timeOfApp"
               onChange={(evt) => setTime(evt.target.value)}
@@ -254,10 +292,14 @@ export default function AppointmentScheduler() {
           </span>
         </container>
         {dateOfApp && (
-          <h6>There are {4 - scheduledEight} appointments remaining at 8:00am</h6>
+          <h6>
+            There are {4 - scheduledEight} appointments remaining at 8:00am
+          </h6>
         )}
         {dateOfApp && (
-          <h6>There are {4 - scheduledNoon} appointments remaining at 12:00pm</h6>
+          <h6>
+            There are {4 - scheduledNoon} appointments remaining at 12:00pm
+          </h6>
         )}
         <br />
         {price > 0 && <h4>Your total is ${price}</h4>}
@@ -268,7 +310,6 @@ export default function AppointmentScheduler() {
           value="Schedule Appointment"
           style={{ width: "15vw" }}
           disabled={email !== matchEmail}
-          
         />
       </form>
     </div>

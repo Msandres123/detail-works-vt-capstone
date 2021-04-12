@@ -42,6 +42,8 @@ export default function AppointmentPage(props) {
         <p>Last Name: {appointmentMade.lastName}</p>
         <p>Phone Number: {appointmentMade.phoneNumber}</p>
         <p>Email: {appointmentMade.email}</p>
+        <p>Signed up for Detail Works e-mail List: {appointmentMade.detailWorksList}</p>
+        <p>Signed up for Spectrum e-mail List: {appointmentMade.spectrumList}</p>
         <p>Vehicle Make, Year, Model: {appointmentMade.vehicleMake}</p>
         <p>Vehicle Type: {appointmentMade.vehicleType}</p>
         <p>Services: {appointmentMade.service}</p>
