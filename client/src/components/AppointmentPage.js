@@ -34,11 +34,7 @@ export default function AppointmentPage(props) {
        <NavBar logOut={props.logOut}/>
        </div>
        <div>
-<<<<<<< HEAD
-      <div id="appointment-page-header"><h2 >Update or Cancel This Appointment</h2></div>
-=======
        <h2 id="update-header">Update or Cancel This Appointment</h2>
->>>>>>> main
       <div id="appointment-container">
         <h4>Day: {appointmentMade.appointmentDate}</h4>
         <p>Time: {appointmentMade.timeOfApp}</p>
