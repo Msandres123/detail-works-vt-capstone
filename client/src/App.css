@@ -104,9 +104,10 @@ body {
   /* box-shadow: 0 0 5px gray; */
   border: 2px outset lightgray;
   margin-bottom: 3%;
-  margin-left: 100%;
+  
   width: 30vw;
   background-color: #f8f8ff;
+  margin-left: 100%
 }
 /* AdminSignIn.js standalone containerless section  */
 .admin-signin {
@@ -264,3 +265,5 @@ body {
 #logo {
   margin-top: 2%;
 }
+
+
