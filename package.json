@@ -25,11 +25,8 @@
     "node": "^15.10.0",
     "node-cron": "^3.0.0",
     "nodemailer": "^6.5.0",
-<<<<<<< HEAD
     "react-datepicker": "^3.7.0",
     "react-day-picker": "^7.4.10",
-=======
->>>>>>> 732dc29c35c462a0df2ea91c62a2b9b4b8df2bef
     "request": "^2.88.2"
   },
   "scripts": {

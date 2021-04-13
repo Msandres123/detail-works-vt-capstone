@@ -2,7 +2,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Link, Redirect } from "react-router-dom";
-import { app, auth } from "./FirebaseAuth";
+import { auth } from "./FirebaseAuth";
 
 import moment from "moment";
 import AppointmentScheduler from "./AppointmentScheduler";
@@ -239,7 +239,7 @@ export default function AdminPage(props) {
                   </div>
                 );
               })}
-            </div>
+            </div>  
           </div>
         </div>
       </div>

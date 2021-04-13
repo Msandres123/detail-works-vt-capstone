@@ -9,11 +9,11 @@ const app = express();
 const mongoose = require("mongoose");
 //mongoose.set("useCreateIndex", true);
 const port = process.env.PORT || 5000;
-const { MongoClient, ObjectId, MongoError } = require("mongodb");
+const { ObjectId } = require("mongodb");
 
 const nodemailer = require("nodemailer");
 const cron = require("node-cron");
-const request = require("request");
+
 
 
 
@@ -178,7 +178,7 @@ app.get("/api", async (req, res) => {
   const cursor = await ScheduleModel.find({}).sort({ appointmentDate: 1 });
   // create empty array to hold our results
   let results = [];
-  // iterate over out cursor object to push each document into our array
+  // iterate over cursor object to push each document into our array
   await cursor.forEach((entry) => {
     results.push(entry);
   });
@@ -203,7 +203,7 @@ app.get("/filter", async (req, res) => {
   await cursor.forEach((entry) => {
     results.push(entry);
   });
-  console.log(results);
+ // send the resulting array back as a json
   res.json(results);
 });
 /*------------------------------------------------------------------------------------*/
@@ -226,7 +226,7 @@ app.get("/search", async (req, res) => {
   await cursor.forEach((entry) => {
     results.push(entry);
   });
-
+  
   // send the resulting array back as a json
   res.json(results);
 });
@@ -234,7 +234,7 @@ app.get("/search", async (req, res) => {
 //return a specific entry/post  data from database
 app.get(`/api/:id`, async (req, res) => {
   let result = await ScheduleModel.findOne({ _id: ObjectId(req.params.id) });
-
+// send the resulting array back as a json
   res.json(result);
 });
 /*------------------------------------------------------------------------------------*/
@@ -245,7 +245,7 @@ app.post("/api/:id", async (req, res) => {
     { _id: ObjectId(req.params.id) },
     setObj
   );
-  res.redirect("/admin");
+  res.redirect("/admin/");
 });
 /*------------------------------------------------------------------------------------*/
 //delete an entry in the database
