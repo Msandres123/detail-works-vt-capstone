@@ -115,6 +115,13 @@ body {
   background-color: #f8f8ff;
   
 }
+#appointment-container-admin {
+  /* box-shadow: 0 0 5px gray; */
+  border: 2px outset lightgray;
+  margin-bottom: 3%;
+  width: 30vw;
+  background-color: #f8f8ff;
+}
 /* AdminSignIn.js standalone containerless section  */
 .admin-signin {
   height: 30vh;
