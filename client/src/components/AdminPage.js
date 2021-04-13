@@ -2,7 +2,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Link, Redirect } from "react-router-dom";
-import { app, auth } from "./FirebaseAuth";
+import { auth } from "./FirebaseAuth";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment";
@@ -124,10 +124,7 @@ export default function AdminPage(props) {
   console.log("user at admin page is", props.user);
   /*------------------------------------------------------------------------------------*/
 
-  const dateFormat = (date) => {
-    let dateObj = date.split("00:00:00")
-    return dateObj[0]
-  }
+  
 
   return props.user ? (
     <div id="admin-page">
@@ -225,7 +222,7 @@ export default function AdminPage(props) {
               {appointmentArr.map((appointment, index) => {
                 return (
                   <div id="appointment-container" key={index}>
-                    <h4>Day: {dateFormat(appointment.appointmentDate)}</h4>
+                    <h4>Day: {appointment.appointmentDate}</h4>
                     <h5>Time: {appointment.timeOfApp}</h5>
                     <p>First Name: {appointment.firstName}</p>
                     <p>Last Name: {appointment.lastName}</p>
@@ -253,7 +250,7 @@ export default function AdminPage(props) {
                   </div>
                 );
               })}
-            </div>
+            </div>  
           </div>
         </div>
       </div>

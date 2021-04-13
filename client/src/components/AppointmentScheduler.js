@@ -137,9 +137,6 @@ export default function AppointmentScheduler() {
       }
     });
   }
-  
-
-  console.log(properDate)
   return (
     //JSX HTML 
     <div id="appointment-scheduler-container">
@@ -150,7 +147,7 @@ export default function AppointmentScheduler() {
         id="schedule-form"
         onSubmit={alertOnSubmit}
       >
-        <container id="form-name">
+        <div id="form-name">
           <span className="first-name">
             First Name <span className="asterisk">*</span>
             <br />
@@ -161,10 +158,10 @@ export default function AppointmentScheduler() {
             <br />
             <input type="text" name="lastName" required />
           </span>
-        </container>
+        </div>
 
         <br />
-        <container id="email-form">
+        <div id="email-form">
           <span id="email">
             Email <span className="asterisk">*</span>
             <br />
@@ -186,7 +183,7 @@ export default function AppointmentScheduler() {
               onChange={emailMatchChangeHandle}
             />
           </span>
-        </container>
+        </div>
         {email !== matchEmail && <div id="email-match">Emails Must Match</div>}
         <br />
         <label>
@@ -243,7 +240,7 @@ export default function AppointmentScheduler() {
           <input type="text" name="additionalNotes" />
         </label>
         <br />
-        <container id="date-time">
+        <div id="date-time">
           <div id="day">
             Select a Day: <span className="asterisk">*</span>
             {/* <input
@@ -266,7 +263,7 @@ export default function AppointmentScheduler() {
           />
           </div>
           <input type="hidden" name="appointmentDate" value={properDate} />
-
+          <input type="hidden" name="initialAppointmentDate" value={dateOfApp} />
           <br />
           <span>
             Select a Time: <span className="asterisk">*</span>
@@ -286,7 +283,7 @@ export default function AppointmentScheduler() {
               </option>
             </select>
           </span>
-        </container>
+        </div>
         {dateOfApp && (
           <h6>
             There are {4 - scheduledEight} appointments remaining at 8:00am
