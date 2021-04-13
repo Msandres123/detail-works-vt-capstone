@@ -14,6 +14,7 @@ export default function AppointmentScheduler() {
   const [price, setPrice] = useState(0);
   //Scheduling Variables
   const [dateOfApp, setDateOfApp] = useState("");
+  let properDate = dateOfApp.toLocaleString().split(",")[0]
   const [time, setTime] = useState("");
   const previousDate = usePrevious(dateOfApp);
   const [unavailableEight, setUnavailableEight] = useState(false);
@@ -112,33 +113,35 @@ export default function AppointmentScheduler() {
     appointmentArr.forEach((appointment) => {
       //Finds appointments in DB for date user selects 
       if (
-        appointment.appointmentDate === dateOfApp.toString() &&
-        appointment.timeOfApp === "8:00am"
+        appointment.appointmentDate === properDate && //compares appointments in DB to date selected at 8:00
+        appointment.timeOfApp === "8:00am" 
       ) {
-        scheduleArrEight.push(appointment);
+        scheduleArrEight.push(appointment); //pushes existing appointments for that date at 8:00am into an array
         console.log("eight", scheduleArrEight);
         setScheduledEight(scheduleArrEight.length);
         if (scheduleArrEight.length > 3) {
-          setUnavailableEight(true);
+          setUnavailableEight(true); // if the amount of appointments is greater than 3 disables time slot for that particular date
         }
       }
       if (
-        appointment.appointmentDate === dateOfApp.toString() &&
+        appointment.appointmentDate === properDate && //compares appointments in DB to date selected at 12:00pm
         appointment.timeOfApp === "12:00pm"
       ) {
-        scheduleArrNoon.push(appointment);
+        scheduleArrNoon.push(appointment); //pushes existing appointments for that date at 12:00pm into an array
         console.log("noon arr", scheduleArrNoon);
         setScheduledNoon(scheduleArrNoon.length);
 
         if (scheduleArrNoon.length > 3) {
-          setUnavailableNoon(true);
+          setUnavailableNoon(true); // if the amount of appointments is greater than 3 disables time slot for that particular date
         }
       }
     });
   }
+  
 
+  console.log(properDate)
   return (
-    
+    //JSX HTML 
     <div id="appointment-scheduler-container">
       <h2 id="schedule-header">Schedule an Appointment</h2>
       <form
@@ -259,9 +262,10 @@ export default function AppointmentScheduler() {
             selected={dateOfApp}
             filterDate={isWeekday}
             onChange={(date) => dateChangeHandle(date)}
+            dateFormat="MM/dd/yyyy"
           />
           </div>
-          <input type="hidden" name="appointmentDate" value={dateOfApp} />
+          <input type="hidden" name="appointmentDate" value={properDate} />
 
           <br />
           <span>
