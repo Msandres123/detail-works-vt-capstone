@@ -221,7 +221,7 @@ export default function AdminPage(props) {
               <h1>Up-Coming Appointments</h1>
               {appointmentArr.map((appointment, index) => {
                 return (
-                  <div id="appointment-container" key={index}>
+                  <div id="appointment-container-admin" key={index}>
                     <h4>Day: {appointment.appointmentDate}</h4>
                     <h5>Time: {appointment.timeOfApp}</h5>
                     <p>First Name: {appointment.firstName}</p>
