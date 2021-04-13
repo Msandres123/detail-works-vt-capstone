@@ -3,7 +3,8 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { app, auth } from "./FirebaseAuth";
-
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment";
 import AppointmentScheduler from "./AppointmentScheduler";
 import NavBar from "./NavBar";
@@ -17,6 +18,8 @@ export default function AdminPage(props) {
   const [search, setSearch] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  let properStart = startDate.toLocaleString().split(",")[0]
+  let properEnd = endDate.toLocaleString().split(",")[0]
   const json2csv = require("json2csv").parse;
   /*------------------------------------------------------------------------------------*/
   useEffect(() => {
@@ -75,11 +78,11 @@ export default function AdminPage(props) {
     }
   });
   /*------------------------------------------------------------------------------------*/
-  function startChangeHandler(evt) {
-    setStartDate(evt.target.value);
+  function startChangeHandler(date) {
+    setStartDate(date);
   }
-  function endChangeHandler(evt) {
-    setEndDate(evt.target.value);
+  function endChangeHandler(date) {
+    setEndDate(date);
   }
   function Download(evt) {
     evt.preventDefault();
@@ -93,7 +96,7 @@ export default function AdminPage(props) {
       "spectrumList",
     ];
 
-    let downloadCSV = `/csv?startDate=${startDate}&endDate=${endDate}`;
+    let downloadCSV = `/csv?startDate=${properStart}&endDate=${properEnd}`;
     fetch(downloadCSV)
       .then((res) => res.json())
       .then((appointmentList) => {
@@ -124,6 +127,7 @@ export default function AdminPage(props) {
     let dateObj = date.split("00:00:00")
     return dateObj[0]
   }
+
   return props.user ? (
     <div id="admin-page">
       <NavBar logOut={props.logOut} />
@@ -170,19 +174,29 @@ export default function AdminPage(props) {
             <div id="export-details">
               <h2>Export Appointment Details</h2>
               <form method="GET" action="/csv" onSubmit={Download}>
-                <input
+                {/* <input
                   type="date"
                   onChange={startChangeHandler}
                   name="startDate"
                   placeholder="From:"
-                />
-                <input
+                /> */}
+                <DatePicker 
+                value={startDate}
+                selected={startDate}
+                onChange={(date) => startChangeHandler(date)}/>
+                {/* <input
                   type="date"
                   onChange={endChangeHandler}
                   name="endDate"
                   placeholder="To:"
+                /> */}
+                <DatePicker 
+                value={endDate}
+                selected={endDate}
+                onChange={(date) => endChangeHandler(date)}
                 />
-
+                <input type="hidden" name="startDate" value={properStart}/>
+                <input type="hidden" name="endDate" value={properEnd}/>
                 <button type="submit">Export as CSV</button>
               </form>
             </div>

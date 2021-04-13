@@ -30,10 +30,12 @@ mongoose.connect(MONGODB_URI || "mongodb://localhost:27017/schedule", {
   useUnifiedTopology: true,
 });
 
+
+ const tomorrow = new Date(+new Date() + 86400000).toLocaleDateString()
+
+
 /*------------------------------------------------------------------------------------*/
-const dateYear = new Date().getFullYear();
-const dateMonth = new Date().getMonth() + 1;
-const dateDay = new Date().getDate();
+
 /*------------------------------------------------------------------------------------*/
 //reference to the local database
 const tilDB = mongoose.connection;
@@ -122,12 +124,8 @@ async function queryDb() {
     results.push(entry);
   });
   results.forEach((appointment) => {
-    cron.schedule("00 27 14 * * *", () => {
-      let dayOfApp = appointment.appointmentDate.split("-");
-      let monthOf = +dayOfApp[1];
-      let dayBefore = +dayOfApp[2] - 1;
-      let yearOf = +dayOfApp[0];
-      if (dateDay == dayBefore && dateMonth == monthOf && dateYear == yearOf) {
+    cron.schedule("00 00 07 * * *", () => {
+      if (tomorrow === appointment.appointmentDate) {
         const mailReminder = {
           from: "DWVTtest@gmail.com",
           to: appointment.email,
@@ -175,7 +173,7 @@ app.post("/adminapi", async (req, res) => {
 //List all entries
 app.get("/api", async (req, res) => {
   // find all documents in the entry collection (as defined above)
-  const cursor = await ScheduleModel.find({}).sort({ appointmentDate: 1 });
+  const cursor = await ScheduleModel.find({}).sort({ appointmentDate: -1 });
   // create empty array to hold our results
   let results = [];
   // iterate over out cursor object to push each document into our array
@@ -265,10 +263,13 @@ app.get("/csv", async (req, res) => {
   //user-inputs the date range of the information to downloaded from data base
   let startDt = dates["startDate"];
   let endDt = dates["endDate"];
+  console.log(startDt)
+  console.log(endDt)
   // query the database using query filters between the data range input
   await ScheduleModel.find(
     {
       appointmentDate: { $gte: startDt, $lt: endDt },
+      
     },
     function (err, appointments) {
       if (err) {
