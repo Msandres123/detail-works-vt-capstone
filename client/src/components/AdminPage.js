@@ -124,10 +124,7 @@ export default function AdminPage(props) {
   console.log("user at admin page is", props.user);
   /*------------------------------------------------------------------------------------*/
 
-  const dateFormat = (date) => {
-    let dateObj = date.split("00:00:00")
-    return dateObj[0]
-  }
+  
 
   return props.user ? (
     <div id="admin-page">
@@ -225,7 +222,7 @@ export default function AdminPage(props) {
               {appointmentArr.map((appointment, index) => {
                 return (
                   <div id="appointment-container" key={index}>
-                    <h4>Day: {dateFormat(appointment.appointmentDate)}</h4>
+                    <h4>Day: {appointment.appointmentDate}</h4>
                     <h5>Time: {appointment.timeOfApp}</h5>
                     <p>First Name: {appointment.firstName}</p>
                     <p>Last Name: {appointment.lastName}</p>

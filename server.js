@@ -173,7 +173,7 @@ app.post("/adminapi", async (req, res) => {
 //List all entries
 app.get("/api", async (req, res) => {
   // find all documents in the entry collection (as defined above)
-  const cursor = await ScheduleModel.find({}).sort({ appointmentDate: -1 });
+  const cursor = await ScheduleModel.find({}).sort({ appointmentDate: 1 });
   // create empty array to hold our results
   let results = [];
   // iterate over out cursor object to push each document into our array

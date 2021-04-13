@@ -37,7 +37,7 @@ export default function AdminSignIn(props) {
             />
           </label>
         </h3>
-        <input class="submit" type="submit" />
+        <input className="submit" type="submit" />
       </form>
     </div>
   );

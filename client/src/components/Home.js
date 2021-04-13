@@ -37,7 +37,7 @@ export default function Home() {
       </div>
       <AppointmentScheduler />
       
-        <h5 class="admin-sign-in">
+        <h5 className="admin-sign-in">
           <Link to={"/signin"} id="admin-sign-in-link">Admin Sign In</Link>
         </h5>
       
