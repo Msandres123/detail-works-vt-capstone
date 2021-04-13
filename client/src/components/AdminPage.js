@@ -21,6 +21,7 @@ export default function AdminPage(props) {
   let properStart = startDate.toLocaleString().split(",")[0]
   let properEnd = endDate.toLocaleString().split(",")[0]
   const json2csv = require("json2csv").parse;
+  
   /*------------------------------------------------------------------------------------*/
   useEffect(() => {
     auth.onAuthStateChanged((userObj) => {

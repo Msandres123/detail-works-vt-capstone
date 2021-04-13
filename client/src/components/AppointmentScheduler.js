@@ -66,16 +66,16 @@ export default function AppointmentScheduler() {
   function emailMatchChangeHandle(evt) {
     setMatchEmail(evt.target.value);
   }
-//Handles the checkbox click for detail works email list
-  function handleDWClick() {
+//subscribe to the Detail Works subscriber list
+  function handleDWClick(){
     if (subDTWL !== "Yes") {
       setSubDTWL("Yes");
     } else {
       setSubDTWL("No");
     }
   }
-//Handles the checkbox click for Spectrum email list
-  function handleSpecClick() {
+//subscribe to the Spectrum subscriber list
+  function handleSpecClick(){
     if (subSL !== "Yes") {
       setSubSL("Yes");
     } else {
@@ -251,6 +251,7 @@ export default function AppointmentScheduler() {
               type="date"
               name="appointmentDate"
               min={today}
+              
               onChange={(evt) => dateChangeHandle(evt)}
               required
             /> */}
@@ -306,7 +307,11 @@ export default function AppointmentScheduler() {
           style={{ width: "15vw" }}
           disabled={email !== matchEmail} //disables submit if emails dont match
         />
+       
       </form>
+      
+     
+  
     </div>
   );
 }
