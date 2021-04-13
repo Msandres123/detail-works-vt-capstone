@@ -2,7 +2,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Link, Redirect } from "react-router-dom";
-import { app, auth } from "./FirebaseAuth";
+import { auth } from "./FirebaseAuth";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment";
@@ -250,7 +250,7 @@ export default function AdminPage(props) {
                   </div>
                 );
               })}
-            </div>
+            </div>  
           </div>
         </div>
       </div>
