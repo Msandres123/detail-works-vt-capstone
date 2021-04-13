@@ -68,7 +68,7 @@ body {
 
 /* NavBar.js container for the h8 and higher that ideally persists on all pages */
 #NavBar-container {
-  position: relative;
+  position: fixed;
   font-size: 1.2rem;
   display: flex;
   flex-direction: column;
@@ -103,7 +103,7 @@ body {
   /* box-shadow: 0 0 5px gray; */
   border: 2px outset lightgray;
   margin-bottom: 3%;
-  margin-left: 1%;
+  margin-left: 100%;
   width: 30vw;
   background-color: #f8f8ff;
 }
@@ -129,8 +129,9 @@ body {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  width: 88vw;
+  width: 50vw;
   background-color: #f8f8ff;
+  margin: 0
 }
 /* Admin page container */
 .admin-header {
