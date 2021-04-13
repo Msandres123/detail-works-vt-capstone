@@ -144,7 +144,7 @@ body {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  width: 88vw;
+  width: 50vw;
   background-color: #f8f8ff;
   margin-left: 35vw;
 }
