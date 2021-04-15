@@ -14,9 +14,6 @@ const { ObjectId } = require("mongodb");
 const nodemailer = require("nodemailer");
 const cron = require("node-cron");
 
-
-
-
 /*------------------------------------------------------------------------------------*/
 //server set-up-middleware required for set-up function
 app.use(express.urlencoded({ extended: true }));
@@ -30,9 +27,7 @@ mongoose.connect(MONGODB_URI || "mongodb://localhost:27017/schedule", {
   useUnifiedTopology: true,
 });
 
-
- const tomorrow = new Date(+new Date() + 86400000).toLocaleDateString()
-
+const tomorrow = new Date(+new Date() + 86400000).toLocaleDateString();
 
 /*------------------------------------------------------------------------------------*/
 
@@ -201,38 +196,29 @@ app.get("/filter", async (req, res) => {
   await cursor.forEach((entry) => {
     results.push(entry);
   });
- // send the resulting array back as a json
+  // send the resulting array back as a json
   res.json(results);
 });
 /*------------------------------------------------------------------------------------*/
 //Full text Search
 app.get("/search", async (req, res) => {
-  //The variable query is assigned to get the query from front-end
   let query = req.query;
   let key = Object.keys(query)[0];
-  //this gives just the value of query
   let temp = query[key];
   console.log(temp);
-  // Full text search using the wildcard specifier,allows text search on all fields
   await ScheduleModel.createIndexes({ "$**": "text" });
-  //querying the database using the query filters
   const cursor = await ScheduleModel.find({ $text: { $search: temp } });
-
-  console.log(cursor);
-  // create empty array to hold our results
   let results = [];
   await cursor.forEach((entry) => {
     results.push(entry);
   });
-  
-  // send the resulting array back as a json
   res.json(results);
 });
 /*------------------------------------------------------------------------------------*/
 //return a specific entry/post  data from database
 app.get(`/api/:id`, async (req, res) => {
   let result = await ScheduleModel.findOne({ _id: ObjectId(req.params.id) });
-// send the resulting array back as a json
+  // send the resulting array back as a json
   res.json(result);
 });
 /*------------------------------------------------------------------------------------*/
@@ -254,20 +240,13 @@ app.post("/delete/:id", async (req, res) => {
 /*------------------------------------------------------------------------------------*/
 //Route to download a file from database as a .csv file
 app.get("/csv", async (req, res) => {
-  
-
-  // create empty array to hold our results
   let dates = [];
-  // The variable dates, gets the user-input query from the frontend and query the database and send back the result
   dates = req.query;
-  //user-inputs the date range of the information to downloaded from data base
   let startDt = dates["startDate"];
   let endDt = dates["endDate"];
-  // query the database using query filters between the data range input
   await ScheduleModel.find(
     {
       appointmentDate: { $gte: startDt, $lt: endDt },
-      
     },
     function (err, appointments) {
       if (err) {

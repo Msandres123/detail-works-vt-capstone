@@ -18,10 +18,10 @@ export default function AdminPage(props) {
   const [search, setSearch] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  let properStart = startDate.toLocaleString().split(",")[0]
-  let properEnd = endDate.toLocaleString().split(",")[0]
+  let properStart = startDate.toLocaleString().split(",")[0];
+  let properEnd = endDate.toLocaleString().split(",")[0];
   const json2csv = require("json2csv").parse;
-  
+
   /*------------------------------------------------------------------------------------*/
   useEffect(() => {
     auth.onAuthStateChanged((userObj) => {
@@ -61,7 +61,6 @@ export default function AdminPage(props) {
   function searchQuery(evt) {
     evt.preventDefault();
     let query = `/search?${search}=${evt.target[0].value}`;
-    console.log(`query`, query);
     fetch(query)
       .then((res) => res.json())
       .then((appointmentList) => {
@@ -87,7 +86,7 @@ export default function AdminPage(props) {
   }
   function Download(evt) {
     evt.preventDefault();
-    //required information fetched from the database to be on the csv download
+   
     let fields = [
       "firstName",
       "lastName",
@@ -106,7 +105,6 @@ export default function AdminPage(props) {
         //.csv cannot be sent directly as a file to be downloaded , so here we are converting csv to a file
         let contentType = "text/csv";
         let csvFile = new Blob([csv], { type: contentType });
-
         //creating a URL to download the file with all the required fields fetched from the database
         const url = window.URL.createObjectURL(csvFile);
         let a = document.createElement("a");
@@ -125,9 +123,9 @@ export default function AdminPage(props) {
   /*------------------------------------------------------------------------------------*/
 
   const dateFormat = (date) => {
-    let dateObj = date.split("00:00:00")
-    return dateObj[0]
-  }
+    let dateObj = date.split("00:00:00");
+    return dateObj[0];
+  };
 
   return props.user ? (
     <div id="admin-page">
@@ -181,23 +179,24 @@ export default function AdminPage(props) {
                   name="startDate"
                   placeholder="From:"
                 /> */}
-                <DatePicker 
-                value={startDate}
-                selected={startDate}
-                onChange={(date) => startChangeHandler(date)}/>
+                <DatePicker
+                  value={startDate}
+                  selected={startDate}
+                  onChange={(date) => startChangeHandler(date)}
+                />
                 {/* <input
                   type="date"
                   onChange={endChangeHandler}
                   name="endDate"
                   placeholder="To:"
                 /> */}
-                <DatePicker 
-                value={endDate}
-                selected={endDate}
-                onChange={(date) => endChangeHandler(date)}
+                <DatePicker
+                  value={endDate}
+                  selected={endDate}
+                  onChange={(date) => endChangeHandler(date)}
                 />
-                <input type="hidden" name="startDate" value={properStart}/>
-                <input type="hidden" name="endDate" value={properEnd}/>
+                <input type="hidden" name="startDate" value={properStart} />
+                <input type="hidden" name="endDate" value={properEnd} />
                 <button type="submit">Export as CSV</button>
               </form>
             </div>
@@ -253,7 +252,7 @@ export default function AdminPage(props) {
                   </div>
                 );
               })}
-            </div>  
+            </div>
           </div>
         </div>
       </div>
