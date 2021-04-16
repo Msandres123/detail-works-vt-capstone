@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Questrial&display=swap");
 body {
-  margin-bottom: 5vh;
+  margin:0;
   background-color: #f8f8ff;
   font-family: "Questrial", sans-serif;
 }
@@ -62,13 +62,15 @@ body {
   text-align: left;
   justify-content: flex-start;
   height: 27vh;
+  
 
   background-color: #f8f8ff;
 }
 
 /* NavBar.js container for the h8 and higher that ideally persists on all pages */
 #NavBar-container {
-  position: relative;
+  position: fixed;
+  left: 0;
   font-size: 1.2rem;
   display: flex;
   flex-direction: column;
@@ -99,20 +101,33 @@ body {
   flex-direction: row;
 }
 
+#update-header{
+  text-align: center;
+  margin-left: 32vw;
+}
+
 #appointment-container {
   /* box-shadow: 0 0 5px gray; */
   border: 2px outset lightgray;
   margin-bottom: 3%;
-  margin-left: 1%;
+  margin-left: 35vw;
+  width: 30vw;
+  background-color: #f8f8ff;
+}
+#appointment-container-admin {
+  /* box-shadow: 0 0 5px gray; */
+  border: 2px outset lightgray;
+  margin-bottom: 3%;
   width: 30vw;
   background-color: #f8f8ff;
 }
 /* AdminSignIn.js standalone containerless section  */
 .admin-signin {
-  /* height: 30vh;
-  width: 60vw; */
+  height: 30vh;
+  width: 60vw;
   display: flex;
   flex-direction: row;
+  margin-left: 25vw;
   /* align-items: center;
   justify-content: center; */
 }
@@ -129,8 +144,9 @@ body {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  width: 88vw;
+  width: 50vw;
   background-color: #f8f8ff;
+  margin-left: 35vw;
 }
 /* Admin page container */
 .admin-header {
@@ -143,7 +159,7 @@ body {
 /* Export details block section */
 #export-details {
   height: 15vh;
-  width: 35vw;
+  width: 95vw;
   display: flex;
   flex-direction: column;
   margin-top: 1vh;
@@ -165,6 +181,7 @@ body {
 #admin-scheduler-container {
   padding-bottom: 125vh;
 }
+
 
 #Filter {
   display: flex;

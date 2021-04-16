@@ -1,7 +1,7 @@
 import React from "react";
 import NavBar from "./NavBar";
 import { useEffect } from "react";
-import { app, auth } from "./FirebaseAuth";
+import { auth } from "./FirebaseAuth";
 
 export default function AdminSignIn(props) {
   useEffect(() => {
@@ -37,7 +37,7 @@ export default function AdminSignIn(props) {
             />
           </label>
         </h3>
-        <input class="submit" type="submit" />
+        <input className="submit" type="submit" />
       </form>
     </div>
   );

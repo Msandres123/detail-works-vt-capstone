@@ -1,5 +1,7 @@
 import React from "react";
 import { useState } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import CoupePrice from "./CoupePrice";
 import HatchbackPrice from "./HatchbackPrice";
 import SuvPrice from "./SuvPrice";
@@ -24,7 +26,7 @@ export default function UpdateAppointment(props) {
     props.appointmentMade.vehicleType
   );
   const [updateAppointmentDate, setUpdateAppointmentDate] = useState(
-    props.appointmentMade.appointmentDate
+    ""
   );
   const [updateTimeOfApp, setUpdateTimeOfApp] = useState(
     props.appointmentMade.timeOfApp
@@ -33,8 +35,14 @@ export default function UpdateAppointment(props) {
     props.appointmentMade.additionalNotes
   );
 
+  let properDate = updateAppointmentDate.toLocaleString().split(",")[0]
+
   const [price, setPrice] = useState(0);
 
+  function handleDateChange(date) {
+    setUpdateAppointmentDate(date)
+  }
+console.log(updateAppointmentDate)
   return (
     <div>
       <form
@@ -119,12 +127,18 @@ export default function UpdateAppointment(props) {
         </label>
         <label>
           Select a Day:{" "}
-          <input
+          {/* <input
             type="date"
             name="appointmentDate"
             value={updateAppointmentDate}
             onChange={(evt) => setUpdateAppointmentDate(evt.target.value)}
+          /> */}
+          <DatePicker
+          selected={updateAppointmentDate}
+          onChange={(date) => handleDateChange(date)}
           />
+          <input type="hidden" name="appointmentDate" value={properDate}/>
+         
         </label>
         <label>
           Select a Time:
