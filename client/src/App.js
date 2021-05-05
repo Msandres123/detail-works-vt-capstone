@@ -80,10 +80,7 @@ function App(props) {
       .catch((error) => {});
     setUser(null);
   }
-
-  console.log("user is", user);
-  console.log("current user is", auth.currentUser);
-
+  
   return (
     <div>
       <div className="container">

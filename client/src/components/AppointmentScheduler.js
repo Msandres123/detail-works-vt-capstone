@@ -24,6 +24,7 @@ export default function AppointmentScheduler() {
   const [scheduledEight, setScheduledEight] = useState(0);
   const [email, setEmail] = useState("");
   const [matchEmail, setMatchEmail] = useState("");
+  const [availabilityCheck, setAvailabilityCheck] = useState("")
 
   //Email list variables
   const [subDTWL, setSubDTWL] = useState("No");
@@ -87,7 +88,17 @@ export default function AppointmentScheduler() {
     alert("Your appointment has been successfully booked");
   }
 //Queries the database 
-  useEffect(() => {
+useEffect(() => {
+  if (dateOfApp !== previousDate) {
+    fetch("/api/availability/")
+    .then((res) => res.json())
+    .then((availability) => {
+      setAvailabilityCheck(availability)
+    })
+  }
+})  
+
+useEffect(() => {
     if (dateOfApp !== previousDate) {
       fetch(`/api/`)
         .then((res) => res.json())
@@ -117,9 +128,8 @@ export default function AppointmentScheduler() {
         appointment.timeOfApp === "8:00am" 
       ) {
         scheduleArrEight.push(appointment); //pushes existing appointments for that date at 8:00am into an array
-        console.log("eight", scheduleArrEight);
         setScheduledEight(scheduleArrEight.length);
-        if (scheduleArrEight.length > 3) {
+        if (scheduleArrEight.length >= ((availabilityCheck[appointment.appointmentDate] && availabilityCheck[appointment.appointmentDate].eightAM) || 3) ) {
           setUnavailableEight(true); // if the amount of appointments is greater than 3 disables time slot for that particular date
         }
       }
@@ -128,10 +138,10 @@ export default function AppointmentScheduler() {
         appointment.timeOfApp === "12:00pm"
       ) {
         scheduleArrNoon.push(appointment); //pushes existing appointments for that date at 12:00pm into an array
-        console.log("noon arr", scheduleArrNoon);
         setScheduledNoon(scheduleArrNoon.length);
 
-        if (scheduleArrNoon.length > 3) {
+        if (scheduleArrNoon.length >= ((availabilityCheck[appointment.appointmentDate] && availabilityCheck[appointment.appointmentDate].noon) || 3)) {
+          console.log(availabilityCheck[appointment.appointmentDate].noon)
           setUnavailableNoon(true); // if the amount of appointments is greater than 3 disables time slot for that particular date
         }
       }
@@ -286,12 +296,12 @@ export default function AppointmentScheduler() {
         </div>
         {dateOfApp && (
           <h6>
-            There are {4 - scheduledEight} appointments remaining at 8:00am
+            There are {((availabilityCheck[properDate] && availabilityCheck[properDate].eightAM) || 4) - scheduledEight} appointments remaining at 8:00am
           </h6>
         )}
         {dateOfApp && (
           <h6>
-            There are {4 - scheduledNoon} appointments remaining at 12:00pm
+            There are {((availabilityCheck[properDate] && availabilityCheck[properDate].noon) || 4) - scheduledNoon} appointments remaining at 12:00pm
           </h6>
         )}
         <br />

@@ -18,6 +18,8 @@ export default function AdminPage(props) {
   const [search, setSearch] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  const [modDate, setModDate] = useState("")
+  let properMod = modDate.toLocaleString().split(",")[0]
   let properStart = startDate.toLocaleString().split(",")[0]
   let properEnd = endDate.toLocaleString().split(",")[0]
   const json2csv = require("json2csv").parse;
@@ -121,7 +123,6 @@ export default function AdminPage(props) {
     appointmentsMade.forEach((appointment) => {
       appointmentArr.push(appointment);
     });
-  console.log("user at admin page is", props.user);
   /*------------------------------------------------------------------------------------*/
 
   
@@ -198,6 +199,19 @@ export default function AdminPage(props) {
                 <button type="submit">Export as CSV</button>
               </form>
             </div>
+            <h2>Edit Appointment Availabilitycd</h2>
+            <form method="POST" action="/availability">
+              <DatePicker
+              value={modDate}
+              selected={modDate}
+              onChange={(date) => setModDate(date)}
+              />
+              <input type="hidden" value={properMod} name="date"/>
+              <input type="number" name="eightAM" placeholder="8:00am"/>
+              <input type="number" name="noon" placeholder="12:00pm"/>
+              <input type="submit"/>
+
+            </form>
             {/*------------------------------------------------------------------------------------*/}
             <div id="admin-buttons-container">
               <div>

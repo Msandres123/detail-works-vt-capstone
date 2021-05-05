@@ -14,9 +14,6 @@ const { ObjectId } = require("mongodb");
 const nodemailer = require("nodemailer");
 const cron = require("node-cron");
 
-
-
-
 /*------------------------------------------------------------------------------------*/
 //server set-up-middleware required for set-up function
 app.use(express.urlencoded({ extended: true }));
@@ -30,9 +27,7 @@ mongoose.connect(MONGODB_URI || "mongodb://localhost:27017/schedule", {
   useUnifiedTopology: true,
 });
 
-
- const tomorrow = new Date(+new Date() + 86400000).toLocaleDateString()
-
+const tomorrow = new Date(+new Date() + 86400000).toLocaleDateString();
 
 /*------------------------------------------------------------------------------------*/
 
@@ -63,6 +58,15 @@ const scheduleSchema = new mongoose.Schema({
 const ScheduleModel = mongoose.model("appointments", scheduleSchema);
 ScheduleModel.createIndexes();
 
+const availabilitySchema = new mongoose.Schema({
+  date: String,
+  eightAM: Number,
+  noon: Number,
+});
+
+const AvailabilityModel = mongoose.model("availability", availabilitySchema);
+AvailabilityModel.createIndexes();
+
 /*------------------------------------------------------------------------------------*/
 let transporter = nodemailer.createTransport({
   service: "gmail",
@@ -74,7 +78,6 @@ let transporter = nodemailer.createTransport({
 //add a single entry using the user's input
 app.post("/api", async (req, res) => {
   const newAppointment = new ScheduleModel({
-    // customerName: req.body.customerName,
     firstName: req.body.firstName,
     lastName: req.body.lastName,
     phoneNumber: req.body.phoneNumber,
@@ -112,10 +115,30 @@ app.post("/api", async (req, res) => {
       console.log("Email Sent");
     }
   });
-
-  console.log(req.body.email);
-  console.log(req.body.appointmentDate);
 });
+
+app.post("/availability", async (req, res) => {
+  const newAvailibilty = new AvailabilityModel(req.body);
+
+  let existingRecords = await AvailabilityModel.findOne({ date: req.body.date });
+  if (existingRecords) {
+   await  AvailabilityModel.updateOne(req.body, { $set: req.body });
+  } else {
+    await newAvailibilty.save();
+    console.log(req.body);
+  }
+  res.redirect("/admin");
+});
+
+app.get("/api/availability", async (req, res) => {
+  const cursor = await AvailabilityModel.find({});
+  let results = {};
+  cursor.forEach((entry) => {
+    results[entry.date] = { eightAM: +entry.eightAM, noon: +entry.noon };
+  });
+  res.json(results);
+});
+
 //Sends automated email reminder a day before appointment
 async function queryDb() {
   const cursor = await ScheduleModel.find({});
@@ -201,7 +224,7 @@ app.get("/filter", async (req, res) => {
   await cursor.forEach((entry) => {
     results.push(entry);
   });
- // send the resulting array back as a json
+  // send the resulting array back as a json
   res.json(results);
 });
 /*------------------------------------------------------------------------------------*/
@@ -224,7 +247,7 @@ app.get("/search", async (req, res) => {
   await cursor.forEach((entry) => {
     results.push(entry);
   });
-  
+
   // send the resulting array back as a json
   res.json(results);
 });
@@ -232,7 +255,7 @@ app.get("/search", async (req, res) => {
 //return a specific entry/post  data from database
 app.get(`/api/:id`, async (req, res) => {
   let result = await ScheduleModel.findOne({ _id: ObjectId(req.params.id) });
-// send the resulting array back as a json
+  // send the resulting array back as a json
   res.json(result);
 });
 /*------------------------------------------------------------------------------------*/
@@ -254,8 +277,6 @@ app.post("/delete/:id", async (req, res) => {
 /*------------------------------------------------------------------------------------*/
 //Route to download a file from database as a .csv file
 app.get("/csv", async (req, res) => {
-  
-
   // create empty array to hold our results
   let dates = [];
   // The variable dates, gets the user-input query from the frontend and query the database and send back the result
@@ -267,7 +288,6 @@ app.get("/csv", async (req, res) => {
   await ScheduleModel.find(
     {
       appointmentDate: { $gte: startDt, $lt: endDt },
-      
     },
     function (err, appointments) {
       if (err) {
