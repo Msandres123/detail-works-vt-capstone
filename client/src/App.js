@@ -1,14 +1,14 @@
 import "./App.css";
 import React from "react";
 import { useState, useEffect } from "react";
-import { Switch, Route, useHistory, Redirect } from "react-router-dom";
+import { Switch, Route, useHistory } from "react-router-dom";
 
 import Home from "./components/Home";
 import AdminPage from "./components/AdminPage";
 import AppointmentPage from "./components/AppointmentPage";
 import AdminSignIn from "./components/AdminSignIn";
 import PageNotFound from "./components/pageNotFound";
-import { app, auth } from "./components/FirebaseAuth";
+import { auth } from "./components/FirebaseAuth";
 //import AutoEmail from "./components/AutoEmail";
 
 // import firebase from "firebase/app";

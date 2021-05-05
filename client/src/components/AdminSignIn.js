@@ -1,7 +1,7 @@
 import React from "react";
 import NavBar from "./NavBar";
 import { useEffect } from "react";
-import { app, auth } from "./FirebaseAuth";
+import { auth } from "./FirebaseAuth";
 
 export default function AdminSignIn(props) {
   useEffect(() => {

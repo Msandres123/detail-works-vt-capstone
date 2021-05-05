@@ -230,19 +230,12 @@ app.get("/filter", async (req, res) => {
 /*------------------------------------------------------------------------------------*/
 //Full text Search
 app.get("/search", async (req, res) => {
-  //The variable query is assigned to get the query from front-end
   let query = req.query;
   let key = Object.keys(query)[0];
-  //this gives just the value of query
   let temp = query[key];
   console.log(temp);
-  // Full text search using the wildcard specifier,allows text search on all fields
   await ScheduleModel.createIndexes({ "$**": "text" });
-  //querying the database using the query filters
   const cursor = await ScheduleModel.find({ $text: { $search: temp } });
-
-  console.log(cursor);
-  // create empty array to hold our results
   let results = [];
   await cursor.forEach((entry) => {
     results.push(entry);
@@ -279,12 +272,9 @@ app.post("/delete/:id", async (req, res) => {
 app.get("/csv", async (req, res) => {
   // create empty array to hold our results
   let dates = [];
-  // The variable dates, gets the user-input query from the frontend and query the database and send back the result
   dates = req.query;
-  //user-inputs the date range of the information to downloaded from data base
   let startDt = dates["startDate"];
   let endDt = dates["endDate"];
-  // query the database using query filters between the data range input
   await ScheduleModel.find(
     {
       appointmentDate: { $gte: startDt, $lt: endDt },
