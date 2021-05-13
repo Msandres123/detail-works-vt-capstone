@@ -2,6 +2,7 @@
   "dependencies": {
     "@mailchimp/mailchimp_marketing": "^3.0.36",
     "@material-ui/pickers": "^3.3.10",
+    "@types/react-transition-group": "^4.4.1",
     "babel-runtime": "^6.26.0",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
