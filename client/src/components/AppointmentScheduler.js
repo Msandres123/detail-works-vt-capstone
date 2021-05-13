@@ -246,7 +246,7 @@ useEffect(() => {
         )}
         <br />
         <label>
-          Additional Notes or Request: <br />
+          Additional Notes or Requests: <br />
           <input type="text" name="additionalNotes" />
         </label>
         <br />
