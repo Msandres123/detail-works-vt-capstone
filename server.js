@@ -17,7 +17,7 @@ const cron = require("node-cron");
 /*------------------------------------------------------------------------------------*/
 //server set-up-middleware required for set-up function
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static("./client/public"));
+app.use(express.static("./client/build"));
 
 const MONGODB_URI = process.env.MONGODB_URI;
 
@@ -291,7 +291,7 @@ app.get("/csv", async (req, res) => {
 /*------------------------------------------------------------------------------------*/
 //set up to catch all route
 app.get("*", (req, res) => {
-  res.sendFile(path.resolve("./client/public/index.html"));
+  res.sendFile(path.resolve("./client/build/index.html"));
 });
 
 // set up server to listen to requests at the port specified

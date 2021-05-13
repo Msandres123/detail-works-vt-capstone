@@ -31,7 +31,8 @@
   },
   "scripts": {
     "start": "node server.js",
-    "dev": "nodemon app"
+    "dev": "nodemon app",
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "name": "caapstone-rough-draft",
   "version": "1.0.0",

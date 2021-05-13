@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import Logo from '../images/dw-horizontal.png'
 
 //Service Pricing Components
@@ -36,11 +35,6 @@ export default function Home() {
         </p>
       </div>
       <AppointmentScheduler />
-      
-        <h5 className="admin-sign-in">
-          <Link to={"/signin"} id="admin-sign-in-link">Admin Sign In</Link>
-        </h5>
-      
     </>
   );
 }
